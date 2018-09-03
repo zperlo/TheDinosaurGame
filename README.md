@@ -1,1 +1,1 @@
-# Scrabble
+# The Dinosaur Game
