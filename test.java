@@ -3,6 +3,6 @@ public class test {
       System.out.println("I changed it, too!");
       //Entered a comment
       System.out.println("Eclipse froze again :(");
-	// that's too bad
+   // that's too bad
    }
 }
