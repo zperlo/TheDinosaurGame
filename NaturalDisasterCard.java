@@ -6,7 +6,7 @@ public class NaturalDisasterCard {
    private String stat; //one of below:
    // 0-7 are normal stats, 8 is no stat required
    //{"speed", "size", "intelligence", "defenses",
-   //    "weapons", "senses", "ror", "none"}
+   //    "weapons", "senses", "ror", "ata", "none"}
    
    public NaturalDisasterCard(String text, boolean habitatSafe, String stat){
       this.text = text;
@@ -43,8 +43,7 @@ public class NaturalDisasterCard {
    }
    
    public static void main(String[] potato){
-      int[] safeStats = {0, 1};
-      NaturalDisasterCard flood = new NaturalDisasterCard("Flood, watch out", true, "speed", safeStats, 3);
+      NaturalDisasterCard flood = new NaturalDisasterCard("Flood, watch out", true, "speed", new int[] {0,1}, 3);
       System.out.println("If you have no " + flood.getStat() + " then you lose " + flood.getFoodLost() + " food tokens");
    }
 }

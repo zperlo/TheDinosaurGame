@@ -3,7 +3,7 @@ public class AttackCard {
    private String stat; //one of below:
    // 0-7 are normal stats, 8 is no stat required
    //{"speed", "size", "intelligence", "defenses",
-   //    "weapons", "senses", "ror", "none"}
+   //    "weapons", "senses", "ror", "ata", "none"}
    private String penalty; //either move back or lose food
    private int penaltyAmount; //amount of spaces moved or food lost
    
