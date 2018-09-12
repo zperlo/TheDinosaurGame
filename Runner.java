@@ -58,26 +58,79 @@ public class Runner {
         
         
         // Creating the Natural Disaster Card Deck
-        NaturalDisasterCard card0 = new NaturalDisasterCard("SLIM PICKINGS!\nFAMINE: Food is getting hard to find. Are your senses sharp enough to find food?\nIf your SENSES are average (0) or below average (-) lose 2 food tokens.\nHABITAT SAFE", true, "senses", new int[] {1}, 2);
-        NaturalDisasterCard card1 = new NaturalDisasterCard("YUCK!\nPOISONOUS PLANTS: Are your senses keen enough to tell which plants are good to eat and which are poisonous?\nIf your SENSES are average (0) or below average (-) lose 2 food tokens.\nHABITAT SAFE", true, "senses", new int[] {1}, 2);
-        NaturalDisasterCard card2 = new NaturalDisasterCard("SPLASH!\nFLOOD: Water is rising everywhere. Are you smart enough to reach higher ground?\nIf your INTELLIGENCE is average (0) or below average (-) lose 4 food tokens.\nHABITAT SAFE", true, "intelligence", new int[] {1}, 4);
-        NaturalDisasterCard card3 = new NaturalDisasterCard("OUCH! SAND FELL INTO MY EYES!\nSAND STORM: A sand storm will hurt anyone out in the open. Are you smart enough to find shelter?\nIf your INTELLIGENCE is average (0) or below average (-) lose 1 food token.\nHABITAT SAFE", true, "intelligence", new int[] {1}, 1);
-        NaturalDisasterCard card4 = new NaturalDisasterCard("STOP THIEF!\nTINY MAMMALS: Those tiny mammals are after your eggs. Are you able to protect your eggs?\nIf your DEFENSES are average (0) or below average (-) lose 2 food tokens.\nHABITAT SAFE", true, "defenses", new int[] {1}, 2);
-        NaturalDisasterCard card5 = new NaturalDisasterCard("BRRR!\nCLIMATE CHANGE: It is getting very cold. Are you able to adapt to this colder climate?\nIf your ABILITY TO ADAPT is average (0) or below average (-) lose 3 food tokens.\nHABITAT SAFE", true, "ata", new int[] {1}, 3);
-        NaturalDisasterCard card6 = new NaturalDisasterCard("WATCH OUT!\nVOLCANO erupting! Are you fast enough to run away from the hot lava?\nIf your SPEED is average (0) or below average (-) lose 1 food token.", false, "speed", new int[] {1}, 1);
-        NaturalDisasterCard card7 = new NaturalDisasterCard("SHAKE IT UP BABY!\nEARTHQUAKE: Are your senses keen enough to warn you of this disaster?\nIf your SENSES are average (0) or below average (-) lose 1 food token.", false, "senses", new int[] {1}, 1);
-        NaturalDisasterCard card8 = new NaturalDisasterCard("BONK!\nROCK SLIDE: Are you fast enough to run away from disaster?\nIf your SPEED is average (0) or below average (-) lose 1 food token.", false, "speed", new int[] {1}, 2);
-        NaturalDisasterCard card9 = new NaturalDisasterCard("DO YOU SMELL SMOKE?\nFOREST FIRE: A forest fire is blazing toward you. Can you smell the smoke in time to run away?\nIf your SENSES are average (0) or below average (-) lose 3 food tokens.", false, "senses", new int[] {1}, 2);
-        NaturalDisasterCard card10 = new NaturalDisasterCard("GET OUT OF MY WAY!\nOVER POPULATION: The food supply is scarce because of overcrowding. Are you tough enough to fight for your food?\nIf your WEAPONS are average (0) or below average (-) lose 2 food tokens.\nHABITAT SAFE", true, "weapons", new int[] {1}, 2);
-        NaturalDisasterCard card11 = new NaturalDisasterCard("SIZZLE!\nRADIATION: Radiation from the sun is damaging the Earth's ozone layer. Can you protect yourself from sun damage?\nIf your DEFENSES are average (0) or below average (-) lose 1 food token.", false, "defenses", new int[] {1}, 1);
-        NaturalDisasterCard card12 = new NaturalDisasterCard("CREAK! CRACK! SHIFT!\nSHIFTING CONTINENTS: The conditions in your habitat are changing. Are you able to adapt to these changes?\nIf your ABILITY TO ADAPT is below average (-) lose 3 food tokens.", false, "ata", new int[] {0, 1}, 3);
-        NaturalDisasterCard card13 = new NaturalDisasterCard("LOOK OUT!\nMUD SLIDE: The mud will bury everything in its path. Are you fast enough to run to safety?\nIf your SPEED is average (0) or below average (-) lose 2 food tokens.", false, "speed", new int[] {1}, 2);
-        NaturalDisasterCard card14 = new NaturalDisasterCard("WHAT A MESS!\nPOLLUTION! Radiation and dust from a super nova are polluting the Earth. Are you able to adapt to changes in your environment?\nIf your ABILITY TO ADAPT is average (0) or below average (-) lose 3 food tokens.", false, "ata", new int[] {1}, 3);
-        NaturalDisasterCard card15 = new NaturalDisasterCard("THE SKY IS FALLING!\nMETEORITE SHOWER: Meteorites are crashing to the Earth. Many dinosours die. Are you reproducing fast enough to survive this disaster?\nIf your RATE OF REPRODUCTION is average (0) or below average (-) lose 3 food tokens.", false, "ror", new int[] {1}, 3);
-        NaturalDisasterCard card16 = new NaturalDisasterCard("WOW, IT'S HOT!\nCHANGE IN CLIMATE: It is hot enough to fry your eggs. Can you reproduce fast enough to escape extinction?\nIf your RATE OF REPRODUCTION is average (0) or below average (-) lose 3 food tokens.", false, "ror", new int[] {1}, 3);
-        NaturalDisasterCard card17 = new NaturalDisasterCard("CRACK!\nLIGHTENING: Are you small enough to avoid being struck by lightening?\nIf your SIZE is above average (+) or average (0) lose 1 food token.", false, "size", new int[] {-1}, 1);
-        NaturalDisasterCard card18 = new NaturalDisasterCard("ITCH! ITCH!\nDISEASE! Pesky insects are spreading disease. Dinosaurs who defend themselves by traveling in herds are in danger of spreading disease faster.\nIf your DEFENSES are above average (+) or average (0) lose 1 food token.", false, "defenses", new int[] {-1}, 1);
-        NaturalDisasterCard card19 = new NaturalDisasterCard("OOPS!\nQUICKSAND! You fell into quicksand.\nYou are stuck for 2 turns.\nHABITAT SAFE", true, "none");
+        NaturalDisasterCard card0 = new NaturalDisasterCard("SLIM PICKINGS!",
+                "FAMINE: Food is getting hard to find. Are your senses sharp enough to find food?",
+                "If your SENSES are average (0) or below average (-) lose 2 food tokens.",
+                true, "senses", new int[] {1}, 2);
+        NaturalDisasterCard card1 = new NaturalDisasterCard("YUCK!",
+                "POISONOUS PLANTS: Are your senses keen enough to tell which plants are good to eat" +
+                " and which are poisonous?", "If your SENSES are average (0) or below average " +
+                "(-) lose 2 food tokens.", true, "senses", new int[] {1}, 2);
+        NaturalDisasterCard card2 = new NaturalDisasterCard("SPLASH!", "FLOOD: Water is rising " +
+                "everywhere. Are you smart enough to reach higher ground?", "If your INTELLIGENCE" +
+                " is average (0) or below average (-) lose 4 food tokens.",
+                true, "intelligence", new int[] {1}, 4);
+        NaturalDisasterCard card3 = new NaturalDisasterCard("OUCH! SAND FELL INTO MY EYES!",
+                "SAND STORM: A sand storm will hurt anyone out in the open. Are you smart " +
+                        "enough to find shelter?", "If your INTELLIGENCE is average (0) or below " +
+                "average (-) lose 1 food token.", true, "intelligence", new int[] {1}, 1);
+        NaturalDisasterCard card4 = new NaturalDisasterCard("STOP THIEF!", "TINY MAMMALS: Those " +
+                "tiny mammals are after your eggs. Are you able to protect your eggs?", "If your " +
+                "DEFENSES are average (0) or below average (-) lose 2 food tokens.", true,
+                "defenses", new int[] {1}, 2);
+        NaturalDisasterCard card5 = new NaturalDisasterCard("BRRR!", "CLIMATE CHANGE: It is getting " +
+                "very cold. Are you able to adapt to this colder climate?", "If your ABILITY TO ADAPT" +
+                " is average (0) or below average (-) lose 3 food tokens.", true, "ata", new int[] {1}, 3);
+        NaturalDisasterCard card6 = new NaturalDisasterCard("WATCH OUT!", "VOLCANO erupting! Are you " +
+                "fast enough to run away from the hot lava?", "If your SPEED is average (0) or below " +
+                "average (-) lose 1 food token.", false, "speed", new int[] {1}, 1);
+        NaturalDisasterCard card7 = new NaturalDisasterCard("SHAKE IT UP BABY!", "EARTHQUAKE: Are " +
+                "your senses keen enough to warn you of this disaster?", "If your SENSES are average" +
+                " (0) or below average (-) lose 1 food token.", false, "senses", new int[] {1}, 1);
+        NaturalDisasterCard card8 = new NaturalDisasterCard("BONK!", "ROCK SLIDE: Are you fast " +
+                "enough to run away from disaster?", "If your SPEED is average (0) or below average" +
+                " (-) lose 1 food token.", false, "speed", new int[] {1}, 2);
+        NaturalDisasterCard card9 = new NaturalDisasterCard("DO YOU SMELL SMOKE?", "FOREST FIRE: " +
+                "A forest fire is blazing toward you. Can you smell the smoke in time to run away?",
+                "If your SENSES are average (0) or below average (-) lose 3 food tokens.", false,
+                "senses", new int[] {1}, 2);
+        NaturalDisasterCard card10 = new NaturalDisasterCard("GET OUT OF MY WAY!", "OVER POPULATION:" +
+                " The food supply is scarce because of overcrowding. Are you tough enough to fight" +
+                " for your food?", "If your WEAPONS are average (0) or below average (-) lose 2 food " +
+                "tokens.", true, "weapons", new int[] {1}, 2);
+        NaturalDisasterCard card11 = new NaturalDisasterCard("SIZZLE!", "RADIATION: Radiation from " +
+                "the sun is damaging the Earth's ozone layer. Can you protect yourself from sun " +
+                "damage?", "If your DEFENSES are average (0) or below average (-) lose 1 food token.",
+                false, "defenses", new int[] {1}, 1);
+        NaturalDisasterCard card12 = new NaturalDisasterCard("CREAK! CRACK! SHIFT!", "SHIFTING CONTINENTS:" +
+                " The conditions in your habitat are changing. Are you able to adapt to these changes?",
+                "If your ABILITY TO ADAPT is below average (-) lose 3 food tokens.", false,
+                "ata", new int[] {0, 1}, 3);
+        NaturalDisasterCard card13 = new NaturalDisasterCard("LOOK OUT!", "MUD SLIDE: The mud will " +
+                "bury everything in its path. Are you fast enough to run to safety?", "If your SPEED" +
+                " is average (0) or below average (-) lose 2 food tokens.",
+                false, "speed", new int[] {1}, 2);
+        NaturalDisasterCard card14 = new NaturalDisasterCard("WHAT A MESS!", "POLLUTION! Radiation " +
+                "and dust from a super nova are polluting the Earth. Are you able to adapt to " +
+                "changes in your environment?", "If your ABILITY TO ADAPT is average (0) or below" +
+                " average (-) lose 3 food tokens.", false, "ata", new int[] {1}, 3);
+        NaturalDisasterCard card15 = new NaturalDisasterCard("THE SKY IS FALLING!", "METEORITE SHOWER:" +
+                " Meteorites are crashing to the Earth. Many dinosours die. Are you reproducing fast" +
+                " enough to survive this disaster?", "If your RATE OF REPRODUCTION is average (0) " +
+                "or below average (-) lose 3 food tokens.", false, "ror", new int[] {1}, 3);
+        NaturalDisasterCard card16 = new NaturalDisasterCard("WOW, IT'S HOT!", "CHANGE IN CLIMATE: " +
+                "It is hot enough to fry your eggs. Can you reproduce fast enough to escape " +
+                "extinction?", "If your RATE OF REPRODUCTION is average (0) or below average (-) " +
+                "lose 3 food tokens.", false, "ror", new int[] {1}, 3);
+        NaturalDisasterCard card17 = new NaturalDisasterCard("CRACK!", "LIGHTENING: Are you small" +
+                " enough to avoid being struck by lightening?", "If your SIZE is above average " +
+                "(+) or average (0) lose 1 food token.", false, "size", new int[] {-1}, 1);
+        NaturalDisasterCard card18 = new NaturalDisasterCard("ITCH! ITCH!", "DISEASE! Pesky insects" +
+                " are spreading disease. Dinosaurs who defend themselves by traveling in herds " +
+                "are in danger of spreading disease faster.", "If your DEFENSES are above average " +
+                "(+) or average (0) lose 1 food token.", false, "defenses", new int[] {-1}, 1);
+        NaturalDisasterCard card19 = new NaturalDisasterCard("OOPS!", "QUICKSAND! You fell into " +
+                "quicksand.", "You are stuck for 2 turns.", true, "none");
         NaturalDisasterDeck NDDeck = new NaturalDisasterDeck();
         NDDeck.setDeck(0, card0);
         NDDeck.setDeck(1, card1);
@@ -100,6 +153,6 @@ public class Runner {
         NDDeck.setDeck(18, card18);
         NDDeck.setDeck(19, card19);
         NaturalDisasterCard myCard = NDDeck.draw();
-        System.out.println(myCard.getText());
+        System.out.println(myCard.getPara1());
     }
 }
