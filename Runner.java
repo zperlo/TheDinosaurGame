@@ -78,5 +78,28 @@ public class Runner {
         NaturalDisasterCard card17 = new NaturalDisasterCard("CRACK!\nLIGHTENING: Are you small enough to avoid being struck by lightening?\nIf your SIZE is above average (+) or average (0) lose 1 food token.", false, "size", new int[] {-1}, 1);
         NaturalDisasterCard card18 = new NaturalDisasterCard("ITCH! ITCH!\nDISEASE! Pesky insects are spreading disease. Dinosaurs who defend themselves by traveling in herds are in danger of spreading disease faster.\nIf your DEFENSES are above average (+) or average (0) lose 1 food token.", false, "defenses", new int[] {-1}, 1);
         NaturalDisasterCard card19 = new NaturalDisasterCard("OOPS!\nQUICKSAND! You fell into quicksand.\nYou are stuck for 2 turns.\nHABITAT SAFE", true, "none");
+        NaturalDisasterDeck NDDeck = new NaturalDisasterDeck();
+        NDDeck.setDeck(0, card0);
+        NDDeck.setDeck(1, card1);
+        NDDeck.setDeck(2, card2);
+        NDDeck.setDeck(3, card3);
+        NDDeck.setDeck(4, card4);
+        NDDeck.setDeck(5, card5);
+        NDDeck.setDeck(6, card6);
+        NDDeck.setDeck(7, card7);
+        NDDeck.setDeck(8, card8);
+        NDDeck.setDeck(9, card9);
+        NDDeck.setDeck(10, card10);
+        NDDeck.setDeck(11, card11);
+        NDDeck.setDeck(12, card12);
+        NDDeck.setDeck(13, card13);
+        NDDeck.setDeck(14, card14);
+        NDDeck.setDeck(15, card15);
+        NDDeck.setDeck(16, card16);
+        NDDeck.setDeck(17, card17);
+        NDDeck.setDeck(18, card18);
+        NDDeck.setDeck(19, card19);
+        NaturalDisasterCard myCard = NDDeck.draw();
+        System.out.println(myCard.getText());
     }
 }
