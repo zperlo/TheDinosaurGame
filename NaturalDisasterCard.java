@@ -56,7 +56,7 @@ public class NaturalDisasterCard {
     }
 
     public static void main(String[] potato){
-        NaturalDisasterCard flood = new NaturalDisasterCard("Flood, watch out", true, "speed", new int[] {0,1}, 3);
+        NaturalDisasterCard flood = new NaturalDisasterCard("Flood, watch out", "", "", true, "speed", new int[] {0,1}, 3);
         System.out.println("If you have no " + flood.getStat() + " then you lose " + flood.getFoodLost() + " food tokens");
     }
 }

@@ -72,21 +72,24 @@ public class Runner {
                 true, "intelligence", new int[] {1}, 4);
         NaturalDisasterCard card3 = new NaturalDisasterCard("OUCH! SAND FELL INTO MY EYES!",
                 "SAND STORM: A sand storm will hurt anyone out in the open. Are you smart " +
-                        "enough to find shelter?", "If your INTELLIGENCE is average (0) or below " +
-                "average (-) lose 1 food token.", true, "intelligence", new int[] {1}, 1);
+                "enough to find shelter?", "If your INTELLIGENCE is average (0) or below " +
+                "average (-) lose 1 food token.", true,
+                "intelligence", new int[] {1}, 1);
         NaturalDisasterCard card4 = new NaturalDisasterCard("STOP THIEF!", "TINY MAMMALS: Those " +
                 "tiny mammals are after your eggs. Are you able to protect your eggs?", "If your " +
                 "DEFENSES are average (0) or below average (-) lose 2 food tokens.", true,
                 "defenses", new int[] {1}, 2);
         NaturalDisasterCard card5 = new NaturalDisasterCard("BRRR!", "CLIMATE CHANGE: It is getting " +
                 "very cold. Are you able to adapt to this colder climate?", "If your ABILITY TO ADAPT" +
-                " is average (0) or below average (-) lose 3 food tokens.", true, "ata", new int[] {1}, 3);
+                " is average (0) or below average (-) lose 3 food tokens.",
+                true, "ata", new int[] {1}, 3);
         NaturalDisasterCard card6 = new NaturalDisasterCard("WATCH OUT!", "VOLCANO erupting! Are you " +
                 "fast enough to run away from the hot lava?", "If your SPEED is average (0) or below " +
                 "average (-) lose 1 food token.", false, "speed", new int[] {1}, 1);
         NaturalDisasterCard card7 = new NaturalDisasterCard("SHAKE IT UP BABY!", "EARTHQUAKE: Are " +
                 "your senses keen enough to warn you of this disaster?", "If your SENSES are average" +
-                " (0) or below average (-) lose 1 food token.", false, "senses", new int[] {1}, 1);
+                " (0) or below average (-) lose 1 food token.",
+                false, "senses", new int[] {1}, 1);
         NaturalDisasterCard card8 = new NaturalDisasterCard("BONK!", "ROCK SLIDE: Are you fast " +
                 "enough to run away from disaster?", "If your SPEED is average (0) or below average" +
                 " (-) lose 1 food token.", false, "speed", new int[] {1}, 2);
@@ -102,7 +105,8 @@ public class Runner {
                 "the sun is damaging the Earth's ozone layer. Can you protect yourself from sun " +
                 "damage?", "If your DEFENSES are average (0) or below average (-) lose 1 food token.",
                 false, "defenses", new int[] {1}, 1);
-        NaturalDisasterCard card12 = new NaturalDisasterCard("CREAK! CRACK! SHIFT!", "SHIFTING CONTINENTS:" +
+        NaturalDisasterCard card12 = new NaturalDisasterCard("CREAK! CRACK! SHIFT!",
+                "SHIFTING CONTINENTS:" +
                 " The conditions in your habitat are changing. Are you able to adapt to these changes?",
                 "If your ABILITY TO ADAPT is below average (-) lose 3 food tokens.", false,
                 "ata", new int[] {0, 1}, 3);
@@ -117,18 +121,21 @@ public class Runner {
         NaturalDisasterCard card15 = new NaturalDisasterCard("THE SKY IS FALLING!", "METEORITE SHOWER:" +
                 " Meteorites are crashing to the Earth. Many dinosours die. Are you reproducing fast" +
                 " enough to survive this disaster?", "If your RATE OF REPRODUCTION is average (0) " +
-                "or below average (-) lose 3 food tokens.", false, "ror", new int[] {1}, 3);
+                "or below average (-) lose 3 food tokens.",
+                false, "ror", new int[] {1}, 3);
         NaturalDisasterCard card16 = new NaturalDisasterCard("WOW, IT'S HOT!", "CHANGE IN CLIMATE: " +
                 "It is hot enough to fry your eggs. Can you reproduce fast enough to escape " +
                 "extinction?", "If your RATE OF REPRODUCTION is average (0) or below average (-) " +
                 "lose 3 food tokens.", false, "ror", new int[] {1}, 3);
         NaturalDisasterCard card17 = new NaturalDisasterCard("CRACK!", "LIGHTENING: Are you small" +
                 " enough to avoid being struck by lightening?", "If your SIZE is above average " +
-                "(+) or average (0) lose 1 food token.", false, "size", new int[] {-1}, 1);
+                "(+) or average (0) lose 1 food token.",
+                false, "size", new int[] {-1}, 1);
         NaturalDisasterCard card18 = new NaturalDisasterCard("ITCH! ITCH!", "DISEASE! Pesky insects" +
                 " are spreading disease. Dinosaurs who defend themselves by traveling in herds " +
                 "are in danger of spreading disease faster.", "If your DEFENSES are above average " +
-                "(+) or average (0) lose 1 food token.", false, "defenses", new int[] {-1}, 1);
+                "(+) or average (0) lose 1 food token.",
+                false, "defenses", new int[] {-1}, 1);
         NaturalDisasterCard card19 = new NaturalDisasterCard("OOPS!", "QUICKSAND! You fell into " +
                 "quicksand.", "You are stuck for 2 turns.", true, "none");
         NaturalDisasterDeck NDDeck = new NaturalDisasterDeck();
@@ -152,7 +159,62 @@ public class Runner {
         NDDeck.setDeck(17, card17);
         NDDeck.setDeck(18, card18);
         NDDeck.setDeck(19, card19);
-        NaturalDisasterCard myCard = NDDeck.draw();
-        System.out.println(myCard.getPara1());
+        //NDDeck tests
+        //NaturalDisasterCard myCard = NDDeck.draw();
+        //System.out.println(myCard.getPara1());
+
+        //Creating the attack card deck
+        AttackCard Acard0 = new AttackCard("The dinosaur with the LEAST WEAPONS loses.",
+                "The loser moves back 3 spaces.", "weapons", "move", 3, 0);
+        AttackCard Acard1 = new AttackCard("The dinosaur with the BEST ABILITY TO ADAPT survives.",
+                "The survivor receives 1 food token from the loser.", "ata",
+                "food", 1, 0);
+        AttackCard Acard2 = new AttackCard("The dinosaur with the LOWEST RATE OF REPRODUCTION loses.",
+                "The loser moves back 4 spaces.", "ror", "move", 4, 0);
+        AttackCard Acard3 = new AttackCard("The SLOWEST dinosaur loses.",
+                "The loser moves back 3 spaces.", "speed", "move", 3, 0);
+        AttackCard Acard4 = new AttackCard("Any dinosaur OUT OF ITS HABITAT loses.",
+                "The loser moves back 4 spaces.", "habitat", "move", 4, 0);
+        AttackCard Acard5 = new AttackCard("The SMALLEST dinosaur loses.",
+                "The loser moves back 2 spaces.", "size", "move", 2, 0);
+        AttackCard Acard6 = new AttackCard("The dinosaur with the LOWEST ABILITY TO ADAPT loses.",
+                "The loser moves back 3 spaces.", "ata", "move", 3, 0);
+        AttackCard Acard7 = new AttackCard("The dinosaur with the LEAST SENSES loses.",
+                "The loser moves back 2 spaces.", "senses", "move", 2, 0);
+        AttackCard Acard8 = new AttackCard("The LARGEST dinosaur survives.",
+                "The survivor moves ahead 4 spaces.", "size", "move", 4, 1);
+        AttackCard Acard9 = new AttackCard("The MOST INTELLIGENT dinosaur survives.",
+                "The survivor moves ahead 2 spaces.", "intelligence",
+                "move", 2, 1);
+        AttackCard Acard10 = new AttackCard("The dinosaur with the BEST DEFENSES survives.",
+                "The survivor moves ahead 3 spaces.", "weapons",
+                "move", 3, 1);
+        AttackCard Acard11 = new AttackCard("The FASTEST dinosaur survives.",
+                "TThe survivor moves ahead 3 spaces.", "weapons",
+                "move", 3, 1);
+        AttackCard Acard12 = new AttackCard("The dinosaur with the HIGHEST RATE OF REPRODUCTION survives.",
+                "The survivor receives 1 food token from the loser.", "ror",
+                "food", 1, 0);
+        AttackCard Acard13 = new AttackCard("The dinosaur with the MOST INTELLIGENCE survives.",
+                "The survivor receives 1 food token from the loser.", "intelligence",
+                "food", 1, 0);
+        AttackCard Acard14 = new AttackCard("The dinosaur with the BEST DEFENSES survives.",
+                "The survivor receives 1 food token from the loser.", "defenses",
+                "food", 1, 0);
+        AttackCard Acard15 = new AttackCard("The dinosaur with the BEST SPEED survives.",
+                "The survivor receives 1 food token from the loser.", "speed",
+                "food", 1, 0);
+        AttackCard Acard16 = new AttackCard("The dinosaur with the BEST SENSES survives.",
+                "TThe survivor receives 1 food token from the loser.", "senses",
+                "food", 1, 0);
+        AttackCard Acard17 = new AttackCard("The dinosaur with the BEST WEAPONS survives.",
+                "The survivor receives 1 food token from the loser.", "weapons",
+                "food", 1, 0);
+        AttackCard Acard18 = new AttackCard("The LARGEST dinosaur survives.",
+                "The survivor receives 1 food token from the loser.", "size",
+                "food", 1, 0);
+        AttackCard Acard19 = new AttackCard("The dinosaur in ITS OWN HABITAT survives.",
+                "The survivor receives 1 food token from the loser.", "habitat",
+                "food", 1, 0);
     }
 }
