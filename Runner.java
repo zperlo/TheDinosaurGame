@@ -195,13 +195,13 @@ public class Runner {
         AttackCard Acard12 = new AttackCard("The dinosaur with the HIGHEST RATE OF REPRODUCTION survives.",
                 "The survivor receives 1 food token from the loser.", "ror",
                 "food", 1, 0);
-        AttackCard Acard13 = new AttackCard("The dinosaur with the MOST INTELLIGENCE survives.",
+        AttackCard Acard13 = new AttackCard("The MOST INTELLIGENT dinosaur survives.",
                 "The survivor receives 1 food token from the loser.", "intelligence",
                 "food", 1, 0);
         AttackCard Acard14 = new AttackCard("The dinosaur with the BEST DEFENSES survives.",
                 "The survivor receives 1 food token from the loser.", "defenses",
                 "food", 1, 0);
-        AttackCard Acard15 = new AttackCard("The dinosaur with the BEST SPEED survives.",
+        AttackCard Acard15 = new AttackCard("The FASTEST dinosaur survives.",
                 "The survivor receives 1 food token from the loser.", "speed",
                 "food", 1, 0);
         AttackCard Acard16 = new AttackCard("The dinosaur with the BEST SENSES survives.",
@@ -216,5 +216,30 @@ public class Runner {
         AttackCard Acard19 = new AttackCard("The dinosaur in ITS OWN HABITAT survives.",
                 "The survivor receives 1 food token from the loser.", "habitat",
                 "food", 1, 0);
+
+        AttackDeck ADeck = new AttackDeck();
+        ADeck.setDeck(0, Acard0);
+        ADeck.setDeck(1, Acard1);
+        ADeck.setDeck(2, Acard2);
+        ADeck.setDeck(3, Acard3);
+        ADeck.setDeck(4, Acard4);
+        ADeck.setDeck(5, Acard5);
+        ADeck.setDeck(6, Acard6);
+        ADeck.setDeck(7, Acard7);
+        ADeck.setDeck(8, Acard8);
+        ADeck.setDeck(9, Acard9);
+        ADeck.setDeck(10, Acard10);
+        ADeck.setDeck(11, Acard11);
+        ADeck.setDeck(12, Acard12);
+        ADeck.setDeck(13, Acard13);
+        ADeck.setDeck(14, Acard14);
+        ADeck.setDeck(15, Acard15);
+        ADeck.setDeck(16, Acard16);
+        ADeck.setDeck(17, Acard17);
+        ADeck.setDeck(18, Acard18);
+        ADeck.setDeck(19, Acard19);
+        //ADeck tests
+        //AttackCard myCard1 = ADeck.draw();
+        //System.out.println(myCard1.getPara1());
     }
 }
