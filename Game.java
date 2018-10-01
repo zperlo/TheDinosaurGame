@@ -1,6 +1,56 @@
-public class Runner {
+public class Game {
     public static void main(String[] args) {
 
+        Dinosaur[] dinoCards = createDinoCards();
+        NaturalDisasterDeck ndDeck = createNaturalDisasterDeck();
+        AttackDeck aDeck = createAttackDeck();
+
+
+        /* Test for assigning dinos to 4 players randomly
+        int p1, p2, p3, p4;
+        p1 = (int)(Math.random() * dinoCards.length);
+        p2 = (int)(Math.random() * dinoCards.length);
+        p3 = (int)(Math.random() * dinoCards.length);
+        p4 = (int)(Math.random() * dinoCards.length);
+
+        // Ensure no players have same dino (Doesn't work fully but shouldn't matter in final)
+        if (p1 == p2) p2 = (p2 + 1) % dinoCards.length;
+        if (p1 == p3) p3 = (p3 + 1) % dinoCards.length;
+        if (p2 == p3) p3 = (p3 + 1) % dinoCards.length;
+        if (p1 == p4) p4 = (p4 + 1) % dinoCards.length;
+        if (p2 == p4) p4 = (p4 + 1) % dinoCards.length;
+        if (p3 == p4) p4 = (p4 + 1) % dinoCards.length;
+
+        System.out.println("Player 1 is a " + dinoCards[p1].name);
+        System.out.println("Player 2 is a " + dinoCards[p2].name);
+        System.out.println("Player 3 is a " + dinoCards[p3].name);
+        System.out.println("Player 4 is a " + dinoCards[p4].name);
+        */
+
+        //ndDeck tests
+        //NaturalDisasterCard myCard = ndDeck.draw();
+        //System.out.println(myCard.getPara1());
+
+        //Creating the attack card deck
+
+        //aDeck tests
+        //AttackCard myCard1 = aDeck.draw();
+        //System.out.println(myCard1.getPara1());
+    }
+
+    /* one player takes their turn
+    public void turn(Player p) {
+
+        // roll to see how far to move, as if on a 6-sided die
+        int roll = (int)(Math.random() * 6 + 1);
+
+        // have player move on board
+        p.move(die);
+
+    }*/
+
+    // create an array of all dinosaurs
+    public static Dinosaur[] createDinoCards() {
         Dinosaur[] dinoCards = new Dinosaur[16];
 
         dinoCards[0] = new Dinosaur("Velociraptor", false, "Desert", 1,-1,
@@ -36,35 +86,18 @@ public class Runner {
         dinoCards[15] = new Dinosaur("Deinonychus", false,"Plains",1,-1,
                 1,1,1,0,-1,0);
 
-        // Test for assigning dinos to 4 players randomly
-        int p1, p2, p3, p4;
-        p1 = (int)(Math.random() * dinoCards.length);
-        p2 = (int)(Math.random() * dinoCards.length);
-        p3 = (int)(Math.random() * dinoCards.length);
-        p4 = (int)(Math.random() * dinoCards.length);
+        return dinoCards;
+    }
 
-        // Ensure no players have same dino (Doesn't work fully but shouldn't matter in final)
-        if (p1 == p2) p2 = (p2 + 1) % dinoCards.length;
-        if (p1 == p3) p3 = (p3 + 1) % dinoCards.length;
-        if (p2 == p3) p3 = (p3 + 1) % dinoCards.length;
-        if (p1 == p4) p4 = (p4 + 1) % dinoCards.length;
-        if (p2 == p4) p4 = (p4 + 1) % dinoCards.length;
-        if (p3 == p4) p4 = (p4 + 1) % dinoCards.length;
-
-        System.out.println("Player 1 is a " + dinoCards[p1].name);
-        System.out.println("Player 2 is a " + dinoCards[p2].name);
-        System.out.println("Player 3 is a " + dinoCards[p3].name);
-        System.out.println("Player 4 is a " + dinoCards[p4].name);
-        
-        
-        // Creating the Natural Disaster Card Deck
+    // Creating the Natural Disaster Card Deck
+    public static NaturalDisasterDeck createNaturalDisasterDeck() {
         NaturalDisasterCard card0 = new NaturalDisasterCard("SLIM PICKINGS!",
                 "FAMINE: Food is getting hard to find. Are your senses sharp enough to find food?",
                 "If your SENSES are average (0) or below average (-) lose 2 food tokens.",
                 true, "senses", new int[] {1}, 2);
         NaturalDisasterCard card1 = new NaturalDisasterCard("YUCK!",
                 "POISONOUS PLANTS: Are your senses keen enough to tell which plants are good to eat" +
-                " and which are poisonous?", "If your SENSES are average (0) or below average " +
+                        " and which are poisonous?", "If your SENSES are average (0) or below average " +
                 "(-) lose 2 food tokens.", true, "senses", new int[] {1}, 2);
         NaturalDisasterCard card2 = new NaturalDisasterCard("SPLASH!", "FLOOD: Water is rising " +
                 "everywhere. Are you smart enough to reach higher ground?", "If your INTELLIGENCE" +
@@ -72,7 +105,7 @@ public class Runner {
                 true, "intelligence", new int[] {1}, 4);
         NaturalDisasterCard card3 = new NaturalDisasterCard("OUCH! SAND FELL INTO MY EYES!",
                 "SAND STORM: A sand storm will hurt anyone out in the open. Are you smart " +
-                "enough to find shelter?", "If your INTELLIGENCE is average (0) or below " +
+                        "enough to find shelter?", "If your INTELLIGENCE is average (0) or below " +
                 "average (-) lose 1 food token.", true,
                 "intelligence", new int[] {1}, 1);
         NaturalDisasterCard card4 = new NaturalDisasterCard("STOP THIEF!", "TINY MAMMALS: Those " +
@@ -107,7 +140,7 @@ public class Runner {
                 false, "defenses", new int[] {1}, 1);
         NaturalDisasterCard card12 = new NaturalDisasterCard("CREAK! CRACK! SHIFT!",
                 "SHIFTING CONTINENTS:" +
-                " The conditions in your habitat are changing. Are you able to adapt to these changes?",
+                        " The conditions in your habitat are changing. Are you able to adapt to these changes?",
                 "If your ABILITY TO ADAPT is below average (-) lose 3 food tokens.", false,
                 "ata", new int[] {0, 1}, 3);
         NaturalDisasterCard card13 = new NaturalDisasterCard("LOOK OUT!", "MUD SLIDE: The mud will " +
@@ -138,108 +171,108 @@ public class Runner {
                 false, "defenses", new int[] {-1}, 1);
         NaturalDisasterCard card19 = new NaturalDisasterCard("OOPS!", "QUICKSAND! You fell into " +
                 "quicksand.", "You are stuck for 2 turns.", true, "none");
-        NaturalDisasterDeck NDDeck = new NaturalDisasterDeck();
-        NDDeck.setDeck(0, card0);
-        NDDeck.setDeck(1, card1);
-        NDDeck.setDeck(2, card2);
-        NDDeck.setDeck(3, card3);
-        NDDeck.setDeck(4, card4);
-        NDDeck.setDeck(5, card5);
-        NDDeck.setDeck(6, card6);
-        NDDeck.setDeck(7, card7);
-        NDDeck.setDeck(8, card8);
-        NDDeck.setDeck(9, card9);
-        NDDeck.setDeck(10, card10);
-        NDDeck.setDeck(11, card11);
-        NDDeck.setDeck(12, card12);
-        NDDeck.setDeck(13, card13);
-        NDDeck.setDeck(14, card14);
-        NDDeck.setDeck(15, card15);
-        NDDeck.setDeck(16, card16);
-        NDDeck.setDeck(17, card17);
-        NDDeck.setDeck(18, card18);
-        NDDeck.setDeck(19, card19);
-        //NDDeck tests
-        //NaturalDisasterCard myCard = NDDeck.draw();
-        //System.out.println(myCard.getPara1());
+        NaturalDisasterDeck ndDeck = new NaturalDisasterDeck();
+        ndDeck.setDeck(0, card0);
+        ndDeck.setDeck(1, card1);
+        ndDeck.setDeck(2, card2);
+        ndDeck.setDeck(3, card3);
+        ndDeck.setDeck(4, card4);
+        ndDeck.setDeck(5, card5);
+        ndDeck.setDeck(6, card6);
+        ndDeck.setDeck(7, card7);
+        ndDeck.setDeck(8, card8);
+        ndDeck.setDeck(9, card9);
+        ndDeck.setDeck(10, card10);
+        ndDeck.setDeck(11, card11);
+        ndDeck.setDeck(12, card12);
+        ndDeck.setDeck(13, card13);
+        ndDeck.setDeck(14, card14);
+        ndDeck.setDeck(15, card15);
+        ndDeck.setDeck(16, card16);
+        ndDeck.setDeck(17, card17);
+        ndDeck.setDeck(18, card18);
+        ndDeck.setDeck(19, card19);
 
-        //Creating the attack card deck
-        AttackCard Acard0 = new AttackCard("The dinosaur with the LEAST WEAPONS loses.",
+        return ndDeck;
+    }
+
+    // create the attack card deck
+    public static AttackDeck createAttackDeck() {
+        AttackCard aCard0 = new AttackCard("The dinosaur with the LEAST WEAPONS loses.",
                 "The loser moves back 3 spaces.", "weapons", "move", 3, 0);
-        AttackCard Acard1 = new AttackCard("The dinosaur with the BEST ABILITY TO ADAPT survives.",
+        AttackCard aCard1 = new AttackCard("The dinosaur with the BEST ABILITY TO ADAPT survives.",
                 "The survivor receives 1 food token from the loser.", "ata",
                 "food", 1, 0);
-        AttackCard Acard2 = new AttackCard("The dinosaur with the LOWEST RATE OF REPRODUCTION loses.",
+        AttackCard aCard2 = new AttackCard("The dinosaur with the LOWEST RATE OF REPRODUCTION loses.",
                 "The loser moves back 4 spaces.", "ror", "move", 4, 0);
-        AttackCard Acard3 = new AttackCard("The SLOWEST dinosaur loses.",
+        AttackCard aCard3 = new AttackCard("The SLOWEST dinosaur loses.",
                 "The loser moves back 3 spaces.", "speed", "move", 3, 0);
-        AttackCard Acard4 = new AttackCard("Any dinosaur OUT OF ITS HABITAT loses.",
+        AttackCard aCard4 = new AttackCard("Any dinosaur OUT OF ITS HABITAT loses.",
                 "The loser moves back 4 spaces.", "habitat", "move", 4, 0);
-        AttackCard Acard5 = new AttackCard("The SMALLEST dinosaur loses.",
+        AttackCard aCard5 = new AttackCard("The SMALLEST dinosaur loses.",
                 "The loser moves back 2 spaces.", "size", "move", 2, 0);
-        AttackCard Acard6 = new AttackCard("The dinosaur with the LOWEST ABILITY TO ADAPT loses.",
+        AttackCard aCard6 = new AttackCard("The dinosaur with the LOWEST ABILITY TO ADAPT loses.",
                 "The loser moves back 3 spaces.", "ata", "move", 3, 0);
-        AttackCard Acard7 = new AttackCard("The dinosaur with the LEAST SENSES loses.",
+        AttackCard aCard7 = new AttackCard("The dinosaur with the LEAST SENSES loses.",
                 "The loser moves back 2 spaces.", "senses", "move", 2, 0);
-        AttackCard Acard8 = new AttackCard("The LARGEST dinosaur survives.",
+        AttackCard aCard8 = new AttackCard("The LARGEST dinosaur survives.",
                 "The survivor moves ahead 4 spaces.", "size", "move", 4, 1);
-        AttackCard Acard9 = new AttackCard("The MOST INTELLIGENT dinosaur survives.",
+        AttackCard aCard9 = new AttackCard("The MOST INTELLIGENT dinosaur survives.",
                 "The survivor moves ahead 2 spaces.", "intelligence",
                 "move", 2, 1);
-        AttackCard Acard10 = new AttackCard("The dinosaur with the BEST DEFENSES survives.",
+        AttackCard aCard10 = new AttackCard("The dinosaur with the BEST DEFENSES survives.",
                 "The survivor moves ahead 3 spaces.", "weapons",
                 "move", 3, 1);
-        AttackCard Acard11 = new AttackCard("The FASTEST dinosaur survives.",
+        AttackCard aCard11 = new AttackCard("The FASTEST dinosaur survives.",
                 "TThe survivor moves ahead 3 spaces.", "weapons",
                 "move", 3, 1);
-        AttackCard Acard12 = new AttackCard("The dinosaur with the HIGHEST RATE OF REPRODUCTION survives.",
+        AttackCard aCard12 = new AttackCard("The dinosaur with the HIGHEST RATE OF REPRODUCTION survives.",
                 "The survivor receives 1 food token from the loser.", "ror",
                 "food", 1, 0);
-        AttackCard Acard13 = new AttackCard("The MOST INTELLIGENT dinosaur survives.",
+        AttackCard aCard13 = new AttackCard("The MOST INTELLIGENT dinosaur survives.",
                 "The survivor receives 1 food token from the loser.", "intelligence",
                 "food", 1, 0);
-        AttackCard Acard14 = new AttackCard("The dinosaur with the BEST DEFENSES survives.",
+        AttackCard aCard14 = new AttackCard("The dinosaur with the BEST DEFENSES survives.",
                 "The survivor receives 1 food token from the loser.", "defenses",
                 "food", 1, 0);
-        AttackCard Acard15 = new AttackCard("The FASTEST dinosaur survives.",
+        AttackCard aCard15 = new AttackCard("The FASTEST dinosaur survives.",
                 "The survivor receives 1 food token from the loser.", "speed",
                 "food", 1, 0);
-        AttackCard Acard16 = new AttackCard("The dinosaur with the BEST SENSES survives.",
+        AttackCard aCard16 = new AttackCard("The dinosaur with the BEST SENSES survives.",
                 "TThe survivor receives 1 food token from the loser.", "senses",
                 "food", 1, 0);
-        AttackCard Acard17 = new AttackCard("The dinosaur with the BEST WEAPONS survives.",
+        AttackCard aCard17 = new AttackCard("The dinosaur with the BEST WEAPONS survives.",
                 "The survivor receives 1 food token from the loser.", "weapons",
                 "food", 1, 0);
-        AttackCard Acard18 = new AttackCard("The LARGEST dinosaur survives.",
+        AttackCard aCard18 = new AttackCard("The LARGEST dinosaur survives.",
                 "The survivor receives 1 food token from the loser.", "size",
                 "food", 1, 0);
-        AttackCard Acard19 = new AttackCard("The dinosaur in ITS OWN HABITAT survives.",
+        AttackCard aCard19 = new AttackCard("The dinosaur in ITS OWN HABITAT survives.",
                 "The survivor receives 1 food token from the loser.", "habitat",
                 "food", 1, 0);
 
-        AttackDeck ADeck = new AttackDeck();
-        ADeck.setDeck(0, Acard0);
-        ADeck.setDeck(1, Acard1);
-        ADeck.setDeck(2, Acard2);
-        ADeck.setDeck(3, Acard3);
-        ADeck.setDeck(4, Acard4);
-        ADeck.setDeck(5, Acard5);
-        ADeck.setDeck(6, Acard6);
-        ADeck.setDeck(7, Acard7);
-        ADeck.setDeck(8, Acard8);
-        ADeck.setDeck(9, Acard9);
-        ADeck.setDeck(10, Acard10);
-        ADeck.setDeck(11, Acard11);
-        ADeck.setDeck(12, Acard12);
-        ADeck.setDeck(13, Acard13);
-        ADeck.setDeck(14, Acard14);
-        ADeck.setDeck(15, Acard15);
-        ADeck.setDeck(16, Acard16);
-        ADeck.setDeck(17, Acard17);
-        ADeck.setDeck(18, Acard18);
-        ADeck.setDeck(19, Acard19);
-        //ADeck tests
-        //AttackCard myCard1 = ADeck.draw();
-        //System.out.println(myCard1.getPara1());
+        AttackDeck aDeck = new AttackDeck();
+        aDeck.setDeck(0, aCard0);
+        aDeck.setDeck(1, aCard1);
+        aDeck.setDeck(2, aCard2);
+        aDeck.setDeck(3, aCard3);
+        aDeck.setDeck(4, aCard4);
+        aDeck.setDeck(5, aCard5);
+        aDeck.setDeck(6, aCard6);
+        aDeck.setDeck(7, aCard7);
+        aDeck.setDeck(8, aCard8);
+        aDeck.setDeck(9, aCard9);
+        aDeck.setDeck(10, aCard10);
+        aDeck.setDeck(11, aCard11);
+        aDeck.setDeck(12, aCard12);
+        aDeck.setDeck(13, aCard13);
+        aDeck.setDeck(14, aCard14);
+        aDeck.setDeck(15, aCard15);
+        aDeck.setDeck(16, aCard16);
+        aDeck.setDeck(17, aCard17);
+        aDeck.setDeck(18, aCard18);
+        aDeck.setDeck(19, aCard19);
+
+        return aDeck;
     }
 }
