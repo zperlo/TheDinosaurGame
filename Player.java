@@ -4,6 +4,7 @@ public class Player {
     private int location = 0;
     private boolean evolveCardSenInt = false;
     private boolean evolveCardSpdSiz = false;
+    private int lostTurns = 0;
 
     public Player(Dinosaur myDino, int foodTokens){
         this.myDino = myDino;
@@ -30,6 +31,10 @@ public class Player {
         return evolveCardSpdSiz;
     }
 
+    public int getLostTurns() {
+        return lostTurns;
+    }
+
     public void move(int numSpaces){
         location = location + numSpaces;
     }
@@ -44,5 +49,9 @@ public class Player {
 
     public void setEvolveCardSpdSiz(boolean set){
         evolveCardSpdSiz = set;
+    }
+
+    public void setLostTurns(int newLostTurns) {
+        lostTurns = newLostTurns;
     }
 }
