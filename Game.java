@@ -28,7 +28,7 @@ public class Game {
     }
 
     // one player takes their turn
-    public static void turn(Player p, int roll, Space[] board, Player[] players, ChallengeCardDeck cDeck,
+    private static void turn(Player p, int roll, Space[] board, Player[] players, ChallengeCardDeck cDeck,
                             AttackDeck aDeck, NaturalDisasterDeck ndDeck) {
 
         // see if the player currently is on a lost turn
@@ -78,6 +78,11 @@ public class Game {
                         break;
                 }
             }
+            for (Player x: players){
+                if(x.getLocation() == p.getLocation() && x != p){
+                    attack(p, x, aDeck, board, false);
+                }
+            }
 
 
         }
@@ -85,7 +90,7 @@ public class Game {
     }
 
     // hardcode the board into game
-    public static Space[] createBoard() {
+    private static Space[] createBoard() {
 
         Space[] board = new Space[110];
 
@@ -139,7 +144,7 @@ public class Game {
     }
 
     // get player dino choices from user input and initialize players
-    public static Player[] initializePlayers(Dinosaur[] dinoCards) {
+    private static Player[] initializePlayers(Dinosaur[] dinoCards) {
 
         // take in input for how many players
         Scanner input = new Scanner(System.in);
@@ -185,7 +190,7 @@ public class Game {
     }
 
     // create an array of all dinosaurs
-    public static Dinosaur[] createDinoCards() {
+    private static Dinosaur[] createDinoCards() {
         Dinosaur[] dinoCards = new Dinosaur[16];
 
         dinoCards[0] = new Dinosaur("Velociraptor", false, "Desert", 1,-1,
@@ -225,7 +230,7 @@ public class Game {
     }
 
     // Creating the Natural Disaster Card Deck
-    public static NaturalDisasterDeck createNaturalDisasterDeck() {
+    private static NaturalDisasterDeck createNaturalDisasterDeck() {
         NaturalDisasterCard card0 = new NaturalDisasterCard("SLIM PICKINGS!",
                 "FAMINE: Food is getting hard to find. Are your senses sharp enough to find food?",
                 "If your SENSES are average (0) or below average (-) lose 2 food tokens.",
@@ -332,7 +337,7 @@ public class Game {
     }
 
     // create the attack card deck
-    public static AttackDeck createAttackDeck() {
+    private static AttackDeck createAttackDeck() {
         AttackCard aCard0 = new AttackCard("The dinosaur with the LEAST WEAPONS loses.",
                 "The loser moves back 3 spaces.", "weapons", "move", 3, 0);
         AttackCard aCard1 = new AttackCard("The dinosaur with the BEST ABILITY TO ADAPT survives.",
@@ -411,7 +416,7 @@ public class Game {
         return aDeck;
     }
 
-    public static ChallengeCardDeck createChallengeCardDeck(){
+    private static ChallengeCardDeck createChallengeCardDeck(){
         ChallengeCard cCard0 = new ChallengeCard("If you are in YOUR HABITAT: move ahead 5 spaces and play that square."
                 , "OR", "Receive 1 food token", 0, 1);
 
@@ -499,7 +504,7 @@ public class Game {
         return cDeck;
     }
 
-    public static void challengeByID(Player player, int id, int choice, Player[] players, Space[] board,
+    private static void challengeByID(Player player, int id, int choice, Player[] players, Space[] board,
                                      AttackDeck aDeck, ChallengeCardDeck cDeck, NaturalDisasterDeck ndDeck){
         //choice is 1 or 2
         switch(id){
@@ -824,7 +829,7 @@ public class Game {
         }
     }
 
-    public static void naturalDisaster(Player p, NaturalDisasterDeck ndDeck, Space[] board){
+    private static void naturalDisaster(Player p, NaturalDisasterDeck ndDeck, Space[] board){
         NaturalDisasterCard ndCard = ndDeck.draw();
         boolean safe = false;
         boolean none = false;
