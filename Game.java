@@ -7,6 +7,7 @@ public class Game {
         Dinosaur[] dinoCards = createDinoCards();
         NaturalDisasterDeck ndDeck = createNaturalDisasterDeck();
         AttackDeck aDeck = createAttackDeck();
+        ChallengeCardDeck cDeck = createChallengeCardDeck();
         Player[] players = initializePlayers(dinoCards);
         Space[] board = createBoard();
 
@@ -15,14 +16,20 @@ public class Game {
             for (Player p: players) {
                 // roll to see how far to move, as if on a 6-sided die
                 int roll = (int)(Math.random() * 6 + 1);
-                turn(p, roll);
+                turn(p, roll, board, players, cDeck, aDeck, ndDeck);
+                for (Player e: players){
+                    if(board[e.getLocation()].getType().equals("finish")){
+                        gameEnd = true;
+                    }
+                }
             }
         }
 
     }
 
     // one player takes their turn
-    public static void turn(Player p, int roll) {
+    public static void turn(Player p, int roll, Space[] board, Player[] players, ChallengeCardDeck cDeck,
+                            AttackDeck aDeck, NaturalDisasterDeck ndDeck) {
 
         // see if the player currently is on a lost turn
         int lostTurns = p.getLostTurns();
@@ -37,6 +44,40 @@ public class Game {
             p.move(roll);
 
             // run the encounter on that space
+            boolean playSpace = true;
+            for (Player x: players){
+                if(x.getLocation() == p.getLocation() && x != p){
+                    playSpace = false;
+                    attack(p, x, aDeck, board, false);
+                }
+            }
+
+            if(playSpace) {
+                switch (board[p.getLocation()].getType()) {
+                    case "herbivore":
+                        if (p.getDino().isHerbivore()) {
+                            p.changeFood(1);
+                        }
+                        break;
+                    case "carnivore":
+                        if (!p.getDino().isHerbivore()) {
+                            p.changeFood(1);
+                        }
+                        break;
+                    case "challenge":
+                        ChallengeCard cCard = cDeck.draw();
+                        int id = cCard.getId();
+                        int choice = 1; // NEEDS TO GET FROM PLAYER CHOICE -- GUI
+                        challengeByID(p, id, choice, players, board, aDeck, cDeck, ndDeck);
+                        break;
+                    case "natural disaster":
+                        //do natural disaster stuff
+                        break;
+                    case "danger zone":
+                        //do danger zone stuff
+                        break;
+                }
+            }
 
 
         }
@@ -114,7 +155,7 @@ public class Game {
         // print all the dinosaurs the players can choose from
         System.out.println("The following are the Dinosaurs to choose from:");
         for (int i = 0; i < dinoCards.length; i++) {
-            System.out.println("" + i + ". " + dinoCards[i].name);
+            System.out.println("" + i + ". " + dinoCards[i].getName());
         }
 
         Player[] players = new Player[playerCount];
@@ -124,7 +165,8 @@ public class Game {
             int num = input.nextInt();
             chosenDinos[i] = num;
 
-            // loop to prevent 2 players from choosing the same dinosaur. Second player to do so will choose another dinosaur
+            // loop to prevent 2 players from choosing the same dinosaur.
+            // Second player to do so will choose another dinosaur
             int j = 0;
             while (j < i) {
                 if (chosenDinos[j] == num) {
@@ -457,7 +499,9 @@ public class Game {
         return cDeck;
     }
 
-    public void challengeByID(Player player, int id, int choice, Player[] players, Space[] board){ //choice is only 1 or 2
+    public static void challengeByID(Player player, int id, int choice, Player[] players, Space[] board,
+                                     AttackDeck aDeck, ChallengeCardDeck cDeck, NaturalDisasterDeck ndDeck){
+        //choice is 1 or 2
         switch(id){
             case 0:
                 if(choice == 1){
@@ -485,7 +529,7 @@ public class Game {
                 break;
             case 4:
                 if(choice == 1){
-                    turn(player, -5);
+                    turn(player, -5, board, players, cDeck, aDeck, ndDeck);
                 }
                 else{
                     player.changeFood(-1);
@@ -501,7 +545,7 @@ public class Game {
                 break;
             case 6:
                 if(choice == 1){
-                    turn(player, -2);
+                    turn(player, -2, board, players, cDeck, aDeck, ndDeck);
                 }
                 else{
                     player.setLostTurns(1);
@@ -509,7 +553,7 @@ public class Game {
                 break;
             case 7:
                 if(choice == 1){
-                    turn(player, 2);
+                    turn(player, 2, board, players, cDeck, aDeck, ndDeck);
                 }
                 else{
                     player.setLostTurns(1);
@@ -519,10 +563,10 @@ public class Game {
                 if(choice == 1){
                     for(int i = 0; i < players.length; i++){
                         if(players[i] == player && i != (players.length - 1)){
-                            attack(player, players[i+1]);
+                            attack(player, players[i+1], aDeck, board, false);
                         }
                         else{
-                            attack(player, players[0]);
+                            attack(player, players[0], aDeck, board, false);
                         }
                     }
                 }
@@ -547,7 +591,7 @@ public class Game {
                 }
                 else {
                     int roll = (int)(Math.random() * 6 + 1);
-                    turn(player, roll);
+                    turn(player, roll, board, players, cDeck, aDeck, ndDeck);
                 }
                 break;
             case 12:
@@ -607,7 +651,7 @@ public class Game {
                 if(choice == 1){
                     //move to your next food square
                     int count = 0;
-                    boolean isHerb = player.getDino().isHerbivore;
+                    boolean isHerb = player.getDino().isHerbivore();
                     String diet;
                     if(isHerb){
                         diet = "herbivore";
@@ -622,7 +666,7 @@ public class Game {
                 }
                 else {
                     int roll = (int)(Math.random() * 6 + 1);
-                    turn(player, roll);
+                    turn(player, roll, board, players, cDeck, aDeck, ndDeck);
                 }
                 break;
             case 17:
@@ -649,7 +693,7 @@ public class Game {
                     for(int i = player.getLocation(); !board[i].getType().equals("natural disaster"); i--){
                         count--;
                     }
-                    turn(player, count);
+                    turn(player, count, board, players, cDeck, aDeck, ndDeck);
                 }
                 else {
                     player.changeFood(-2);
@@ -663,6 +707,120 @@ public class Game {
                     player.setLostTurns(1);
                 }
                 break;
+        }
+    }
+
+    private static void attack(Player p1, Player p2, AttackDeck aDeck, Space[] board, boolean prev){
+        AttackCard aCard = aDeck.draw();
+        String statChecked = aCard.getStat();
+        boolean tie = false;
+        switch(statChecked) { //{"speed", "size", "intelligence", "defenses",
+            //    "weapons", "senses", "ror", "ata", "habitat"}
+            case "speed":
+                if (p1.getDino().getSpeed() > p2.getDino().getSpeed()) {
+                    determinePenalty(p1, p2, aCard);
+                } else if (p1.getDino().getSpeed() < p2.getDino().getSpeed()) {
+                    determinePenalty(p2, p1, aCard);
+                } else {
+                    tie = true;
+                }
+                break;
+            case "size":
+                if (p1.getDino().getSize() > p2.getDino().getSize()) {
+                    determinePenalty(p1, p2, aCard);
+                } else if (p1.getDino().getSize() < p2.getDino().getSize()) {
+                    determinePenalty(p2, p1, aCard);
+                } else {
+                    tie = true;
+                }
+                break;
+            case "intelligence":
+                if (p1.getDino().getIntelligence() > p2.getDino().getIntelligence()) {
+                    determinePenalty(p1, p2, aCard);
+                } else if (p1.getDino().getIntelligence() < p2.getDino().getIntelligence()) {
+                    determinePenalty(p2, p1, aCard);
+                } else {
+                    tie = true;
+                }
+                break;
+            case "defenses":
+                if (p1.getDino().getDefenses() > p2.getDino().getDefenses()) {
+                    determinePenalty(p1, p2, aCard);
+                } else if (p1.getDino().getDefenses() < p2.getDino().getDefenses()) {
+                    determinePenalty(p2, p1, aCard);
+                } else {
+                    tie = true;
+                }
+                break;
+            case "weapons":
+                if (p1.getDino().getWeapons() > p2.getDino().getWeapons()) {
+                    determinePenalty(p1, p2, aCard);
+                } else if (p1.getDino().getWeapons() < p2.getDino().getWeapons()) {
+                    determinePenalty(p2, p1, aCard);
+                } else {
+                    tie = true;
+                }
+                break;
+            case "senses":
+                if (p1.getDino().getSenses() > p2.getDino().getSenses()) {
+                    determinePenalty(p1, p2, aCard);
+                } else if (p1.getDino().getSenses() < p2.getDino().getSenses()) {
+                    determinePenalty(p2, p1, aCard);
+                } else {
+                    tie = true;
+                }
+                break;
+            case "ror":
+                if (p1.getDino().getRor() > p2.getDino().getRor()) {
+                    determinePenalty(p1, p2, aCard);
+                } else if (p1.getDino().getRor() < p2.getDino().getRor()) {
+                    determinePenalty(p2, p1, aCard);
+                } else {
+                    tie = true;
+                }
+                break;
+            case "ata":
+                if (p1.getDino().getAta() > p2.getDino().getAta()) {
+                    determinePenalty(p1, p2, aCard);
+                } else if (p1.getDino().getAta() < p2.getDino().getAta()) {
+                    determinePenalty(p2, p1, aCard);
+                } else {
+                    tie = true;
+                }
+                break;
+            case "habitat":
+                if (board[p1.getLocation()].getHabitat().equals(p1.getDino().getHabitat()) &&
+                        !board[p2.getLocation()].getHabitat().equals(p2.getDino().getHabitat())) {
+                    determinePenalty(p1, p2, aCard);
+                } else if (!board[p1.getLocation()].getHabitat().equals(p1.getDino().getHabitat()) &&
+                        board[p2.getLocation()].getHabitat().equals(p2.getDino().getHabitat())) {
+                    determinePenalty(p2, p1, aCard);
+                } else {
+                    tie = true;
+                }
+                break;
+        }
+
+        if(tie && !prev){  // have tied once but not twice
+            attack(p1, p2, aDeck, board, true);
+        }
+    }
+
+    private static void determinePenalty(Player p1, Player p2, AttackCard aCard){
+        if (aCard.getWinner() == 0) {
+            if (aCard.getPenalty().equals("food")) {
+                p2.changeFood(-1);
+                p1.changeFood(1);
+            } else {
+                p2.move(-1 * aCard.getPenaltyAmount());
+            }
+        } else {
+            if (aCard.getPenalty().equals("food")) {
+                p2.changeFood(-1);
+                p1.changeFood(1);
+            } else {
+                p1.move(aCard.getPenaltyAmount());
+            }
         }
     }
 }

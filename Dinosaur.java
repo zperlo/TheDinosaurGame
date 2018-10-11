@@ -1,19 +1,19 @@
 // Dinosaur Description Card
 
 public class Dinosaur {
-   public String name;
-   public boolean isHerbivore; // Herbivore or Carnivore
-   public String habitat;
+   private String name;
+   private boolean isHerbivore; // Herbivore or Carnivore
+   private String habitat;
    
    // Characteristics:
-   public int speed;
-   public int size;
-   public int intelligence;
-   public int defenses;
-   public int weapons;
-   public int senses;
-   public int ror; // Rate of Reproduction
-   public int ata; // Ability to adapt
+   private int speed;
+   private int size;
+   private int intelligence;
+   private int defenses;
+   private int weapons;
+   private int senses;
+   private int ror; // Rate of Reproduction
+   private int ata; // Ability to adapt
    
    public Dinosaur(String name, boolean isHerbivore, String habitat, int speed, int size, int intelligence,
                    int defenses, int weapons, int senses, int ror, int ata) {
@@ -29,4 +29,48 @@ public class Dinosaur {
       this.ror = ror;
       this.ata = ata;
    }
+
+    public boolean isHerbivore() {
+        return isHerbivore;
+    }
+
+    public int getAta() {
+        return ata;
+    }
+
+    public int getDefenses() {
+        return defenses;
+    }
+
+    public int getIntelligence() {
+        return intelligence;
+    }
+
+    public int getRor() {
+        return ror;
+    }
+
+    public int getSenses() {
+        return senses;
+    }
+
+    public int getSize() {
+        return size;
+    }
+
+    public int getSpeed() {
+        return speed;
+    }
+
+    public int getWeapons() {
+        return weapons;
+    }
+
+    public String getHabitat() {
+        return habitat;
+    }
+
+    public String getName() {
+        return name;
+    }
 }
