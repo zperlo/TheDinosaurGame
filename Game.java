@@ -71,7 +71,7 @@ public class Game {
                         challengeByID(p, id, choice, players, board, aDeck, cDeck, ndDeck);
                         break;
                     case "natural disaster":
-                        //do natural disaster stuff
+                        naturalDisaster(p, ndDeck, board);
                         break;
                     case "danger zone":
                         //do danger zone stuff
@@ -820,6 +820,67 @@ public class Game {
                 p1.changeFood(1);
             } else {
                 p1.move(aCard.getPenaltyAmount());
+            }
+        }
+    }
+
+    public static void naturalDisaster(Player p, NaturalDisasterDeck ndDeck, Space[] board){
+        NaturalDisasterCard ndCard = ndDeck.draw();
+        boolean safe = false;
+        boolean none = false;
+        if(ndCard.getHabitatSafe()){
+            if(board[p.getLocation()].getHabitat().equals(p.getDino().getHabitat())){
+                safe = true;
+            }
+        }
+        else{
+            String statChecked = ndCard.getStat();
+            int pStat;
+            switch (statChecked){
+                case "speed":
+                    pStat = p.getDino().getSpeed();
+                    break;
+                case "size":
+                    pStat = p.getDino().getSize();
+                    break;
+                case "intelligence":
+                    pStat = p.getDino().getIntelligence();
+                    break;
+                case "defenses":
+                    pStat = p.getDino().getDefenses();
+                    break;
+                case "weapons":
+                    pStat = p.getDino().getWeapons();
+                    break;
+                case "senses":
+                    pStat = p.getDino().getSenses();
+                    break;
+                case "ror":
+                    pStat = p.getDino().getRor();
+                    break;
+                case "ata":
+                    pStat = p.getDino().getAta();
+                    break;
+                case "none":
+                    pStat = -2;
+                    none = true;
+                    break;
+                default:
+                    pStat = -2;
+                    break;
+            }
+            for(int x: ndCard.getSafeStatValues()){
+                if(x == pStat){
+                    safe = true;
+                }
+            }
+        }
+        if(!safe){
+            if(none){
+                p.setLostTurns(2);
+            }
+            else{
+                p.changeFood(-1 * ndCard.getFoodLost());
             }
         }
     }
