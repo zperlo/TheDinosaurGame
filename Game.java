@@ -1,53 +1,146 @@
+import java.util.Scanner;
+
+// central class to run game events
 public class Game {
     public static void main(String[] args) {
 
         Dinosaur[] dinoCards = createDinoCards();
         NaturalDisasterDeck ndDeck = createNaturalDisasterDeck();
         AttackDeck aDeck = createAttackDeck();
+        Player[] players = initializePlayers(dinoCards);
+        Space[] board = createBoard();
 
+        boolean gameEnd = false;
+        while(!gameEnd) {
+            for (Player p: players) {
+                // roll to see how far to move, as if on a 6-sided die
+                int roll = (int)(Math.random() * 6 + 1);
+                turn(p, roll);
+            }
+        }
 
-        /* Test for assigning dinos to 4 players randomly
-        int p1, p2, p3, p4;
-        p1 = (int)(Math.random() * dinoCards.length);
-        p2 = (int)(Math.random() * dinoCards.length);
-        p3 = (int)(Math.random() * dinoCards.length);
-        p4 = (int)(Math.random() * dinoCards.length);
-
-        // Ensure no players have same dino (Doesn't work fully but shouldn't matter in final)
-        if (p1 == p2) p2 = (p2 + 1) % dinoCards.length;
-        if (p1 == p3) p3 = (p3 + 1) % dinoCards.length;
-        if (p2 == p3) p3 = (p3 + 1) % dinoCards.length;
-        if (p1 == p4) p4 = (p4 + 1) % dinoCards.length;
-        if (p2 == p4) p4 = (p4 + 1) % dinoCards.length;
-        if (p3 == p4) p4 = (p4 + 1) % dinoCards.length;
-
-        System.out.println("Player 1 is a " + dinoCards[p1].name);
-        System.out.println("Player 2 is a " + dinoCards[p2].name);
-        System.out.println("Player 3 is a " + dinoCards[p3].name);
-        System.out.println("Player 4 is a " + dinoCards[p4].name);
-        */
-
-        //ndDeck tests
-        //NaturalDisasterCard myCard = ndDeck.draw();
-        //System.out.println(myCard.getPara1());
-
-        //Creating the attack card deck
-
-        //aDeck tests
-        //AttackCard myCard1 = aDeck.draw();
-        //System.out.println(myCard1.getPara1());
     }
 
-    /* one player takes their turn
-    public void turn(Player p) {
+    // one player takes their turn
+    public static void turn(Player p, int roll) {
 
-        // roll to see how far to move, as if on a 6-sided die
-        int roll = (int)(Math.random() * 6 + 1);
+        // see if the player currently is on a lost turn
+        int lostTurns = p.getLostTurns();
+        if (lostTurns > 0) {
+            lostTurns--; // use up turn, do nothing
+            p.setLostTurns(lostTurns);
+        }
 
-        // have player move on board
-        p.move(die);
+        // the player gets a turn otherwise
+        else {
+            // have player move on board
+            p.move(roll);
 
-    }*/
+            // run the encounter on that space
+
+
+        }
+
+    }
+
+    // hardcode the board into game
+    public static Space[] createBoard() {
+
+        Space[] board = new Space[110];
+
+        // first leg of forest
+        board[0] = new Space("forest", "start");
+        board[1] = new Space("forest", "herbivore");
+        board[2] = new Space("forest", "carnivore");
+        board[3] = new Space("forest", "carnivore");
+        board[4] = new Space("forest", "carnivore");
+        board[5] = new Space("forest", "herbivore");
+        board[6] = new Space("forest", "challenge");
+        board[7] = new Space("forest", "carnivore");
+        board[8] = new Space("forest", "herbivore");
+        board[9] = new Space("forest", "herbivore");
+        board[10] = new Space("forest", "carnivore");
+        board[11] = new Space("forest", "herbivore");
+        board[12] = new Space("forest", "challenge");
+        board[13] = new Space("forest", "natural disaster");
+
+        // first leg of desert
+        board[14] = new Space("desert", "carnivore");
+        board[15] = new Space("desert", "herbivore");
+        board[16] = new Space("desert", "natural disaster");
+        board[17] = new Space("desert", "carnivore");
+        board[18] = new Space("desert", "challenge");
+        board[19] = new Space("desert", "herbivore");
+        board[20] = new Space("desert", "natural disaster");
+        board[21] = new Space("desert", "carnivore");
+        board[22] = new Space("desert", "danger zone");
+        board[23] = new Space("desert", "challenge");
+        board[24] = new Space("desert", "herbivore");
+        board[25] = new Space("desert", "natural disaster");
+
+        // tiny leg in swamp
+        board[26] = new Space("swamp", "carnivore");
+        board[27] = new Space("swamp", "herbivore");
+        board[28] = new Space("swamp", "natural disaster");
+
+        // back down into desert
+        board[29] = new Space("desert", "herbivore");
+        board[30] = new Space("desert", "carnivore");
+        board[31] = new Space("desert", "carnivore");
+        board[32] = new Space("desert", "challenge");
+        board[33] = new Space("desert", "herbivore");
+        board[34] = new Space("desert", "carnivore");
+        board[35] = new Space("desert", "herbivore");
+        board[36] = new Space("desert", "natural disaster");
+        board[37] = new Space("desert", "herbivore");
+
+        return board;
+    }
+
+    // get player dino choices from user input and initialize players
+    public static Player[] initializePlayers(Dinosaur[] dinoCards) {
+
+        // take in input for how many players
+        Scanner input = new Scanner(System.in);
+        System.out.println("How many players (1 - 4) are playing?");
+        int playerCount = input.nextInt();
+
+        // handle input errors
+        while (!(playerCount <= 4 && playerCount >= 1)) {
+            System.out.println("Invalid player count. Input 1 - 4");
+            playerCount = input.nextInt();
+        }
+
+        // print all the dinosaurs the players can choose from
+        System.out.println("The following are the Dinosaurs to choose from:");
+        for (int i = 0; i < dinoCards.length; i++) {
+            System.out.println("" + i + ". " + dinoCards[i].name);
+        }
+
+        Player[] players = new Player[playerCount];
+        int[] chosenDinos = new int[playerCount];
+        for (int i = 0; i < playerCount; i++) {
+            System.out.println("Player " + (i + 1) + " input the number for the dinosaur you want");
+            int num = input.nextInt();
+            chosenDinos[i] = num;
+
+            // loop to prevent 2 players from choosing the same dinosaur. Second player to do so will choose another dinosaur
+            int j = 0;
+            while (j < i) {
+                if (chosenDinos[j] == num) {
+                    System.out.println("Chosen dinosaur already chosen by a previous player. Choose another dinosaur");
+                    num = input.nextInt();
+                    chosenDinos[i] = num;
+                    j = 0;
+                }
+                else j++;
+            }
+
+            players[i] = new Player(dinoCards[num], 3);
+        }
+
+        return players;
+    }
 
     // create an array of all dinosaurs
     public static Dinosaur[] createDinoCards() {
@@ -274,5 +367,302 @@ public class Game {
         aDeck.setDeck(19, aCard19);
 
         return aDeck;
+    }
+
+    public static ChallengeCardDeck createChallengeCardDeck(){
+        ChallengeCard cCard0 = new ChallengeCard("If you are in YOUR HABITAT: move ahead 5 spaces and play that square."
+                , "OR", "Receive 1 food token", 0, 1);
+
+        ChallengeCard cCard1 = new ChallengeCard("","Give the next player a food token from the bank"
+                , "", 1, 2);
+
+        ChallengeCard cCard2 = new ChallengeCard("CONGRATULATIONS!",
+                "Your Dinosaur has evolved above average (+) SPEED" + "and SIZE.",
+                "Keep this card to use in any attack situation for the rest of the game.", 2, 3);
+
+        ChallengeCard cCard3 = new ChallengeCard("CONGRATULATIONS!",
+                "Your Dinosaur has evolved above average (+) SENSES" + "and INTELLIGENCE.",
+                "Keep this card to use in any attack situation for the rest of the game.", 3, 3);
+
+        ChallengeCard cCard4 = new ChallengeCard("If you are NOT in YOUR HABITAT: move back 5 spaces and play that square",
+                "OR", "Lose 1 food token.", 4, 1);
+
+        ChallengeCard cCard5 = new ChallengeCard("If you have 6 or more tokens: lose 1 food token.",
+                "OR", "Go back 4 spaces.", 5, 1);
+
+        ChallengeCard cCard6 = new ChallengeCard("Move back 2 spaces and play that square.",
+                "OR", "Lose a turn.", 6, 0);
+
+        ChallengeCard cCard7 = new ChallengeCard("Move ahead 2 spaces and play that square.",
+                "OR", "Lose a turn.", 7, 0);
+
+        ChallengeCard cCard8 = new ChallengeCard("Attack the next player.",
+                "OR", "Lose 3 food tokens.", 8, 0);
+
+        ChallengeCard cCard9 = new ChallengeCard("", "Lose 2 food tokens.",
+                "", 9, 2);
+
+        ChallengeCard cCard10 = new ChallengeCard("Go back 3 spaces.", "OR",
+                "Lose 1 food token.", 10, 0);
+
+        ChallengeCard cCard11 = new ChallengeCard("Receive a food token.", "OR",
+                "Roll again.", 11, 0);
+
+        ChallengeCard cCard12 = new ChallengeCard("Receive a food token from the next player.",
+                "OR", "Receive 2 food tokens form the bank.", 12, 0);
+
+        ChallengeCard cCard13 = new ChallengeCard("Return to the previous habitat.", "OR",
+                "Lose 2 food tokens.", 13, 0);
+
+        ChallengeCard cCard14 = new ChallengeCard("Move to the first square of the next habitat and DO NOT play that square.",
+                "OR", "Receive 1 food token", 14, 0);
+
+        ChallengeCard cCard15 = new ChallengeCard("Go ahead 3 spaces and DO NOT play that square.",
+                "OR", "Receive 1 food token.", 15, 0);
+
+        ChallengeCard cCard16 = new ChallengeCard("Move to your next food square and receive a food token .",
+                "OR", "Roll again.", 16, 0);
+
+        ChallengeCard cCard17 = new ChallengeCard("Give the next player 1 food token.",
+                "OR", "Return 2 tokens to the bank.", 17, 0);
+
+        ChallengeCard cCard18 = new ChallengeCard("Return to the previous Disaster Square and play the square.",
+                "OR", "Lose 2 food tokens.", 18, 0);
+
+        ChallengeCard cCard19 = new ChallengeCard("Lose 1 food token.", "OR",
+                "Lose a turn.", 19, 0);
+
+        ChallengeCardDeck cDeck = new ChallengeCardDeck();
+        cDeck.setDeck(0, cCard0);
+        cDeck.setDeck(1, cCard1);
+        cDeck.setDeck(2, cCard2);
+        cDeck.setDeck(3, cCard3);
+        cDeck.setDeck(4, cCard4);
+        cDeck.setDeck(5, cCard5);
+        cDeck.setDeck(6, cCard6);
+        cDeck.setDeck(7, cCard7);
+        cDeck.setDeck(8, cCard8);
+        cDeck.setDeck(9, cCard9);
+        cDeck.setDeck(10, cCard10);
+        cDeck.setDeck(11, cCard11);
+        cDeck.setDeck(12, cCard12);
+        cDeck.setDeck(13, cCard13);
+        cDeck.setDeck(14, cCard14);
+        cDeck.setDeck(15, cCard15);
+        cDeck.setDeck(16, cCard16);
+        cDeck.setDeck(17, cCard17);
+        cDeck.setDeck(18, cCard18);
+        cDeck.setDeck(19, cCard19);
+
+        return cDeck;
+    }
+
+    public void challengeByID(Player player, int id, int choice, Player[] players, Space[] board){ //choice is only 1 or 2
+        switch(id){
+            case 0:
+                if(choice == 1){
+                    player.move(5);
+                }
+                else{
+                    player.changeFood(1);
+                }
+                break;
+            case 1:
+                for(int i = 0; i < players.length; i++){
+                    if(players[i] == player && i != (players.length - 1)){
+                        players[i+1].changeFood(1);
+                    }
+                    else{
+                        players[0].changeFood(1);
+                    }
+                }
+                break;
+            case 2:
+                player.setEvolveCardSpdSiz(true);
+                break;
+            case 3:
+                player.setEvolveCardSenInt(true);
+                break;
+            case 4:
+                if(choice == 1){
+                    turn(player, -5);
+                }
+                else{
+                    player.changeFood(-1);
+                }
+                break;
+            case 5:
+                if(choice == 1){
+                    player.changeFood(-1);
+                }
+                else{
+                    player.move(-4);
+                }
+                break;
+            case 6:
+                if(choice == 1){
+                    turn(player, -2);
+                }
+                else{
+                    player.setLostTurns(1);
+                }
+                break;
+            case 7:
+                if(choice == 1){
+                    turn(player, 2);
+                }
+                else{
+                    player.setLostTurns(1);
+                }
+                break;
+            case 8:
+                if(choice == 1){
+                    for(int i = 0; i < players.length; i++){
+                        if(players[i] == player && i != (players.length - 1)){
+                            attack(player, players[i+1]);
+                        }
+                        else{
+                            attack(player, players[0]);
+                        }
+                    }
+                }
+                else{
+                    player.changeFood(-3);
+                }
+                break;
+            case 9:
+                player.changeFood(-2);
+                break;
+            case 10:
+                if(choice == 1){
+                    player.move(-3);
+                }
+                else{
+                    player.changeFood(-1);
+                }
+                break;
+            case 11:
+                if(choice == 1){
+                    player.changeFood(1);
+                }
+                else {
+                    int roll = (int)(Math.random() * 6 + 1);
+                    turn(player, roll);
+                }
+                break;
+            case 12:
+                if(choice == 1){
+                    for(int i = 0; i < players.length; i++){
+                        if(players[i] == player && i != (players.length - 1)){
+                            player.changeFood(1);
+                            players[i+1].changeFood(-1);
+                        }
+                        else{
+                            player.changeFood(1);
+                            players[0].changeFood(-1);
+                        }
+                    }
+                }
+                else{
+                    player.changeFood(2);
+                }
+                break;
+            case 13:
+                if(choice == 1){
+                    //return to previous habitat
+                    String currentHab = board[player.getLocation()].getHabitat();
+                    int count = 0;
+                    for(int i = player.getLocation(); board[i].getHabitat().equals(currentHab); i--){
+                        count--;
+                    }
+                    player.move(count);
+                }
+                else {
+                    player.changeFood(-2);
+                }
+                break;
+            case 14:
+                if(choice == 1){
+                    //move to next habitat
+                    String currentHab = board[player.getLocation()].getHabitat();
+                    int count = 0;
+                    for(int i = player.getLocation(); board[i].getHabitat().equals(currentHab); i++){
+                        count++;
+                    }
+                    player.move(count);
+                }
+                else {
+                    player.changeFood(1);
+                }
+                break;
+            case 15:
+                if(choice == 1){
+                    player.move(3);
+                }
+                else {
+                    player.changeFood(1);
+                }
+                break;
+            case 16:
+                if(choice == 1){
+                    //move to your next food square
+                    int count = 0;
+                    boolean isHerb = player.getDino().isHerbivore;
+                    String diet;
+                    if(isHerb){
+                        diet = "herbivore";
+                    }
+                    else{
+                        diet = "carnivore";
+                    }
+                    for(int i = player.getLocation(); !board[i].getType().equals(diet); i++){
+                        count++;
+                    }
+                    player.move(count);
+                }
+                else {
+                    int roll = (int)(Math.random() * 6 + 1);
+                    turn(player, roll);
+                }
+                break;
+            case 17:
+                if(choice == 1){
+                    for(int i = 0; i < players.length; i++){
+                        if(players[i] == player && i != (players.length - 1)){
+                            player.changeFood(-1);
+                            players[i+1].changeFood(1);
+                        }
+                        else{
+                            player.changeFood(-1);
+                            players[0].changeFood(1);
+                        }
+                    }
+                }
+                else{
+                    player.changeFood(-2);
+                }
+                break;
+            case 18:
+                if(choice == 1){
+                    //go back to previous disaster square and play it
+                    int count = 0;
+                    for(int i = player.getLocation(); !board[i].getType().equals("natural disaster"); i--){
+                        count--;
+                    }
+                    turn(player, count);
+                }
+                else {
+                    player.changeFood(-2);
+                }
+                break;
+            case 19:
+                if(choice == 1){
+                    player.changeFood(-1);
+                }
+                else {
+                    player.setLostTurns(1);
+                }
+                break;
+        }
     }
 }
