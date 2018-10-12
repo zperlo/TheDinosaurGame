@@ -7,7 +7,7 @@ public class Game {
         Dinosaur[] dinoCards = createDinoCards();
         NaturalDisasterDeck ndDeck = createNaturalDisasterDeck();
         AttackDeck aDeck = createAttackDeck();
-        ChallengeCardDeck cDeck = createChallengeCardDeck();
+        ChallengeDeck cDeck = createChallengeDeck();
         Player[] players = initializePlayers(dinoCards);
         Space[] board = createBoard();
 
@@ -28,7 +28,7 @@ public class Game {
     }
 
     // one player takes their turn
-    private static void turn(Player p, int roll, Space[] board, Player[] players, ChallengeCardDeck cDeck,
+    private static void turn(Player p, int roll, Space[] board, Player[] players, ChallengeDeck cDeck,
                             AttackDeck aDeck, NaturalDisasterDeck ndDeck) {
 
         // see if the player currently is on a lost turn
@@ -416,7 +416,7 @@ public class Game {
         return aDeck;
     }
 
-    private static ChallengeCardDeck createChallengeCardDeck(){
+    private static ChallengeDeck createChallengeDeck(){
         ChallengeCard cCard0 = new ChallengeCard("If you are in YOUR HABITAT: move ahead 5 spaces and play that square."
                 , "OR", "Receive 1 food token", 0, 1);
 
@@ -479,7 +479,7 @@ public class Game {
         ChallengeCard cCard19 = new ChallengeCard("Lose 1 food token.", "OR",
                 "Lose a turn.", 19, 0);
 
-        ChallengeCardDeck cDeck = new ChallengeCardDeck();
+        ChallengeDeck cDeck = new ChallengeDeck();
         cDeck.setDeck(0, cCard0);
         cDeck.setDeck(1, cCard1);
         cDeck.setDeck(2, cCard2);
@@ -505,7 +505,7 @@ public class Game {
     }
 
     private static void challengeByID(Player player, int id, int choice, Player[] players, Space[] board,
-                                     AttackDeck aDeck, ChallengeCardDeck cDeck, NaturalDisasterDeck ndDeck){
+                                     AttackDeck aDeck, ChallengeDeck cDeck, NaturalDisasterDeck ndDeck){
         //choice is 1 or 2
         switch(id){
             case 0:

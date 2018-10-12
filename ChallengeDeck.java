@@ -1,4 +1,4 @@
-public class ChallengeCardDeck {
+public class ChallengeDeck {
     private final int deckSize = 20;
     private ChallengeCard[] deck = new ChallengeCard[deckSize];
 
