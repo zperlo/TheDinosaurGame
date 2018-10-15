@@ -92,10 +92,12 @@ public class Game {
     // hardcode the board into game
     private static Space[] createBoard() {
 
-        Space[] board = new Space[110];
+        Space[] board = new Space[106];
+
+        // starting space
+        board[0] = new Space("forest", "start");
 
         // first leg of forest
-        board[0] = new Space("forest", "start");
         board[1] = new Space("forest", "herbivore");
         board[2] = new Space("forest", "carnivore");
         board[3] = new Space("forest", "carnivore");
@@ -139,6 +141,94 @@ public class Game {
         board[35] = new Space("desert", "herbivore");
         board[36] = new Space("desert", "natural disaster");
         board[37] = new Space("desert", "herbivore");
+
+        // back into the forest for bit
+        board[38] = new Space("forest", "challenge");
+        board[39] = new Space("forest", "herbivore");
+        board[40] = new Space("forest", "carnivore");
+        board[41] = new Space("forest", "natural disaster");
+        board[42] = new Space("forest", "danger zone");
+        board[43] = new Space("forest", "challenge");
+
+        // swamp middle leg
+        board[44] = new Space("swamp", "challenge");
+        board[45] = new Space("swamp", "carnivore");
+        board[46] = new Space("swamp", "natural disaster");
+        board[47] = new Space("swamp", "herbivore");
+        board[48] = new Space("swamp", "natural disaster");
+        board[49] = new Space("swamp", "challenge");
+        board[50] = new Space("swamp", "carnivore");
+        board[51] = new Space("swamp", "herbivore");
+
+        // forest big trek
+        board[52] = new Space("forest", "natural disaster");
+        board[53] = new Space("forest", "carnivore");
+        board[54] = new Space("forest", "natural disaster");
+        board[55] = new Space("forest", "herbivore");
+        board[56] = new Space("forest", "carnivore");
+        board[57] = new Space("forest", "natural disaster");
+        board[58] = new Space("forest", "challenge");
+        board[59] = new Space("forest", "herbivore");
+        board[60] = new Space("forest", "danger zone");
+        board[61] = new Space("forest", "natural disaster");
+
+        // first time in the plains
+        board[62] = new Space("plains", "carnivore");
+        board[63] = new Space("plains", "challenge");
+        board[64] = new Space("plains", "herbivore");
+        board[65] = new Space("plains", "natural disaster");
+        board[66] = new Space("plains", "carnivore");
+        board[67] = new Space("plains", "challenge");
+        board[68] = new Space("plains", "herbivore");
+        board[69] = new Space("plains", "danger zone");
+        board[70] = new Space("plains", "natural disaster");
+
+        // last bit in forest
+        board[71] = new Space("forest", "carnivore");
+        board[72] = new Space("forest", "herbivore");
+        board[73] = new Space("forest", "challenge");
+        board[74] = new Space("forest", "carnivore");
+
+        // back to the plains for a wee bit
+        board[75] = new Space("plains", "natural disaster");
+        board[76] = new Space("plains", "challenge");
+        board[77] = new Space("plains", "herbivore");
+        board[78] = new Space("plains", "carnivore");
+
+        // swamp time (tiny)
+        board[79] = new Space("swamp", "carnivore");
+        board[80] = new Space("swamp", "natural disaster");
+        board[81] = new Space("swamp", "challenge");
+        board[82] = new Space("swamp", "herbivore");
+
+        // last leg of the plains
+        board[83] = new Space("plains", "carnivore");
+        board[84] = new Space("plains", "danger zone");
+        board[85] = new Space("plains", "challenge");
+        board[86] = new Space("plains", "carnivore");
+        board[87] = new Space("plains", "herbivore");
+        board[88] = new Space("plains", "natural disaster");
+        board[89] = new Space("plains", "carnivore");
+        board[90] = new Space("plains", "challenge");
+        board[91] = new Space("plains", "herbivore");
+
+        // final part of game: top of swamp
+        board[92] = new Space("swamp", "carnivore");
+        board[93] = new Space("swamp", "natural disaster");
+        board[94] = new Space("swamp", "challenge");
+        board[95] = new Space("swamp", "herbivore");
+        board[96] = new Space("swamp", "carnivore");
+        board[97] = new Space("swamp", "natural disaster");
+        board[98] = new Space("swamp", "challenge");
+        board[99] = new Space("swamp", "carnivore");
+        board[100] = new Space("swamp", "carnivore");
+        board[101] = new Space("swamp", "natural disaster");
+        board[102] = new Space("swamp", "challenge");
+        board[103] = new Space("swamp", "danger zone");
+        board[104] = new Space("swamp", "herbivore");
+
+        // finish space
+        board[105] = new Space("swamp", "finish");
 
         return board;
     }
