@@ -16,11 +16,21 @@ public class Game {
             for (Player p: players) {
                 // roll to see how far to move, as if on a 6-sided die
                 int roll = (int)(Math.random() * 6 + 1);
+
+                System.out.println("\n\n" + p.getDino().getName() + " about to take a turn");
+
                 turn(p, roll, board, players, cDeck, aDeck, ndDeck);
                 for (Player e: players){
                     if(board[e.getLocation()].getType().equals("finish")){
-                        gameEnd = true;
+                        gameEnd = true; // this player won
+                        System.out.println( e.getDino() + " wins!");
+                        break;
                     }
+                }
+
+                // stop allowing players to take turns once someone wins
+                if (gameEnd) {
+                    break;
                 }
             }
         }
@@ -30,6 +40,8 @@ public class Game {
     // one player takes their turn
     private static void turn(Player p, int roll, Space[] board, Player[] players, ChallengeDeck cDeck,
                             AttackDeck aDeck, NaturalDisasterDeck ndDeck) {
+
+        String dinoName = p.getDino().getName();
 
         // see if the player currently is on a lost turn
         int lostTurns = p.getLostTurns();
@@ -48,32 +60,40 @@ public class Game {
             for (Player x: players){
                 if(x.getLocation() == p.getLocation() && x != p){
                     playSpace = false;
+                    System.out.println(dinoName + " is attacking " + x.getDino().getName());
                     attack(p, x, aDeck, board, false);
                 }
             }
 
+            // play the space if there was no attack event
             if(playSpace) {
                 switch (board[p.getLocation()].getType()) {
                     case "herbivore":
+                        System.out.println("herbivore space");
                         if (p.getDino().isHerbivore()) {
                             p.changeFood(1);
                         }
                         break;
                     case "carnivore":
+                        System.out.println("carnivore space");
                         if (!p.getDino().isHerbivore()) {
+                            System.out.println(dinoName + " gets a food token");
                             p.changeFood(1);
                         }
                         break;
                     case "challenge":
+                        System.out.println("challenge space");
                         ChallengeCard cCard = cDeck.draw();
                         int id = cCard.getId();
                         int choice = 1; // NEEDS TO GET FROM PLAYER CHOICE -- GUI
                         challengeByID(p, id, choice, players, board, aDeck, cDeck, ndDeck);
                         break;
                     case "natural disaster":
+                        System.out.println("natural disaster space");
                         naturalDisaster(p, ndDeck, board);
                         break;
                     case "danger zone":
+                        System.out.println("danger zone space");
                         //do danger zone stuff
                         break;
                 }
@@ -258,6 +278,10 @@ public class Game {
         for (int i = 0; i < playerCount; i++) {
             System.out.println("Player " + (i + 1) + " input the number for the dinosaur you want");
             int num = input.nextInt();
+            while (num > 15 || num <  0) {
+                System.out.println("Invalid dinosaur number. Input the number for the dinosaur you want (0 - 15)");
+                num = input.nextInt();
+            }
             chosenDinos[i] = num;
 
             // loop to prevent 2 players from choosing the same dinosaur.
@@ -267,6 +291,10 @@ public class Game {
                 if (chosenDinos[j] == num) {
                     System.out.println("Chosen dinosaur already chosen by a previous player. Choose another dinosaur");
                     num = input.nextInt();
+                    while (num > 15 || num <  0) {
+                        System.out.println("Invalid dinosaur number. Input the number for the dinosaur you want (0 - 15)");
+                        num = input.nextInt();
+                    }
                     chosenDinos[i] = num;
                     j = 0;
                 }
@@ -978,5 +1006,30 @@ public class Game {
                 p.changeFood(-1 * ndCard.getFoodLost());
             }
         }
+    }
+
+    private static void dangerZone(Player p, Space[] board) {
+
+        switch (p.getLocation()) {
+            case 22: // VOLCANO! go back 9 spaces
+                p.move(-9);
+                break;
+            case 42: // FLOOD! go back 8 spaces
+                p.move(-8);
+                break;
+            case 60: // EARTHQUAKE! lose 3 food tokens
+                p.changeFood(-3);
+                break;
+            case 69: // HOT! lose 4 food tokens
+                p.changeFood(-4);
+                break;
+            case 84: // LIGHTNING! lose 3 food tokens
+                p.changeFood(-3);
+                break;
+            case 103: // DISEASE! go back 8 spaces
+                p.move(-8);
+                break;
+        }
+
     }
 }
