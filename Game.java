@@ -17,13 +17,13 @@ public class Game {
                 // roll to see how far to move, as if on a 6-sided die
                 int roll = (int)(Math.random() * 6 + 1);
 
-                System.out.println("\n\n" + p.getDino().getName() + " about to take a turn");
+                System.out.println("\n\n" + p.getDino().getName() + " is about to take a turn");
 
                 turn(p, roll, board, players, cDeck, aDeck, ndDeck);
                 for (Player e: players){
                     if(board[e.getLocation()].getType().equals("finish")){
                         gameEnd = true; // this player won
-                        System.out.println( e.getDino() + " wins!");
+                        System.out.println( e.getDino().getName() + " wins!");
                         break;
                     }
                 }
@@ -737,12 +737,14 @@ public class Game {
             case 13:
                 if(choice == 1){
                     //return to previous habitat
-                    String currentHab = board[player.getLocation()].getHabitat();
-                    int count = 0;
-                    for(int i = player.getLocation(); board[i].getHabitat().equals(currentHab); i--){
-                        count--;
+                    if(player.getLocation() > 13) {
+                        String currentHab = board[player.getLocation()].getHabitat();
+                        int count = 0;
+                        for (int i = player.getLocation(); board[i].getHabitat().equals(currentHab); i--) {
+                            count--;
+                        }
+                        player.move(count);
                     }
-                    player.move(count);
                 }
                 else {
                     player.changeFood(-2);
@@ -751,12 +753,14 @@ public class Game {
             case 14:
                 if(choice == 1){
                     //move to next habitat
-                    String currentHab = board[player.getLocation()].getHabitat();
-                    int count = 0;
-                    for(int i = player.getLocation(); board[i].getHabitat().equals(currentHab); i++){
-                        count++;
+                    if(player.getLocation() < 92) {
+                        String currentHab = board[player.getLocation()].getHabitat();
+                        int count = 0;
+                        for (int i = player.getLocation(); board[i].getHabitat().equals(currentHab); i++) {
+                            count++;
+                        }
+                        player.move(count);
                     }
-                    player.move(count);
                 }
                 else {
                     player.changeFood(1);
@@ -782,10 +786,12 @@ public class Game {
                     else{
                         diet = "carnivore";
                     }
-                    for(int i = player.getLocation(); !board[i].getType().equals(diet); i++){
-                        count++;
+                    if(!(diet.equals("carnivore") && player.getLocation() > 100)) {
+                        for (int i = player.getLocation(); !board[i].getType().equals(diet); i++) {
+                            count++;
+                        }
+                        player.move(count);
                     }
-                    player.move(count);
                 }
                 else {
                     int roll = (int)(Math.random() * 6 + 1);
@@ -812,11 +818,13 @@ public class Game {
             case 18:
                 if(choice == 1){
                     //go back to previous disaster square and play it
-                    int count = 0;
-                    for(int i = player.getLocation(); !board[i].getType().equals("natural disaster"); i--){
-                        count--;
+                    if(player.getLocation() > 13) {
+                        int count = 0;
+                        for (int i = player.getLocation(); !board[i].getType().equals("natural disaster"); i--) {
+                            count--;
+                        }
+                        turn(player, count, board, players, cDeck, aDeck, ndDeck);
                     }
-                    turn(player, count, board, players, cDeck, aDeck, ndDeck);
                 }
                 else {
                     player.changeFood(-2);
@@ -840,27 +848,66 @@ public class Game {
         switch(statChecked) { //{"speed", "size", "intelligence", "defenses",
             //    "weapons", "senses", "ror", "ata", "habitat"}
             case "speed":
-                if (p1.getDino().getSpeed() > p2.getDino().getSpeed()) {
+                int p1spd, p2spd;
+                if(p1.isEvolveCardSpdSiz()){
+                    p1spd = 1;
+                }
+                else {
+                    p1spd = p1.getDino().getSpeed();
+                }
+                if(p2.isEvolveCardSpdSiz()){
+                    p2spd = 1;
+                }
+                else {
+                    p2spd = p2.getDino().getSpeed();
+                }
+                if (p1spd > p2spd) {
                     determinePenalty(p1, p2, aCard);
-                } else if (p1.getDino().getSpeed() < p2.getDino().getSpeed()) {
+                } else if (p1spd < p2spd) {
                     determinePenalty(p2, p1, aCard);
                 } else {
                     tie = true;
                 }
                 break;
             case "size":
-                if (p1.getDino().getSize() > p2.getDino().getSize()) {
+                int p1siz, p2siz;
+                if(p1.isEvolveCardSpdSiz()){
+                    p1siz = 1;
+                }
+                else {
+                    p1siz = p1.getDino().getSize();
+                }
+                if(p2.isEvolveCardSpdSiz()){
+                    p2siz = 1;
+                }
+                else {
+                    p2siz = p2.getDino().getSize();
+                }
+                if (p1siz > p2siz) {
                     determinePenalty(p1, p2, aCard);
-                } else if (p1.getDino().getSize() < p2.getDino().getSize()) {
+                } else if (p1siz < p2siz) {
                     determinePenalty(p2, p1, aCard);
                 } else {
                     tie = true;
                 }
                 break;
             case "intelligence":
-                if (p1.getDino().getIntelligence() > p2.getDino().getIntelligence()) {
+                int p1int, p2int;
+                if(p1.isEvolveCardSenInt()){
+                    p1int = 1;
+                }
+                else {
+                    p1int = p1.getDino().getIntelligence();
+                }
+                if(p2.isEvolveCardSenInt()){
+                    p2int = 1;
+                }
+                else {
+                    p2int = p2.getDino().getIntelligence();
+                }
+                if (p1int > p2int) {
                     determinePenalty(p1, p2, aCard);
-                } else if (p1.getDino().getIntelligence() < p2.getDino().getIntelligence()) {
+                } else if (p1int < p2int) {
                     determinePenalty(p2, p1, aCard);
                 } else {
                     tie = true;
@@ -885,9 +932,22 @@ public class Game {
                 }
                 break;
             case "senses":
-                if (p1.getDino().getSenses() > p2.getDino().getSenses()) {
+                int p1sen, p2sen;
+                if(p1.isEvolveCardSenInt()){
+                    p1sen = 1;
+                }
+                else {
+                    p1sen = p1.getDino().getSenses();
+                }
+                if(p2.isEvolveCardSenInt()){
+                    p2sen = 1;
+                }
+                else {
+                    p2sen = p2.getDino().getSenses();
+                }
+                if (p1sen > p2sen) {
                     determinePenalty(p1, p2, aCard);
-                } else if (p1.getDino().getSenses() < p2.getDino().getSenses()) {
+                } else if (p1sen < p2sen) {
                     determinePenalty(p2, p1, aCard);
                 } else {
                     tie = true;
@@ -961,13 +1021,28 @@ public class Game {
             int pStat;
             switch (statChecked){
                 case "speed":
-                    pStat = p.getDino().getSpeed();
+                    if(p.isEvolveCardSpdSiz()){
+                        pStat = 1;
+                    }
+                    else {
+                        pStat = p.getDino().getSpeed();
+                    }
                     break;
                 case "size":
-                    pStat = p.getDino().getSize();
+                    if(p.isEvolveCardSpdSiz()){
+                        pStat = 1;
+                    }
+                    else {
+                        pStat = p.getDino().getSize();
+                    }
                     break;
                 case "intelligence":
-                    pStat = p.getDino().getIntelligence();
+                    if(p.isEvolveCardSenInt()){
+                        pStat = 1;
+                    }
+                    else {
+                        pStat = p.getDino().getIntelligence();
+                    }
                     break;
                 case "defenses":
                     pStat = p.getDino().getDefenses();
@@ -976,7 +1051,12 @@ public class Game {
                     pStat = p.getDino().getWeapons();
                     break;
                 case "senses":
-                    pStat = p.getDino().getSenses();
+                    if(p.isEvolveCardSenInt()){
+                        pStat = 1;
+                    }
+                    else {
+                        pStat = p.getDino().getSenses();
+                    }
                     break;
                 case "ror":
                     pStat = p.getDino().getRor();
@@ -1008,7 +1088,7 @@ public class Game {
         }
     }
 
-    private static void dangerZone(Player p, Space[] board) {
+    private static void dangerZone(Player p) {
 
         switch (p.getLocation()) {
             case 22: // VOLCANO! go back 9 spaces
