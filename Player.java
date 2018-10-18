@@ -5,6 +5,8 @@ public class Player {
     private boolean evolveCardSenInt = false;
     private boolean evolveCardSpdSiz = false;
     private int lostTurns = 0;
+    private boolean secondChance = true;
+    private boolean isExtinct = false;
 
     public Player(Dinosaur myDino, int foodTokens){
         this.myDino = myDino;
@@ -35,6 +37,14 @@ public class Player {
         return lostTurns;
     }
 
+    public boolean getSecondChance() {
+        return secondChance;
+    }
+
+    public boolean isExtinct() {
+        return isExtinct;
+    }
+
     public void move(int numSpaces){
         // allow player to move so long as they don't go past the finish space
         if (location + numSpaces <= 105) {
@@ -44,7 +54,7 @@ public class Player {
         // They get a chance to make it to the finish next turn if they roll the correct number
 
         // if the player went behind the start space, put them back on the start space
-        else if (location < 0) {
+        else if ((location + numSpaces) < 0) {
             location = 0;
         }
     }
@@ -63,5 +73,17 @@ public class Player {
 
     public void setLostTurns(int newLostTurns) {
         lostTurns = newLostTurns;
+    }
+
+    public void setSecondChance(boolean secondChance) {
+        this.secondChance = secondChance;
+    }
+
+    public void setFoodTokens(int foodTokens) {
+        this.foodTokens = foodTokens;
+    }
+
+    public void setExtinct(boolean extinct) {
+        isExtinct = extinct;
     }
 }

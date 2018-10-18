@@ -14,23 +14,47 @@ public class Game {
         boolean gameEnd = false;
         while(!gameEnd) {
             for (Player p: players) {
-                // roll to see how far to move, as if on a 6-sided die
-                int roll = (int)(Math.random() * 6 + 1);
+                if (!p.isExtinct()) {
+                    // roll to see how far to move, as if on a 6-sided die
+                    int roll = (int) (Math.random() * 6 + 1);
 
-                System.out.println("\n\n" + p.getDino().getName() + " is about to take a turn");
+                    System.out.println("\n\n" + p.getDino().getName() + " is about to take a turn");
 
-                turn(p, roll, board, players, cDeck, aDeck, ndDeck);
-                for (Player e: players){
-                    if(board[e.getLocation()].getType().equals("finish")){
-                        gameEnd = true; // this player won
-                        System.out.println( e.getDino().getName() + " wins!");
+                    turn(p, roll, board, players, cDeck, aDeck, ndDeck);
+
+                    if (p.getFoodTokens() <= 0) {
+                        System.out.println(p.getDino().getName() + " has run out of food tokens!");
+                        if (p.getSecondChance()) {
+                            p.setSecondChance(false);
+                            p.move(-10);
+                            p.setFoodTokens(3);
+                            System.out.println(p.getDino().getName() + " got a second chance!");
+                        } else {
+                            System.out.println(p.getDino().getName() + " is extinct!");
+                            p.setExtinct(true);
+                        }
+                    }
+
+                    for (Player c : players) {
+                        if(!c.isExtinct()) {
+                            System.out.println(c.getDino().getName() + " is at position " + c.getLocation() + " with food tokens " + c.getFoodTokens());
+                        }
+                    }
+
+                    for (Player e : players) {
+                        if(!e.isExtinct()) {
+                            if (board[e.getLocation()].getType().equals("finish")) {
+                                gameEnd = true; // this player won
+                                System.out.println(e.getDino().getName() + " wins!");
+                                break;
+                            }
+                        }
+                    }
+
+                    // stop allowing players to take turns once someone wins
+                    if (gameEnd) {
                         break;
                     }
-                }
-
-                // stop allowing players to take turns once someone wins
-                if (gameEnd) {
-                    break;
                 }
             }
         }
@@ -55,10 +79,10 @@ public class Game {
             // have player move on board
             p.move(roll);
 
-            // run the encounter on that space
+            // check for attack event
             boolean playSpace = true;
             for (Player x: players){
-                if(x.getLocation() == p.getLocation() && x != p){
+                if(x.getLocation() == p.getLocation() && x != p && !x.isExtinct()){
                     playSpace = false;
                     System.out.println(dinoName + " is attacking " + x.getDino().getName());
                     attack(p, x, aDeck, board, false);
@@ -71,6 +95,7 @@ public class Game {
                     case "herbivore":
                         System.out.println("herbivore space");
                         if (p.getDino().isHerbivore()) {
+                            System.out.println(dinoName + " gets a food token");
                             p.changeFood(1);
                         }
                         break;
@@ -94,7 +119,7 @@ public class Game {
                         break;
                     case "danger zone":
                         System.out.println("danger zone space");
-                        //do danger zone stuff
+                        dangerZone(p);
                         break;
                 }
             }
@@ -636,10 +661,10 @@ public class Game {
                 break;
             case 1:
                 for(int i = 0; i < players.length; i++){
-                    if(players[i] == player && i != (players.length - 1)){
+                    if(players[i] == player && i != (players.length - 1) && !players[i].isExtinct()){
                         players[i+1].changeFood(1);
                     }
-                    else{
+                    else if(!players[0].isExtinct()){
                         players[0].changeFood(1);
                     }
                 }
@@ -685,10 +710,10 @@ public class Game {
             case 8:
                 if(choice == 1){
                     for(int i = 0; i < players.length; i++){
-                        if(players[i] == player && i != (players.length - 1)){
+                        if(players[i] == player && i != (players.length - 1) && !players[i].isExtinct()){
                             attack(player, players[i+1], aDeck, board, false);
                         }
-                        else{
+                        else if(!players[0].isExtinct()){
                             attack(player, players[0], aDeck, board, false);
                         }
                     }
@@ -720,11 +745,11 @@ public class Game {
             case 12:
                 if(choice == 1){
                     for(int i = 0; i < players.length; i++){
-                        if(players[i] == player && i != (players.length - 1)){
+                        if(players[i] == player && i != (players.length - 1) && !players[i].isExtinct()){
                             player.changeFood(1);
                             players[i+1].changeFood(-1);
                         }
-                        else{
+                        else if(!players[0].isExtinct()){
                             player.changeFood(1);
                             players[0].changeFood(-1);
                         }
@@ -801,11 +826,11 @@ public class Game {
             case 17:
                 if(choice == 1){
                     for(int i = 0; i < players.length; i++){
-                        if(players[i] == player && i != (players.length - 1)){
+                        if(players[i] == player && i != (players.length - 1) && !players[i].isExtinct()){
                             player.changeFood(-1);
                             players[i+1].changeFood(1);
                         }
-                        else{
+                        else if(!players[0].isExtinct()){
                             player.changeFood(-1);
                             players[0].changeFood(1);
                         }
