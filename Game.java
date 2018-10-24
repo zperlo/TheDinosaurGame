@@ -20,6 +20,15 @@ public class Game {
 
                     System.out.println("\n\n" + p.getDino().getName() + " is about to take a turn");
 
+                    Scanner input = new Scanner(System.in);
+                    System.out.println("Please enter r to roll:");
+                    String playerInput = input.nextLine();
+                    while(!playerInput.equals("r")){
+                        System.out.println("Please enter r to roll:");
+                        playerInput = input.nextLine();
+                    }
+                    System.out.println(p.getDino().getName() + " rolled a " + roll);
+
                     turn(p, roll, board, players, cDeck, aDeck, ndDeck);
 
                     if (p.getFoodTokens() <= 0) {
@@ -109,8 +118,13 @@ public class Game {
                     case "challenge":
                         System.out.println("challenge space");
                         ChallengeCard cCard = cDeck.draw();
+                        System.out.println(cCard.getChoice1());
+                        System.out.println(cCard.getMiddlePara());
+                        System.out.println(cCard.getChoice2());
+                        System.out.println("Enter 1 for option 1, or 2 for option 2. Please enter the number 1 if there is no choice.");
+                        Scanner input = new Scanner(System.in);
                         int id = cCard.getId();
-                        int choice = 1; // NEEDS TO GET FROM PLAYER CHOICE -- GUI
+                        int choice = input.nextInt(); // NEEDS TO GET FROM PLAYER CHOICE -- GUI
                         challengeByID(p, id, choice, players, board, aDeck, cDeck, ndDeck);
                         break;
                     case "natural disaster":
@@ -868,6 +882,8 @@ public class Game {
 
     public static void attack(Player p1, Player p2, AttackDeck aDeck, Space[] board, boolean prev){
         AttackCard aCard = aDeck.draw();
+        System.out.println(aCard.getPara1());
+        System.out.println(aCard.getPara2());
         String statChecked = aCard.getStat();
         boolean tie = false;
         switch(statChecked) { //{"speed", "size", "intelligence", "defenses",
@@ -1034,6 +1050,9 @@ public class Game {
 
     public static void naturalDisaster(Player p, NaturalDisasterDeck ndDeck, Space[] board){
         NaturalDisasterCard ndCard = ndDeck.draw();
+        System.out.println(ndCard.getPara1());
+        System.out.println(ndCard.getPara2());
+        System.out.println(ndCard.getPara3());
         boolean safe = false;
         boolean none = false;
         if(ndCard.getHabitatSafe()){
@@ -1117,21 +1136,27 @@ public class Game {
 
         switch (p.getLocation()) {
             case 22: // VOLCANO! go back 9 spaces
+                System.out.println("VOLCANO! go back 9 spaces");
                 p.move(-9);
                 break;
             case 42: // FLOOD! go back 8 spaces
+                System.out.println("FLOOD! go back 8 spaces");
                 p.move(-8);
                 break;
             case 60: // EARTHQUAKE! lose 3 food tokens
+                System.out.println("EARTHQUAKE! lose 3 food tokens");
                 p.changeFood(-3);
                 break;
             case 69: // HOT! lose 4 food tokens
+                System.out.println("HOT! lose 4 food tokens");
                 p.changeFood(-4);
                 break;
             case 84: // LIGHTNING! lose 3 food tokens
+                System.out.println("LIGHTNING! lose 3 food tokens");
                 p.changeFood(-3);
                 break;
             case 103: // DISEASE! go back 8 spaces
+                System.out.println("DISEASE! go back 8 spaces");
                 p.move(-8);
                 break;
         }
