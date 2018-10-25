@@ -1,14 +1,10 @@
-/*import org.junit.Test;
+import org.junit.Test;
 import static org.junit.Assert.assertEquals;
 
-public class TestGame {
+public class TestGame { //when TestGame file is run, it runs all test methods, no main method
 
     private Player p = new Player(new Dinosaur("Styracosaurus", true, "Forest",0,-1,
             1, -1,-1,1,0,0), 5);
-
-    public static void main(){
-
-    }
 
     @Test public void testTurn(){
 
@@ -71,4 +67,4 @@ public class TestGame {
         postLocation = p.getLocation();
         assertEquals(prevLocation - 8, postLocation);
     }
-}*/
+}

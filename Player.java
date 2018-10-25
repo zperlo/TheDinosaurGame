@@ -46,17 +46,18 @@ public class Player {
     }
 
     public void move(int numSpaces){
-        // allow player to move so long as they don't go past the finish space
-        if (location + numSpaces <= 105) {
-            location = location + numSpaces;
-        }
-        // if they were to move past the finish, don't let them move at all.
-        // They get a chance to make it to the finish next turn if they roll the correct number
-
         // if the player went behind the start space, put them back on the start space
-        else if ((location + numSpaces) < 0) {
+        if ((location + numSpaces) < 0) {
             location = 0;
         }
+
+        // allow player to move so long as they don't go past the finish space
+        else if (location + numSpaces <= 105) {
+            location = location + numSpaces;
+        }
+
+        // if they were to move past the finish, don't let them move at all.
+        // They get a chance to make it to the finish next turn if they roll the correct number
     }
 
     public void changeFood(int numChange){
