@@ -62,7 +62,7 @@ public class Game_GUI {
     }
 
     // one player takes their turn
-    private static void turn(Player p, int roll, Space[] board, Player[] players, ChallengeDeck cDeck,
+    public static void turn(Player p, int roll, Space[] board, Player[] players, ChallengeDeck cDeck,
                             AttackDeck aDeck, NaturalDisasterDeck ndDeck) {
 
         String dinoName = p.getDino().getName();
@@ -135,7 +135,7 @@ public class Game_GUI {
     }
 
     // hardcode the board into game
-    private static Space[] createBoard() {
+    public static Space[] createBoard() {
 
         Space[] board = new Space[106];
 
@@ -279,7 +279,7 @@ public class Game_GUI {
     }
 
     // get player dino choices from user input and initialize players
-    private static Player[] initializePlayers(Dinosaur[] dinoCards) {
+    public static Player[] initializePlayers(Dinosaur[] dinoCards) {
 
         // take in input for how many players
         Scanner input = new Scanner(System.in);
@@ -333,7 +333,7 @@ public class Game_GUI {
     }
 
     // create an array of all dinosaurs
-    private static Dinosaur[] createDinoCards() {
+    public static Dinosaur[] createDinoCards() {
         Dinosaur[] dinoCards = new Dinosaur[16];
 
         dinoCards[0] = new Dinosaur("Velociraptor", false, "Desert", 1,-1,
@@ -373,7 +373,7 @@ public class Game_GUI {
     }
 
     // Creating the Natural Disaster Card Deck
-    private static NaturalDisasterDeck createNaturalDisasterDeck() {
+    public static NaturalDisasterDeck createNaturalDisasterDeck() {
         NaturalDisasterCard card0 = new NaturalDisasterCard("SLIM PICKINGS!",
                 "FAMINE: Food is getting hard to find. Are your senses sharp enough to find food?",
                 "If your SENSES are average (0) or below average (-) lose 2 food tokens.",
@@ -480,7 +480,7 @@ public class Game_GUI {
     }
 
     // create the attack card deck
-    private static AttackDeck createAttackDeck() {
+    public static AttackDeck createAttackDeck() {
         AttackCard aCard0 = new AttackCard("The dinosaur with the LEAST WEAPONS loses.",
                 "The loser moves back 3 spaces.", "weapons", "move", 3, 0);
         AttackCard aCard1 = new AttackCard("The dinosaur with the BEST ABILITY TO ADAPT survives.",
@@ -559,7 +559,7 @@ public class Game_GUI {
         return aDeck;
     }
 
-    private static ChallengeDeck createChallengeDeck(){
+    public static ChallengeDeck createChallengeDeck(){
         ChallengeCard cCard0 = new ChallengeCard("If you are in YOUR HABITAT: move ahead 5 spaces and play that square."
                 , "OR", "Receive 1 food token", 0, 1);
 
@@ -647,7 +647,7 @@ public class Game_GUI {
         return cDeck;
     }
 
-    private static void challengeByID(Player player, int id, int choice, Player[] players, Space[] board,
+    public static void challengeByID(Player player, int id, int choice, Player[] players, Space[] board,
                                      AttackDeck aDeck, ChallengeDeck cDeck, NaturalDisasterDeck ndDeck){
         //choice is 1 or 2
         switch(id){
@@ -866,7 +866,7 @@ public class Game_GUI {
         }
     }
 
-    private static void attack(Player p1, Player p2, AttackDeck aDeck, Space[] board, boolean prev){
+    public static void attack(Player p1, Player p2, AttackDeck aDeck, Space[] board, boolean prev){
         AttackCard aCard = aDeck.draw();
         String statChecked = aCard.getStat();
         boolean tie = false;
@@ -1014,7 +1014,7 @@ public class Game_GUI {
         }
     }
 
-    private static void determinePenalty(Player p1, Player p2, AttackCard aCard){
+    public static void determinePenalty(Player p1, Player p2, AttackCard aCard){
         if (aCard.getWinner() == 0) {
             if (aCard.getPenalty().equals("food")) {
                 p2.changeFood(-1);
@@ -1032,7 +1032,7 @@ public class Game_GUI {
         }
     }
 
-    private static void naturalDisaster(Player p, NaturalDisasterDeck ndDeck, Space[] board){
+    public static void naturalDisaster(Player p, NaturalDisasterDeck ndDeck, Space[] board){
         NaturalDisasterCard ndCard = ndDeck.draw();
         boolean safe = false;
         boolean none = false;
@@ -1113,7 +1113,7 @@ public class Game_GUI {
         }
     }
 
-    private static void dangerZone(Player p) {
+    public static void dangerZone(Player p) {
 
         switch (p.getLocation()) {
             case 22: // VOLCANO! go back 9 spaces
