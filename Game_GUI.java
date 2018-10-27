@@ -1037,7 +1037,7 @@ public class Game_GUI {
         boolean safe = false;
         boolean none = false;
         if(ndCard.getHabitatSafe()){
-            if(board[p.getLocation()].getHabitat().equals(p.getDino().getHabitat())){
+            if(board[p.getLocation()].getHabitat().equalsIgnoreCase(p.getDino().getHabitat())){
                 safe = true;
             }
         }
