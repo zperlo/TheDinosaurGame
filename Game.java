@@ -20,7 +20,7 @@ public class Game {
 
                     System.out.println("\n\n" + p.getDino().getName() + " is about to take a turn");
 
-                    Scanner input = new Scanner(System.in);
+                   Scanner input = new Scanner(System.in);
                     System.out.println("Please enter r to roll:");
                     String playerInput = input.nextLine();
                     while(!playerInput.equals("r")){
@@ -95,6 +95,7 @@ public class Game {
                     playSpace = false;
                     System.out.println(dinoName + " is attacking " + x.getDino().getName());
                     attack(p, x, aDeck, board, false);
+                    break;
                 }
             }
 
@@ -137,15 +138,7 @@ public class Game {
                         break;
                 }
             }
-            for (Player x: players){
-                if(x.getLocation() == p.getLocation() && x != p){
-                    attack(p, x, aDeck, board, false);
-                }
-            }
-
-
         }
-
     }
 
     // hardcode the board into game
@@ -779,7 +772,7 @@ public class Game {
                     if(player.getLocation() > 13) {
                         String currentHab = board[player.getLocation()].getHabitat();
                         int count = 0;
-                        for (int i = player.getLocation(); board[i].getHabitat().equals(currentHab); i--) {
+                        for (int i = player.getLocation(); board[i].getHabitat().equalsIgnoreCase(currentHab); i--) {
                             count--;
                         }
                         player.move(count);
@@ -795,7 +788,7 @@ public class Game {
                     if(player.getLocation() < 92) {
                         String currentHab = board[player.getLocation()].getHabitat();
                         int count = 0;
-                        for (int i = player.getLocation(); board[i].getHabitat().equals(currentHab); i++) {
+                        for (int i = player.getLocation(); board[i].getHabitat().equalsIgnoreCase(currentHab); i++) {
                             count++;
                         }
                         player.move(count);
@@ -825,8 +818,8 @@ public class Game {
                     else{
                         diet = "carnivore";
                     }
-                    if(!(diet.equals("carnivore") && player.getLocation() > 100)) {
-                        for (int i = player.getLocation(); !board[i].getType().equals(diet); i++) {
+                    if(!(diet.equalsIgnoreCase("carnivore") && player.getLocation() > 100)) {
+                        for (int i = player.getLocation(); !board[i].getType().equalsIgnoreCase(diet); i++) {
                             count++;
                         }
                         player.move(count);
@@ -885,6 +878,7 @@ public class Game {
         System.out.println(aCard.getPara1());
         System.out.println(aCard.getPara2());
         String statChecked = aCard.getStat();
+        System.out.println("Prev = " + prev);
         boolean tie = false;
         switch(statChecked) { //{"speed", "size", "intelligence", "defenses",
             //    "weapons", "senses", "ror", "ata", "habitat"}
@@ -1013,11 +1007,11 @@ public class Game {
                 }
                 break;
             case "habitat":
-                if (board[p1.getLocation()].getHabitat().equals(p1.getDino().getHabitat()) &&
-                        !board[p2.getLocation()].getHabitat().equals(p2.getDino().getHabitat())) {
+                if (board[p1.getLocation()].getHabitat().equalsIgnoreCase(p1.getDino().getHabitat()) &&
+                        !board[p2.getLocation()].getHabitat().equalsIgnoreCase(p2.getDino().getHabitat())) {
                     determinePenalty(p1, p2, aCard);
-                } else if (!board[p1.getLocation()].getHabitat().equals(p1.getDino().getHabitat()) &&
-                        board[p2.getLocation()].getHabitat().equals(p2.getDino().getHabitat())) {
+                } else if (!board[p1.getLocation()].getHabitat().equalsIgnoreCase(p1.getDino().getHabitat()) &&
+                        board[p2.getLocation()].getHabitat().equalsIgnoreCase(p2.getDino().getHabitat())) {
                     determinePenalty(p2, p1, aCard);
                 } else {
                     tie = true;
