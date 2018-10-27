@@ -1060,7 +1060,7 @@ public class Game {
                 safe = true;
             }
         }
-        else{
+        if(!safe){
             String statChecked = ndCard.getStat();
             int pStat;
             switch (statChecked){
