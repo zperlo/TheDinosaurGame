@@ -20,6 +20,9 @@ public class TestGame_GUI { //when TestGame_GUI file is run, it runs all test me
     }
 
     @Test public void testDeterminePenalty(){
+        //make p1
+        //make p2
+        //make attack cards with different (win/lose) (movement/tokens)
 
     }
 
@@ -37,7 +40,8 @@ public class TestGame_GUI { //when TestGame_GUI file is run, it runs all test me
             ndDeck1.setDeck(i, card1);
 
         NaturalDisasterDeck ndDeck2 = new NaturalDisasterDeck();
-        NaturalDisasterCard card2 = new NaturalDisasterCard("", "", "", true, "none");
+        NaturalDisasterCard card2 = new NaturalDisasterCard("OOPS!", "QUICKSAND! You fell into " +
+                "quicksand.", "You are stuck for 2 turns.", true, "none");
         for(int i = 0; i < 20; i++)
             ndDeck2.setDeck(i, card2);
         //make my own decks for different types for penalties
@@ -57,7 +61,9 @@ public class TestGame_GUI { //when TestGame_GUI file is run, it runs all test me
         Game_GUI.naturalDisaster(p2, ndDeck1, board);
         assertEquals(food2 - 2, p2.getFoodTokens());
 
-        System.out.println(board[0].getHabitat());
+        System.out.println(board[p2.getLocation()].getHabitat());
+        System.out.println(p2.getDino().getHabitat());
+        System.out.println(board[p2.getLocation()].getHabitat().equalsIgnoreCase(p2.getDino().getHabitat()));
         Game_GUI.naturalDisaster(p1, ndDeck2, board);
         assertEquals(turns1, p1.getLostTurns());
         Game_GUI.naturalDisaster(p2, ndDeck2, board);
