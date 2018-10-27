@@ -1,4 +1,4 @@
-/*import org.junit.Test;
+import org.junit.Test;
 import static org.junit.Assert.assertEquals;
 
 public class TestGame { //when TestGame file is run, it runs all test methods, no main method
@@ -67,4 +67,4 @@ public class TestGame { //when TestGame file is run, it runs all test methods, n
         postLocation = p.getLocation();
         assertEquals(prevLocation - 8, postLocation);
     }
-}*/
+}

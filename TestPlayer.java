@@ -1,4 +1,4 @@
-/*import org.junit.Test;
+import org.junit.Test;
 import static org.junit.Assert.assertEquals;
 
 public class TestPlayer {
@@ -93,4 +93,4 @@ public class TestPlayer {
         examplePlayer.setExtinct(isExtinct);
         assertEquals(isExtinct, examplePlayer.isExtinct());
     }
-}*/
+}
