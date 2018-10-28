@@ -1,5 +1,6 @@
 import org.junit.Test;
 import static org.junit.Assert.assertEquals;
+import java.io.*;
 
 public class TestGame_GUI { //when TestGame_GUI file is run, it runs all test methods, no main method
 
@@ -21,6 +22,12 @@ public class TestGame_GUI { //when TestGame_GUI file is run, it runs all test me
      */
 
     @Test public void testInitializePlayers(){
+
+
+        String input = "5";
+        InputStream in = new ByteArrayInputStream(input.getBytes());
+        System.setIn(in);
+
         Dinosaur[] dinos = Game.createDinoCards();
         Player[] players;
 
