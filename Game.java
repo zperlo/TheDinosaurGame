@@ -878,7 +878,8 @@ public class Game {
         System.out.println(aCard.getPara1());
         System.out.println(aCard.getPara2());
         String statChecked = aCard.getStat();
-        System.out.println("Prev = " + prev);
+
+        //System.out.println("Prev = " + prev);
         boolean tie = false;
         switch(statChecked) { //{"speed", "size", "intelligence", "defenses",
             //    "weapons", "senses", "ror", "ata", "habitat"}

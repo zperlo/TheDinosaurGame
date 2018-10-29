@@ -1,6 +1,5 @@
 import org.junit.Test;
 import static org.junit.Assert.assertEquals;
-import java.io.*;
 
 public class TestGame_GUI { //when TestGame_GUI file is run, it runs all test methods, no main method
 
@@ -8,34 +7,7 @@ public class TestGame_GUI { //when TestGame_GUI file is run, it runs all test me
 
     }
 
-    /*
-    @Test
-    public void shouldTakeUserInput() {
-        InputOutput inputOutput= new InputOutput();
-
-        String input = "add 5";
-        InputStream in = new ByteArrayInputStream(input.getBytes());
-        System.setIn(in);
-
-        assertEquals("add 5", inputOutput.getInput());
-    }
-     */
-
     @Test public void testInitializePlayers(){
-        Dinosaur[] dinos = Game.createDinoCards();
-        String input = "5\n0\n1\n16\n-1\n5";
-        //5 and 0 are illegal values for # of players but 1 is
-        //16 and -1 are illegal values for which dino, but 5 is
-        InputStream in0 = new ByteArrayInputStream(input.getBytes());
-        System.setIn(in0);
-        Player[] players = Game.initializePlayers(dinos);
-
-
-        input = "2\n0,1";
-        InputStream in1 = new ByteArrayInputStream(input.getBytes());
-        System.setIn(in1);
-        players = Game.initializePlayers(dinos);
-
 
     }
 
