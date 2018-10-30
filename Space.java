@@ -3,7 +3,7 @@
  *
  * @author Dylan Briggs
  * @version 1.0
- * @since 2018-10-4
+ * @since 2018-10-8
  */
 
 public class Space {

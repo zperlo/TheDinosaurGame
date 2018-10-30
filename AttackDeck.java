@@ -1,12 +1,30 @@
 import java.util.Queue;
 import java.util.LinkedList;
 
+/**
+ * This is a class that represents a deck of attack cards.
+ * It stores all AttackCard objects in an array, and uses a
+ * queue to store the order of the shuffled cards.
+ *
+ * @author Zach Perlo
+ * @version 1.0
+ * @since 2018-10-26
+ */
 public class AttackDeck {
     private final int deckSize = 20;
     private AttackCard[] deck = new AttackCard[deckSize];
     private Queue<AttackCard> shuffledDeck = new LinkedList<>();
 
-    public AttackCard draw() { //later implement to randomize and put in stack so no repeats
+    /**
+     * This method draws a card from the shuffled deck queue.
+     * If the queue is empty we call shuffleDeck() to refill the shuffledDeck
+     * queue in a new randomized order than before.
+     * @return The top attack card in the queue.
+     * @see AttackCard
+     * @see java.util.Queue
+     * @see java.util.LinkedList
+     */
+    public AttackCard draw() {
         if(shuffledDeck.isEmpty()){
             shuffleDeck();
         }
@@ -17,6 +35,13 @@ public class AttackDeck {
         this.deck[index] = card;
     }
 
+    /**
+     * This method populates the shuffledDeck queue with every attack card in deck,
+     * in a random order.
+     * @see AttackCard
+     * @see java.util.Queue
+     * @see java.util.LinkedList
+     */
     public void shuffleDeck(){
         AttackCard[] tempDeck = deck.clone();
         while(shuffledDeck.size() < deckSize) {

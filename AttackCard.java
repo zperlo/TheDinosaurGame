@@ -5,7 +5,7 @@
  *
  * @author Zach Perlo
  * @version 1.0
- * @since 2018-9-20
+ * @since 2018-10-26
  */
 
 public class AttackCard {

@@ -3,7 +3,7 @@
  *
  * @author Tyler Anderson
  * @version 1.0
- * @since 2018-9-14
+ * @since 2018-10-18
  */
 public class Player {
     private Dinosaur myDino;

@@ -7,15 +7,15 @@
  *
  * @author Tyler Anderson
  * @version 1.0
- * @since 2018-9-23
+ * @since 2018-10-12
  */
 
 public class ChallengeCard {
     private String choice1;
     private String middlePara; // for choice cards, this is "OR"
     private String choice2;
-    private int id;
-    private int type; // 0 - 3 for different types of challenge cards
+    private int id; // identification code unique to each card.
+    private int type; // 0 - 3 for different types of challenge cards. This is used by the GUI to display the card.
 
     /**
      * Constructor to initialize a challenge card.

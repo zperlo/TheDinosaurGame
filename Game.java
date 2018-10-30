@@ -1,7 +1,35 @@
 import java.util.Scanner;
 
-// central class to run game events
+/**
+ * This is the main, runnable class. It runs through all aspects of playing the game,
+ * including the setup phase where players choose dinosaurs, and running each turn of
+ * the game until it is over and there is a winner.
+ *
+ * @author Dylan Briggs, Zach Perlo, Tyler Anderson
+ * @version 1.13
+ * @since 2018-10-27
+ */
 public class Game {
+
+    /**
+     * Main method that runs through the game. It does the initialization phase of setting up
+     * all three decks, as well as the dinosaur cards. It also runs through the player
+     * setup phase, and sets up the game board. After this, it runs the main loop of the game
+     * that runs through a turn for each player until there is a winner and the game is over.
+     *
+     * @param args This is unused, just part of the java default runnable method main().
+     * @see Dinosaur
+     * @see NaturalDisasterDeck
+     * @see NaturalDisasterCard
+     * @see ChallengeDeck
+     * @see ChallengeCard
+     * @see AttackDeck
+     * @see AttackCard
+     * @see Player
+     * @see Space
+     * @see java.util.Scanner
+     * @see java.lang.Math
+     */
     public static void main(String[] args) {
 
         Dinosaur[] dinoCards = createDinoCards();
@@ -12,6 +40,8 @@ public class Game {
         Space[] board = createBoard();
 
         boolean gameEnd = false;
+
+        // main loop of the game
         while(!gameEnd) {
             for (Player p: players) {
                 if (!p.isExtinct()) {
@@ -20,7 +50,7 @@ public class Game {
 
                     System.out.println("\n\n" + p.getDino().getName() + " is about to take a turn");
 
-                   Scanner input = new Scanner(System.in);
+                    Scanner input = new Scanner(System.in);
                     System.out.println("Please enter r to roll:");
                     String playerInput = input.nextLine();
                     while(!playerInput.equals("r")){
@@ -70,7 +100,26 @@ public class Game {
 
     }
 
-    // one player takes their turn
+    /**
+     * A method for running a single turn for a single player.
+     *
+     * @param p The player who is taking a turn right now.
+     * @param roll The dice roll, an integer from 1 to 6, how far the player will move on this turn.
+     * @param board The game board.
+     * @param players The array storing all the players, including the one taking this turn.
+     * @param cDeck The deck of challenge cards.
+     * @param aDeck The deck of attack cards.
+     * @param ndDeck The deck of natural disaster cards.
+     * @see Dinosaur
+     * @see NaturalDisasterDeck
+     * @see NaturalDisasterCard
+     * @see ChallengeDeck
+     * @see ChallengeCard
+     * @see AttackDeck
+     * @see AttackCard
+     * @see Player
+     * @see Space
+     */
     public static void turn(Player p, int roll, Space[] board, Player[] players, ChallengeDeck cDeck,
                             AttackDeck aDeck, NaturalDisasterDeck ndDeck) {
 
@@ -141,7 +190,12 @@ public class Game {
         }
     }
 
-    // hardcode the board into game
+    /**
+     * Initializes the entire board, hardcoded in. This is hardcoded because
+     * there is no pattern or function to easily generate the given game board.
+     * @return The completed board as a Space array.
+     * @see Space
+     */
     public static Space[] createBoard() {
 
         Space[] board = new Space[106];
@@ -285,7 +339,15 @@ public class Game {
         return board;
     }
 
-    // get player dino choices from user input and initialize players
+    /**
+     * Get player dino choices from user input and initialize players array.
+     * @param dinoCards The array storing all possible dinosaurs the players
+     *                  have to choose from.
+     * @return An array storing all players, initialized with their chosen dinosaurs.
+     * @see Player
+     * @see Dinosaur
+     * @see java.util.Scanner
+     */
     public static Player[] initializePlayers(Dinosaur[] dinoCards) {
 
         // take in input for how many players
@@ -339,7 +401,12 @@ public class Game {
         return players;
     }
 
-    // create an array of all dinosaurs
+    /**
+     * Creates all dinosaurs. Hardcoded in as there is no way to easily generate all 16 by a function.
+     * Each dinosaur is initialized with all its attributes.
+     * @return An array storing all playable dinosaurs for players to choose from.
+     * @see Dinosaur
+     */
     public static Dinosaur[] createDinoCards() {
         Dinosaur[] dinoCards = new Dinosaur[16];
 

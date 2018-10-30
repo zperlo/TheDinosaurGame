@@ -3,7 +3,7 @@
  *
  * @author Dylan Briggs
  * @version 1.0
- * @since 2018-9-12
+ * @since 2018-10-11
  */
 
 public class Dinosaur {
