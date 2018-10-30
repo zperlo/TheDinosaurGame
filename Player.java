@@ -1,3 +1,10 @@
+/**
+ * Player is a class to represent a single player, including their dinosaur, location, and food tokens.
+ *
+ * @author Tyler Anderson
+ * @version 1.0
+ * @since 2018-9-14
+ */
 public class Player {
     private Dinosaur myDino;
     private int foodTokens;
@@ -8,9 +15,15 @@ public class Player {
     private boolean secondChance = true;
     private boolean isExtinct = false;
 
-    public Player(Dinosaur myDino, int foodTokens){
+    /**
+     * Constructor to initialize the player attributes.
+     * @param myDino This is the dinosaur that the player is playing as.
+     * @param foodTokens This is the number of food tokens the player starts with.
+     * @see Dinosaur
+     */
+    public Player(Dinosaur myDino, int foodTokens) {
         this.myDino = myDino;
-        this.foodTokens=foodTokens;
+        this.foodTokens = foodTokens;
     }
 
     public Dinosaur getDino(){
@@ -45,6 +58,11 @@ public class Player {
         return isExtinct;
     }
 
+    /**
+     * Moves the player numSpaces spaces. If numSpaces is positive, the player moves forward that many spaces.
+     * If numSpaces is negative, then the player moves backwards that many spaces.
+     * @param numSpaces This is how many spaces that a player moves.
+     */
     public void move(int numSpaces){
         // if the player went behind the start space, put them back on the start space
         if ((location + numSpaces) < 0) {
@@ -60,6 +78,11 @@ public class Player {
         // They get a chance to make it to the finish next turn if they roll the correct number
     }
 
+    /**
+     * Alters the player's count of food tokens. If numChange is positive, the player gains that many food tokens.
+     * If numChange is negative, then the player loses that many food tokens.
+     * @param numChange This is how many food tokens are added or taken away.
+     */
     public void changeFood(int numChange){
         foodTokens = foodTokens + numChange;
     }
