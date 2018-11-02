@@ -1,7 +1,11 @@
+import javax.swing.*;
 import java.util.Scanner;
 
 // central class to run game events
 public class Game_GUI {
+
+    static GamePanel gp;
+
     public static void main(String[] args) {
 
         Dinosaur[] dinoCards = createDinoCards();
@@ -11,6 +15,14 @@ public class Game_GUI {
         Player[] players = initializePlayers(dinoCards);
         Space[] board = createBoard();
 
+        JFrame frame = new JFrame("dinogame");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        gp = new  GamePanel(players);
+        frame.getContentPane().add(gp);
+        frame.pack();
+        frame.setVisible(true);
+        Scanner enter = new Scanner(System.in);
+
         boolean gameEnd = false;
         while(!gameEnd) {
             for (Player p: players) {
@@ -18,9 +30,11 @@ public class Game_GUI {
                     // roll to see how far to move, as if on a 6-sided die
                     int roll = (int) (Math.random() * 6 + 1);
 
-                    System.out.println("\n\n" + p.getDino().getName() + " is about to take a turn");
+                    gp.takeTurn(p.getDino());
+                    enter.nextLine();
 
                     turn(p, roll, board, players, cDeck, aDeck, ndDeck);
+                    enter.nextLine();
 
                     if (p.getFoodTokens() <= 0) {
                         System.out.println(p.getDino().getName() + " has run out of food tokens!");
@@ -863,6 +877,7 @@ public class Game_GUI {
     public static void attack(Player p1, Player p2, AttackDeck aDeck, Space[] board, boolean prev){
         AttackCard aCard = aDeck.draw();
         String statChecked = aCard.getStat();
+        gp.showComparison(p1.getDino(), p2.getDino(), statChecked);
         boolean tie = false;
         switch(statChecked) { //{"speed", "size", "intelligence", "defenses",
             //    "weapons", "senses", "ror", "ata", "habitat"}
