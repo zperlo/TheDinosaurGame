@@ -775,7 +775,7 @@ public class Game {
                 break;
             case 1:
                 for(int i = 0; i < players.length; i++){
-                    if(players[i] == player && i != (players.length - 1) && !players[i].isExtinct()){
+                    if(players[i] == player && i != (players.length - 1) && !players[i+1].isExtinct()){
                         players[i+1].changeFood(1);
                     }
                     else if(!players[0].isExtinct()){
@@ -824,7 +824,7 @@ public class Game {
             case 8:
                 if(choice == 1){
                     for(int i = 0; i < players.length; i++){
-                        if(players[i] == player && i != (players.length - 1) && !players[i].isExtinct()){
+                        if(players[i] == player && i != (players.length - 1) && !players[i+1].isExtinct()){
                             attack(player, players[i+1], aDeck, board, false);
                         }
                         else if(!players[0].isExtinct()){
@@ -859,7 +859,7 @@ public class Game {
             case 12:
                 if(choice == 1){
                     for(int i = 0; i < players.length; i++){
-                        if(players[i] == player && i != (players.length - 1) && !players[i].isExtinct()){
+                        if(players[i] == player && i != (players.length - 1) && !players[i+1].isExtinct()){
                             player.changeFood(1);
                             players[i+1].changeFood(-1);
                         }
@@ -940,7 +940,7 @@ public class Game {
             case 17:
                 if(choice == 1){
                     for(int i = 0; i < players.length; i++){
-                        if(players[i] == player && i != (players.length - 1) && !players[i].isExtinct()){
+                        if(players[i] == player && i != (players.length - 1) && !players[i+1].isExtinct()){
                             player.changeFood(-1);
                             players[i+1].changeFood(1);
                         }

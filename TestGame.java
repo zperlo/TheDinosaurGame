@@ -196,12 +196,12 @@ public class TestGame {
                     p1.move(6);
 
                     for(int i = 0; i < players.length; i++){
-                        if(players[i] == p1 && i != (players.length - 1) && !players[i].isExtinct()){
+                        if(players[i] == p1 && i != (players.length - 1) && !players[i+1].isExtinct()){
                             int prevT = players[i+1].getFoodTokens();
                             Game.challengeByID(p1, id, 1, players, board, aDeck, cDeck, ndDeck);
                             assertEquals(prevT + 1, players[i+1].getFoodTokens());
                         }
-                        else if(!players[0].isExtinct()){
+                        else if(!players[0].isExtinct() && players[0] != p1){
                             int prev0 = players[0].getFoodTokens();
                             Game.challengeByID(p1, id, 1, players, board, aDeck, cDeck, ndDeck);
                             assertEquals(prev0 + 1, players[0].getFoodTokens());
@@ -226,9 +226,9 @@ public class TestGame {
                     p1.move(-1 * p1.getLocation());
                     p1.move(6);
                     prevF1 = p1.getFoodTokens();
-                    System.out.println(p1.getFoodTokens());
+                    System.out.println(p1.getLocation());
                     Game.challengeByID(p1, id, 1, players, board, aDeck, cDeck, ndDeck);
-                    System.out.println(p1.getFoodTokens());
+                    System.out.println(p1.getLocation());
                     assertEquals(prevF1 + 1, p1.getFoodTokens());
 
                     prevF1 = p1.getFoodTokens();
@@ -254,7 +254,9 @@ public class TestGame {
                     p1.move(-1 * p1.getLocation());
                     p1.move(3);
                     prevF1 = p1.getFoodTokens();
+                    System.out.println(prevF1);
                     Game.challengeByID(p1, id, 1, players, board, aDeck, cDeck, ndDeck);
+                    System.out.println(prevF1);
                     assertEquals(prevF1 + 1, p1.getFoodTokens());
 
                     Game.challengeByID(p1, id, 2, players, board, aDeck, cDeck, ndDeck);
@@ -276,7 +278,7 @@ public class TestGame {
                     p1.move(6);
 
                     for(int i = 0; i < players.length; i++){
-                        if(players[i] == p1 && i != (players.length - 1) && !players[i].isExtinct()){
+                        if(players[i] == p1 && i != (players.length - 1) && !players[i+1].isExtinct()){
                             prevF2 = players[i+1].getFoodTokens();
                             System.out.println(players[i+1].getFoodTokens());
                             System.out.println(aCard0.getPenaltyAmount());
@@ -332,16 +334,18 @@ public class TestGame {
 
                     break;
                 case 12:
-                    prevF1 = p1.getFoodTokens();
+
                     for(int i = 0; i < players.length; i++){
-                        if(players[i] == p1 && i != (players.length - 1) && !players[i].isExtinct()){
+                        if(players[i] == p1 && i != (players.length - 1) && !players[i+1].isExtinct()){
                             int prevT = players[i+1].getFoodTokens();
+                            prevF1 = p1.getFoodTokens();
                             Game.challengeByID(p1, id, 1, players, board, aDeck, cDeck, ndDeck);
                             assertEquals(prevF1 + 1, p1.getFoodTokens());
                             assertEquals(prevT - 1, players[i+1].getFoodTokens());
                         }
-                        else if(!players[0].isExtinct()){
+                        else if(!players[0].isExtinct() && players[0] != p1){
                             int prevT = players[0].getFoodTokens();
+                            prevF1 = p1.getFoodTokens();
                             Game.challengeByID(p1, id, 1, players, board, aDeck, cDeck, ndDeck);
                             assertEquals(prevF1 + 1, p1.getFoodTokens());
                             assertEquals(prevT - 1, players[0].getFoodTokens());
@@ -363,7 +367,7 @@ public class TestGame {
                             count--;
                         }
                     }
-                    assertEquals(prevL1 - count, p1.getLocation());
+                    assertEquals(prevL1 + count, p1.getLocation());
 
                     prevF1 = p1.getFoodTokens();
                     Game.challengeByID(p1, id, 2, players, board, aDeck, cDeck, ndDeck);
@@ -430,17 +434,19 @@ public class TestGame {
 
                     break;
                 case 17:
-                    prevF1 = p1.getFoodTokens();
-                    Game.challengeByID(p1, id, 1, players, board, aDeck, cDeck, ndDeck);
+                    //prevF1 = p1.getFoodTokens();
+                    //Game.challengeByID(p1, id, 1, players, board, aDeck, cDeck, ndDeck);
                     for(int i = 0; i < players.length; i++){
-                        if(players[i] == p1 && i != (players.length - 1) && !players[i].isExtinct()){
+                        if(players[i] == p1 && i != (players.length - 1) && !players[i+1].isExtinct()){
                             int prevT2 = players[i+1].getFoodTokens();
+                            prevF1 = p1.getFoodTokens();
                             Game.challengeByID(p1, id, 1, players, board, aDeck, cDeck, ndDeck);
                             assertEquals(prevF1 - 1, p1.getFoodTokens());
                             assertEquals(prevT2 + 1, players[i+1].getFoodTokens());
                         }
-                        else if(!players[0].isExtinct()){
+                        else if(!players[0].isExtinct() && players[0] != p1){
                             int prevT2 = players[0].getFoodTokens();
+                            prevF1 = p1.getFoodTokens();
                             Game.challengeByID(p1, id, 1, players, board, aDeck, cDeck, ndDeck);
                             assertEquals(prevF1 - 1, p1.getFoodTokens());
                             assertEquals(prevT2 + 1, players[0].getFoodTokens());
