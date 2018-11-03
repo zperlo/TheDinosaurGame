@@ -657,7 +657,6 @@ public class Game_GUI {
 
     public static void challengeByID(Player player, int id, int choice, Player[] players, Space[] board,
                                      AttackDeck aDeck, ChallengeDeck cDeck, NaturalDisasterDeck ndDeck){
-        //choice is 1 or 2
         switch(id){
             case 0:
                 if(choice == 1){
@@ -668,14 +667,18 @@ public class Game_GUI {
                 }
                 break;
             case 1:
+                boolean found = false;
                 for(int i = 0; i < players.length; i++){
-                    if(players[i] == player && i != (players.length - 1) && !players[i].isExtinct()){
+                    if(players[i] == player && i != (players.length - 1) && !players[i+1].isExtinct()){
                         players[i+1].changeFood(1);
-                    }
-                    else if(!players[0].isExtinct()){
-                        players[0].changeFood(1);
+                        found = true;
+                        break;
                     }
                 }
+                if(!found)
+                    if(!players[0].isExtinct()){
+                        players[0].changeFood(1);
+                    }
                 break;
             case 2:
                 player.setEvolveCardSpdSiz(true);
@@ -716,15 +719,19 @@ public class Game_GUI {
                 }
                 break;
             case 8:
+                boolean found1 = false;
                 if(choice == 1){
                     for(int i = 0; i < players.length; i++){
-                        if(players[i] == player && i != (players.length - 1) && !players[i].isExtinct()){
+                        if(players[i] == player && i != (players.length - 1) && !players[i+1].isExtinct()){
                             attack(player, players[i+1], aDeck, board, false);
-                        }
-                        else if(!players[0].isExtinct()){
-                            attack(player, players[0], aDeck, board, false);
+                            found1 = true;
+                            break;
                         }
                     }
+                    if(!found1)
+                        if(!players[0].isExtinct()){
+                            attack(player, players[0], aDeck, board, false);
+                        }
                 }
                 else{
                     player.changeFood(-3);
@@ -752,16 +759,20 @@ public class Game_GUI {
                 break;
             case 12:
                 if(choice == 1){
+                    boolean found2 = false;
                     for(int i = 0; i < players.length; i++){
-                        if(players[i] == player && i != (players.length - 1) && !players[i].isExtinct()){
+                        if(players[i] == player && i != (players.length - 1) && !players[i+1].isExtinct()){
                             player.changeFood(1);
                             players[i+1].changeFood(-1);
+                            found2 = true;
+                            break;
                         }
-                        else if(!players[0].isExtinct()){
+                    }
+                    if(!found2)
+                        if(!players[0].isExtinct()){
                             player.changeFood(1);
                             players[0].changeFood(-1);
                         }
-                    }
                 }
                 else{
                     player.changeFood(2);
@@ -819,7 +830,7 @@ public class Game_GUI {
                     else{
                         diet = "carnivore";
                     }
-                    if(!(diet.equals("carnivore") && player.getLocation() > 100)) {
+                    if(!(diet.equalsIgnoreCase("carnivore") && player.getLocation() > 100)) {
                         for (int i = player.getLocation(); !board[i].getType().equalsIgnoreCase(diet); i++) {
                             count++;
                         }
@@ -833,16 +844,20 @@ public class Game_GUI {
                 break;
             case 17:
                 if(choice == 1){
+                    boolean found3 = false;
                     for(int i = 0; i < players.length; i++){
-                        if(players[i] == player && i != (players.length - 1) && !players[i].isExtinct()){
+                        if(players[i] == player && i != (players.length - 1) && !players[i+1].isExtinct()){
                             player.changeFood(-1);
                             players[i+1].changeFood(1);
+                            found3 = true;
+                            break;
                         }
-                        else if(!players[0].isExtinct()){
+                    }
+                    if(!found3)
+                        if(!players[0].isExtinct()){
                             player.changeFood(-1);
                             players[0].changeFood(1);
                         }
-                    }
                 }
                 else{
                     player.changeFood(-2);
@@ -850,7 +865,7 @@ public class Game_GUI {
                 break;
             case 18:
                 if(choice == 1){
-                    //go back to previous disaster square and play it
+                    //go back to previous natural disaster square and play it
                     if(player.getLocation() > 13) {
                         int count = 0;
                         for (int i = player.getLocation(); !board[i].getType().equals("natural disaster"); i--) {
@@ -1043,6 +1058,9 @@ public class Game_GUI {
 
     public static void naturalDisaster(Player p, NaturalDisasterDeck ndDeck, Space[] board){
         NaturalDisasterCard ndCard = ndDeck.draw();
+        System.out.println(ndCard.getPara1());
+        System.out.println(ndCard.getPara2());
+        System.out.println(ndCard.getPara3());
         boolean safe = false;
         boolean none = false;
         if(ndCard.getHabitatSafe()){
@@ -1124,23 +1142,31 @@ public class Game_GUI {
 
     public static void dangerZone(Player p) {
 
+        // get the player's location - each case is one of the danger zone spaces, so landing on that
+        // space forces the player to receive that effect.
         switch (p.getLocation()) {
             case 22: // VOLCANO! go back 9 spaces
+                System.out.println("VOLCANO! go back 9 spaces");
                 p.move(-9);
                 break;
             case 42: // FLOOD! go back 8 spaces
+                System.out.println("FLOOD! go back 8 spaces");
                 p.move(-8);
                 break;
             case 60: // EARTHQUAKE! lose 3 food tokens
+                System.out.println("EARTHQUAKE! lose 3 food tokens");
                 p.changeFood(-3);
                 break;
             case 69: // HOT! lose 4 food tokens
+                System.out.println("HOT! lose 4 food tokens");
                 p.changeFood(-4);
                 break;
             case 84: // LIGHTNING! lose 3 food tokens
+                System.out.println("LIGHTNING! lose 3 food tokens");
                 p.changeFood(-3);
                 break;
             case 103: // DISEASE! go back 8 spaces
+                System.out.println("DISEASE! go back 8 spaces");
                 p.move(-8);
                 break;
         }
