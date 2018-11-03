@@ -774,14 +774,18 @@ public class Game {
                 }
                 break;
             case 1:
+                boolean found = false;
                 for(int i = 0; i < players.length; i++){
-                    if(players[i] == player && i != (players.length - 1) && !players[i].isExtinct()){
+                    if(players[i] == player && i != (players.length - 1) && !players[i+1].isExtinct()){
                         players[i+1].changeFood(1);
-                    }
-                    else if(!players[0].isExtinct()){
-                        players[0].changeFood(1);
+                        found = true;
+                        break;
                     }
                 }
+                if(!found)
+                    if(!players[0].isExtinct()){
+                        players[0].changeFood(1);
+                    }
                 break;
             case 2:
                 player.setEvolveCardSpdSiz(true);
@@ -822,15 +826,19 @@ public class Game {
                 }
                 break;
             case 8:
+                boolean found1 = false;
                 if(choice == 1){
                     for(int i = 0; i < players.length; i++){
-                        if(players[i] == player && i != (players.length - 1) && !players[i].isExtinct()){
+                        if(players[i] == player && i != (players.length - 1) && !players[i+1].isExtinct()){
                             attack(player, players[i+1], aDeck, board, false);
-                        }
-                        else if(!players[0].isExtinct()){
-                            attack(player, players[0], aDeck, board, false);
+                            found1 = true;
+                            break;
                         }
                     }
+                    if(!found1)
+                        if(!players[0].isExtinct()){
+                            attack(player, players[0], aDeck, board, false);
+                        }
                 }
                 else{
                     player.changeFood(-3);
@@ -858,16 +866,20 @@ public class Game {
                 break;
             case 12:
                 if(choice == 1){
+                    boolean found2 = false;
                     for(int i = 0; i < players.length; i++){
-                        if(players[i] == player && i != (players.length - 1) && !players[i].isExtinct()){
+                        if(players[i] == player && i != (players.length - 1) && !players[i+1].isExtinct()){
                             player.changeFood(1);
                             players[i+1].changeFood(-1);
+                            found2 = true;
+                            break;
                         }
-                        else if(!players[0].isExtinct()){
+                    }
+                    if(!found2)
+                        if(!players[0].isExtinct()){
                             player.changeFood(1);
                             players[0].changeFood(-1);
                         }
-                    }
                 }
                 else{
                     player.changeFood(2);
@@ -939,16 +951,20 @@ public class Game {
                 break;
             case 17:
                 if(choice == 1){
+                    boolean found3 = false;
                     for(int i = 0; i < players.length; i++){
-                        if(players[i] == player && i != (players.length - 1) && !players[i].isExtinct()){
+                        if(players[i] == player && i != (players.length - 1) && !players[i+1].isExtinct()){
                             player.changeFood(-1);
                             players[i+1].changeFood(1);
+                            found3 = true;
+                            break;
                         }
-                        else if(!players[0].isExtinct()){
+                    }
+                    if(!found3)
+                        if(!players[0].isExtinct()){
                             player.changeFood(-1);
                             players[0].changeFood(1);
                         }
-                    }
                 }
                 else{
                     player.changeFood(-2);
@@ -956,7 +972,7 @@ public class Game {
                 break;
             case 18:
                 if(choice == 1){
-                    //go back to previous disaster square and play it
+                    //go back to previous natural disaster square and play it
                     if(player.getLocation() > 13) {
                         int count = 0;
                         for (int i = player.getLocation(); !board[i].getType().equals("natural disaster"); i--) {
