@@ -46,6 +46,7 @@ public class DinoCardPanel extends JPanel {
     private JLabel imageLabel;
 
     // half card components
+    private JLabel vsLabel;
     private JLabel hLabelImage;
     private JLabel hLabelName;
     private JLabel hLabelStat;
@@ -99,10 +100,17 @@ public class DinoCardPanel extends JPanel {
         gbc.gridy = 0;
         card.add(createHalfCard(attacker, stat), gbc);
 
-        // defender half card
+        // VERSUS
+        vsLabel = new JLabel("VERSUS");
         gbc = new GridBagConstraints();
         gbc.gridx = 0;
         gbc.gridy = 1;
+        card.add(vsLabel, gbc);
+
+        // defender half card
+        gbc = new GridBagConstraints();
+        gbc.gridx = 0;
+        gbc.gridy = 2;
         card.add(createHalfCard(defender, stat), gbc);
 
         return card;
