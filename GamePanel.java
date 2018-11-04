@@ -85,8 +85,7 @@ public class GamePanel extends JPanel {
 
     private class RollListener implements ActionListener {
         public void actionPerformed(ActionEvent event) {
-            rollSem = (int) Math.random() * 6 + 1;
-            System.out.println(rollSem);
+            rollSem = (int) (Math.random() * 6 + 1);
         }
     }
 
