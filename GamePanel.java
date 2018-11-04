@@ -1,4 +1,5 @@
 import javax.swing.*;
+import javax.swing.border.BevelBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -13,9 +14,11 @@ public class GamePanel extends JPanel {
 
     // utility variables
     private Dinosaur[] dinos;
+    private Player[] players;
 
     // constructor
     public GamePanel(Player[] players) {
+        this.players = players;
         dinos = new Dinosaur[players.length];
         for (int i = 0; i < dinos.length; i++) {
             dinos[i] = players[i].getDino();
@@ -30,7 +33,7 @@ public class GamePanel extends JPanel {
         GridBagConstraints gbc;
 
         // configure board display
-        board = new BoardPanel();
+        board = new BoardPanel(players);
         gbc = new GridBagConstraints();
         gbc.gridx = 0;
         gbc.gridy = 0;
@@ -48,10 +51,11 @@ public class GamePanel extends JPanel {
         gbc.weightx = 1.0;
         gbc.weighty = 1.0;
         gbc.fill = GridBagConstraints.BOTH;
+        dinoCards.setBorder(BorderFactory.createBevelBorder(BevelBorder.LOWERED));
         add(dinoCards, gbc);
 
         // configure food display
-        food = new FoodPanel(dinos);
+        food = new FoodPanel(players);
         gbc = new GridBagConstraints();
         gbc.gridx = 2;
         gbc.gridy = 0;
@@ -65,7 +69,7 @@ public class GamePanel extends JPanel {
         buttonRoll.setText("Roll!");
         gbc = new GridBagConstraints();
         gbc.gridx = 1;
-        gbc.gridy = 2;
+        gbc.gridy = 1;
         gbc.weightx = 1.0;
         gbc.fill = GridBagConstraints.HORIZONTAL;
         //buttonRoll.addActionListener(new ButtonListener());
@@ -75,7 +79,7 @@ public class GamePanel extends JPanel {
         buttonHelp.setText("Help");
         gbc = new GridBagConstraints();
         gbc.gridx = 2;
-        gbc.gridy = 2;
+        gbc.gridy = 1;
         gbc.weightx = 1.0;
         gbc.fill = GridBagConstraints.HORIZONTAL;
         add(buttonHelp, gbc);

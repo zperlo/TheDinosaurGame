@@ -186,7 +186,6 @@ public class DinoCardPanel extends JPanel {
         return halfCard;
     }
 
-    // create a JPanel to add to the card layout
     private JPanel createCard(Dinosaur d) {
         // create return value and layout tools
         JPanel card = new JPanel(new GridBagLayout());
