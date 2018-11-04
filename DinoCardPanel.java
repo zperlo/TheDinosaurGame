@@ -56,11 +56,11 @@ public class DinoCardPanel extends JPanel {
     private String compareCardName = "compare";
     private CardLayout cl;
     private JPanel compareCard;
-    private Dinosaur[] dinos;
+    private Player[] players;
 
     // constructor
-    public DinoCardPanel(Dinosaur[] dinos) {
-        this.dinos = dinos;
+    public DinoCardPanel(Player[] players) {
+        this.players = players;
         setup();
     }
 
@@ -71,11 +71,11 @@ public class DinoCardPanel extends JPanel {
         setLayout(cl);
 
         // add a card for each dino
-        for (int i = 0; i < dinos.length; i++) {
-            add(createCard(dinos[i]), dinos[i].getName());
+        for (int i = 0; i < players.length; i++) {
+            add(createCard(players[i]), players[i].getDino().getName());
         }
 
-        compareCard = createCompareCard(dinos[0], dinos[0], "speed");
+        compareCard = createCompareCard(players[0], players[0], "speed");
         add(compareCard, compareCardName);
     }
 
@@ -83,13 +83,13 @@ public class DinoCardPanel extends JPanel {
         cl.show(this, d.getName());
     }
 
-    public void showComparison (Dinosaur attacker, Dinosaur defender, String stat) {
+    public void showComparison (Player attacker, Player defender, String stat) {
         compareCard = createCompareCard(attacker, defender, stat);
         add(compareCard, compareCardName);
         cl.show(this, compareCardName);
     }
 
-    private JPanel createCompareCard(Dinosaur attacker, Dinosaur defender, String stat) {
+    private JPanel createCompareCard(Player attacker, Player defender, String stat) {
         // create return value and layout tools
         JPanel card = new JPanel(new GridBagLayout());
         GridBagConstraints gbc;
@@ -116,7 +116,9 @@ public class DinoCardPanel extends JPanel {
         return card;
     }
 
-    private JPanel createHalfCard(Dinosaur d, String stat) {
+    private JPanel createHalfCard(Player p, String stat) {
+        Dinosaur d = p.getDino();
+
         // create return value and layout tools
         JPanel halfCard = new JPanel(new GridBagLayout());
         GridBagConstraints gbc;
@@ -163,13 +165,13 @@ public class DinoCardPanel extends JPanel {
             case "WEAPONS":
                 str = getMinusZeroPlus(d.getWeapons());
                 break;
-            case "SENSE":
+            case "SENSES":
                 str = getMinusZeroPlus(d.getSenses());
                 break;
-            case "RATE OF REPRODUCTION":
+            case "ROR":
                 str = getMinusZeroPlus(d.getRor());
                 break;
-            case "ABILITY TO ADAPT":
+            case "ATA":
                 str = getMinusZeroPlus(d.getAta());;
                 break;
             default:
@@ -186,7 +188,9 @@ public class DinoCardPanel extends JPanel {
         return halfCard;
     }
 
-    private JPanel createCard(Dinosaur d) {
+    private JPanel createCard(Player p) {
+        Dinosaur d = p.getDino();
+
         // create return value and layout tools
         JPanel card = new JPanel(new GridBagLayout());
         GridBagConstraints gbc;

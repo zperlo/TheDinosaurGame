@@ -13,16 +13,11 @@ public class GamePanel extends JPanel {
     private JButton buttonHelp;
 
     // utility variables
-    private Dinosaur[] dinos;
     private Player[] players;
 
     // constructor
     public GamePanel(Player[] players) {
         this.players = players;
-        dinos = new Dinosaur[players.length];
-        for (int i = 0; i < dinos.length; i++) {
-            dinos[i] = players[i].getDino();
-        }
         setup();
     }
 
@@ -44,7 +39,7 @@ public class GamePanel extends JPanel {
         add(board, gbc);
 
         // configure dino card display
-        dinoCards = new DinoCardPanel(dinos);
+        dinoCards = new DinoCardPanel(players);
         gbc = new GridBagConstraints();
         gbc.gridx = 1;
         gbc.gridy = 0;
@@ -95,7 +90,23 @@ public class GamePanel extends JPanel {
         dinoCards.show(d);
     }
 
-    public void showComparison(Dinosaur attacker, Dinosaur defender, String stat) {
+    public void showAttack(AttackCard c) {
+        board.showAttack(c);
+    }
+
+    public int showChallenge(ChallengeCard c) {
+        return board.showChallenge(c);
+    }
+
+    public void showNaturalDisaster(NaturalDisasterCard c) {
+        board.showNaturalDisaster(c);
+    }
+
+    public void showComparison(Player attacker, Player defender, String stat) {
         dinoCards.showComparison(attacker, defender, stat);
+    }
+
+    public void movePlayers() {
+        board.repaint();
     }
 }

@@ -17,7 +17,7 @@ public class Game_GUI {
 
         JFrame frame = new JFrame("dinogame");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        gp = new  GamePanel(players);
+        gp = new GamePanel(players);
         frame.getContentPane().add(gp);
         frame.pack();
         frame.setVisible(true);
@@ -34,6 +34,7 @@ public class Game_GUI {
                     enter.nextLine();
 
                     turn(p, roll, board, players, cDeck, aDeck, ndDeck);
+                    gp.movePlayers();
                     enter.nextLine();
 
                     if (p.getFoodTokens() <= 0) {
@@ -125,7 +126,7 @@ public class Game_GUI {
                         System.out.println("challenge space");
                         ChallengeCard cCard = cDeck.draw();
                         int id = cCard.getId();
-                        int choice = 1; // NEEDS TO GET FROM PLAYER CHOICE -- GUI
+                        int choice = gp.showChallenge(cCard);
                         challengeByID(p, id, choice, players, board, aDeck, cDeck, ndDeck);
                         break;
                     case "natural disaster":
@@ -416,7 +417,7 @@ public class Game_GUI {
                 false, "senses", new int[] {1}, 1);
         NaturalDisasterCard card8 = new NaturalDisasterCard("BONK!", "ROCK SLIDE: Are you fast " +
                 "enough to run away from disaster?", "If your SPEED is average (0) or below average" +
-                " (-) lose 1 food token.", false, "speed", new int[] {1}, 2);
+                " (-) lose 1 food token.", false, "speed", new int[] {1}, 1);
         NaturalDisasterCard card9 = new NaturalDisasterCard("DO YOU SMELL SMOKE?", "FOREST FIRE: " +
                 "A forest fire is blazing toward you. Can you smell the smoke in time to run away?",
                 "If your SENSES are average (0) or below average (-) lose 3 food tokens.", false,
@@ -891,8 +892,9 @@ public class Game_GUI {
 
     public static void attack(Player p1, Player p2, AttackDeck aDeck, Space[] board, boolean prev){
         AttackCard aCard = aDeck.draw();
+        gp.showAttack(aCard);
         String statChecked = aCard.getStat();
-        gp.showComparison(p1.getDino(), p2.getDino(), statChecked);
+        gp.showComparison(p1, p2, statChecked);
         boolean tie = false;
         switch(statChecked) { //{"speed", "size", "intelligence", "defenses",
             //    "weapons", "senses", "ror", "ata", "habitat"}
@@ -1058,6 +1060,7 @@ public class Game_GUI {
 
     public static void naturalDisaster(Player p, NaturalDisasterDeck ndDeck, Space[] board){
         NaturalDisasterCard ndCard = ndDeck.draw();
+        gp.showNaturalDisaster(ndCard);
         System.out.println(ndCard.getPara1());
         System.out.println(ndCard.getPara2());
         System.out.println(ndCard.getPara3());
