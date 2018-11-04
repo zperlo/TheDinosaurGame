@@ -60,16 +60,12 @@ public class CardPanel extends JPanel {
         labelTop.setText(c.getPara1());
         labelBot.setText(c.getPara2());
 
-        setVisible(true);
-
         // TODO: replace with actual dismissal
         try {
             Thread.sleep(10000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-
-        setVisible(false);
     }
 
     public int showChallenge(ChallengeCard c) {
@@ -82,8 +78,6 @@ public class CardPanel extends JPanel {
         labelTop.addMouseListener(new LabelListener());
         labelBot.addMouseListener(new LabelListener());
 
-        setVisible(true);
-
         labelClickSem = 0;
         while (labelClickSem == 0) {
             try {
@@ -92,9 +86,6 @@ public class CardPanel extends JPanel {
                 e.printStackTrace();
             }
         }
-
-        setVisible(false);
-
         return labelClickSem;
     }
 
@@ -110,16 +101,12 @@ public class CardPanel extends JPanel {
             labelHab.setText(null);
         }
 
-        setVisible(true);
-
         // TODO: replace with actual dismissal
         try {
             Thread.sleep(10000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-
-        setVisible(false);
     }
 
     private class LabelListener implements MouseListener {

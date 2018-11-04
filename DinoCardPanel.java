@@ -53,7 +53,7 @@ public class DinoCardPanel extends JPanel {
     private JLabel hLabelValue;
 
     // utility variables
-    private String compareCardName = "compare";
+    private final String compareCardName = "compare";
     private CardLayout cl;
     private JPanel compareCard;
     private Player[] players;
@@ -101,7 +101,7 @@ public class DinoCardPanel extends JPanel {
         card.add(createHalfCard(attacker, stat), gbc);
 
         // VERSUS
-        vsLabel = new JLabel("VERSUS");
+        vsLabel = new JLabel("IS ATTACKING");
         gbc = new GridBagConstraints();
         gbc.gridx = 0;
         gbc.gridy = 1;
@@ -144,7 +144,6 @@ public class DinoCardPanel extends JPanel {
         gbc = new GridBagConstraints();
         gbc.gridx = 1;
         gbc.gridy = 1;
-        gbc.gridwidth = 1;
         halfCard.add(hLabelStat, gbc);
 
         // value
@@ -174,6 +173,9 @@ public class DinoCardPanel extends JPanel {
             case "ATA":
                 str = getMinusZeroPlus(d.getAta());;
                 break;
+            case "HABITAT":
+                str = d.getHabitat();
+                break;
             default:
                 str = "X";
                 break;
@@ -182,7 +184,6 @@ public class DinoCardPanel extends JPanel {
         gbc = new GridBagConstraints();
         gbc.gridx = 2;
         gbc.gridy = 1;
-        gbc.gridwidth = 1;
         halfCard.add(hLabelValue, gbc);
 
         return halfCard;

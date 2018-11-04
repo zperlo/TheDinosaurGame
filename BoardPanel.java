@@ -3,7 +3,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.io.IOException;
 
-public class BoardPanel extends JPanel{
+public class BoardPanel extends JLayeredPane{
     // board items
     private JLabel boardLabel;
     private CardPanel card;
@@ -79,33 +79,25 @@ public class BoardPanel extends JPanel{
         gbc.gridy = 0;
         gbc.gridwidth = 3;
         gbc.gridheight = 3;
-        add(boardLabel, gbc);
+        add(boardLabel, gbc, JLayeredPane.PALETTE_LAYER);
+        
+        // card panel
+        card = new CardPanel();
+        gbc = new GridBagConstraints();
+        gbc.gridx = 1;
+        gbc.gridy = 1;
+        add(card, gbc, JLayeredPane.MODAL_LAYER);
     }
 
     public void showAttack(AttackCard c) {
-        card = new CardPanel();
-        GridBagConstraints gbc = new GridBagConstraints();
-        gbc.gridx = 1;
-        gbc.gridy = 1;
-        add(card, gbc);
         card.showAttack(c);
     }
 
     public int showChallenge(ChallengeCard c) {
-        card = new CardPanel();
-        GridBagConstraints gbc = new GridBagConstraints();
-        gbc.gridx = 1;
-        gbc.gridy = 1;
-        add(card, gbc);
         return card.showChallenge(c);
     }
 
     public void showNaturalDisaster(NaturalDisasterCard c) {
-        card = new CardPanel();
-        GridBagConstraints gbc = new GridBagConstraints();
-        gbc.gridx = 1;
-        gbc.gridy = 1;
-        add(card, gbc);
         card.showNaturalDisaster(c);
     }
 }
