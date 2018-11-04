@@ -27,15 +27,14 @@ public class Game_GUI {
         while(!gameEnd) {
             for (Player p: players) {
                 if (!p.isExtinct()) {
-                    // roll to see how far to move, as if on a 6-sided die
-                    int roll = (int) (Math.random() * 6 + 1);
 
                     gp.takeTurn(p.getDino());
-                    enter.nextLine();
+
+                    // roll to see how far to move, as if on a 6-sided die
+                    int roll = gp.getRoll();
 
                     turn(p, roll, board, players, cDeck, aDeck, ndDeck);
-                    gp.movePlayers();
-                    enter.nextLine();
+                    gp.refreshTokensAndFood();
 
                     if (p.getFoodTokens() <= 0) {
                         System.out.println(p.getDino().getName() + " has run out of food tokens!");
@@ -70,6 +69,7 @@ public class Game_GUI {
                     if (gameEnd) {
                         break;
                     }
+                    gp.waitForNextTurn();
                 }
             }
         }

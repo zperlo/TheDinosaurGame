@@ -11,7 +11,7 @@ public class CardPanel extends JPanel {
     private JLabel labelHab;
 
     // utility variables
-    private int labelClicked = -1;
+    private int labelClickSem;
 
     // constructor
     public CardPanel() {
@@ -84,19 +84,18 @@ public class CardPanel extends JPanel {
 
         setVisible(true);
 
-        while (labelClicked == -1) {
+        labelClickSem = 0;
+        while (labelClickSem == 0) {
             try {
-                Thread.sleep(100);
+                Thread.sleep(1);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
         }
-        int ret = labelClicked;
-        labelClicked = -1;
 
         setVisible(false);
 
-        return ret;
+        return labelClickSem;
     }
 
     public void showNaturalDisaster(NaturalDisasterCard c) {
@@ -147,10 +146,10 @@ public class CardPanel extends JPanel {
         @Override
         public void mouseClicked(MouseEvent e) {
             if (e.getComponent().equals(labelTop)) {
-                labelClicked = 0;
+                labelClickSem = 1;
             }
             else if (e.getComponent().equals(labelBot)) {
-                labelClicked = 1;
+                labelClickSem = 2;
             }
         }
     }

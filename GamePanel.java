@@ -14,6 +14,8 @@ public class GamePanel extends JPanel {
 
     // utility variables
     private Player[] players;
+    private int rollSem;
+    private int tempTurnSem;
 
     // constructor
     public GamePanel(Player[] players) {
@@ -67,24 +69,32 @@ public class GamePanel extends JPanel {
         gbc.gridy = 1;
         gbc.weightx = 1.0;
         gbc.fill = GridBagConstraints.HORIZONTAL;
-        //buttonRoll.addActionListener(new ButtonListener());
+        buttonRoll.addActionListener(new RollListener());
         add(buttonRoll, gbc);
 
         buttonHelp = new JButton();
-        buttonHelp.setText("Help");
+        buttonHelp.setText(/*"Help"*/"Click for next turn");
         gbc = new GridBagConstraints();
         gbc.gridx = 2;
         gbc.gridy = 1;
         gbc.weightx = 1.0;
         gbc.fill = GridBagConstraints.HORIZONTAL;
+        buttonHelp.addActionListener(new TempListener());
         add(buttonHelp, gbc);
     }
 
-    /*private class ButtonListener implements ActionListener {
+    private class RollListener implements ActionListener {
         public void actionPerformed(ActionEvent event) {
-            dinoCards.next();
+            rollSem = (int) Math.random() * 6 + 1;
+            System.out.println(rollSem);
         }
-    }*/
+    }
+
+    private class TempListener implements ActionListener {
+        public void actionPerformed(ActionEvent event) {
+            tempTurnSem = 1;
+        }
+    }
 
     public void takeTurn(Dinosaur d) {
         dinoCards.show(d);
@@ -106,7 +116,31 @@ public class GamePanel extends JPanel {
         dinoCards.showComparison(attacker, defender, stat);
     }
 
-    public void movePlayers() {
+    public void refreshTokensAndFood() {
         board.repaint();
+        food.updateFood();
+    }
+
+    public int getRoll() {
+        rollSem = 0;
+        while (rollSem == 0) {
+            try {
+                Thread.sleep(1);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+        return rollSem;
+    }
+
+    public void waitForNextTurn() {
+        tempTurnSem = 0;
+        while (tempTurnSem == 0) {
+            try {
+                Thread.sleep(1);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
     }
 }
