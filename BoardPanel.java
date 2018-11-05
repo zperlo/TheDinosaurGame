@@ -79,14 +79,14 @@ public class BoardPanel extends JLayeredPane{
         gbc.gridy = 0;
         gbc.gridwidth = 3;
         gbc.gridheight = 3;
-        add(boardLabel, gbc, JLayeredPane.PALETTE_LAYER);
-        
+        add(boardLabel, gbc, JLayeredPane.DEFAULT_LAYER);
+
         // card panel
         card = new CardPanel();
         gbc = new GridBagConstraints();
         gbc.gridx = 1;
         gbc.gridy = 1;
-        add(card, gbc, JLayeredPane.MODAL_LAYER);
+        add(card, gbc, JLayeredPane.DEFAULT_LAYER);
     }
 
     public void showAttack(AttackCard c) {

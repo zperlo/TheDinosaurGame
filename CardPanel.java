@@ -15,7 +15,6 @@ public class CardPanel extends JPanel {
 
     // constructor
     public CardPanel() {
-        setVisible(false);
         setup();
     }
 
@@ -58,14 +57,19 @@ public class CardPanel extends JPanel {
         System.out.println("Showing attack");
         setBackground(Color.green);
         labelTop.setText(c.getPara1());
+        labelMid.setText(null);
         labelBot.setText(c.getPara2());
+        labelHab.setText(null);
+
+        setVisible(true);
 
         // TODO: replace with actual dismissal
-        try {
-            Thread.sleep(10000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+
+        for (int i = 0; i < 1000000; i++) {
+            System.out.print(".");
         }
+
+        setVisible(false);
     }
 
     public int showChallenge(ChallengeCard c) {
@@ -74,18 +78,25 @@ public class CardPanel extends JPanel {
         labelTop.setText(c.getChoice1());
         labelMid.setText(c.getMiddlePara());
         labelBot.setText(c.getChoice2());
+        labelHab.setText(null);
 
         labelTop.addMouseListener(new LabelListener());
         labelBot.addMouseListener(new LabelListener());
 
+        setVisible(true);
+
         labelClickSem = 0;
-        while (labelClickSem == 0) {
+        while (labelClickSem <= 0 && labelClickSem > -10000) {
             try {
+                labelClickSem--;
                 Thread.sleep(1);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
         }
+
+        setVisible(false);
+
         return labelClickSem;
     }
 
@@ -101,12 +112,14 @@ public class CardPanel extends JPanel {
             labelHab.setText(null);
         }
 
+        setVisible(true);
+
         // TODO: replace with actual dismissal
-        try {
-            Thread.sleep(10000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+        for (int i = 0; i < 1000000; i++) {
+            System.out.print(".");
         }
+
+        setVisible(false);
     }
 
     private class LabelListener implements MouseListener {

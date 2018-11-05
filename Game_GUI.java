@@ -21,7 +21,6 @@ public class Game_GUI {
         frame.getContentPane().add(gp);
         frame.pack();
         frame.setVisible(true);
-        Scanner enter = new Scanner(System.in);
 
         boolean gameEnd = false;
         while(!gameEnd) {
@@ -36,16 +35,18 @@ public class Game_GUI {
                     turn(p, roll, board, players, cDeck, aDeck, ndDeck);
                     gp.refreshTokensAndFood();
 
-                    if (p.getFoodTokens() <= 0) {
-                        System.out.println(p.getDino().getName() + " has run out of food tokens!");
-                        if (p.getSecondChance()) {
-                            p.setSecondChance(false);
-                            p.move(-10);
-                            p.setFoodTokens(3);
-                            System.out.println(p.getDino().getName() + " got a second chance!");
-                        } else {
-                            System.out.println(p.getDino().getName() + " is extinct!");
-                            p.setExtinct(true);
+                    for (Player f : players) {
+                        if (f.getFoodTokens() <= 0) {
+                            System.out.println(f.getDino().getName() + " has run out of food tokens!");
+                            if (f.getSecondChance()) {
+                                f.setSecondChance(false);
+                                f.move(-10);
+                                f.setFoodTokens(3);
+                                System.out.println(f.getDino().getName() + " got a second chance!");
+                            } else {
+                                System.out.println(f.getDino().getName() + " is extinct!");
+                                p.setExtinct(true);
+                            }
                         }
                     }
 
@@ -516,7 +517,7 @@ public class Game_GUI {
                 "The survivor moves ahead 3 spaces.", "weapons",
                 "move", 3, 1);
         AttackCard aCard11 = new AttackCard("The FASTEST dinosaur survives.",
-                "TThe survivor moves ahead 3 spaces.", "weapons",
+                "The survivor moves ahead 3 spaces.", "speed",
                 "move", 3, 1);
         AttackCard aCard12 = new AttackCard("The dinosaur with the HIGHEST RATE OF REPRODUCTION survives.",
                 "The survivor receives 1 food token from the loser.", "ror",
@@ -892,9 +893,9 @@ public class Game_GUI {
 
     public static void attack(Player p1, Player p2, AttackDeck aDeck, Space[] board, boolean prev){
         AttackCard aCard = aDeck.draw();
-        gp.showAttack(aCard);
         String statChecked = aCard.getStat();
         gp.showComparison(p1, p2, statChecked);
+        gp.showAttack(aCard);
         boolean tie = false;
         switch(statChecked) { //{"speed", "size", "intelligence", "defenses",
             //    "weapons", "senses", "ror", "ata", "habitat"}
