@@ -61,16 +61,18 @@ public class Game {
 
                     turn(p, roll, board, players, cDeck, aDeck, ndDeck);
 
-                    if (p.getFoodTokens() <= 0) {
-                        System.out.println(p.getDino().getName() + " has run out of food tokens!");
-                        if (p.getSecondChance()) {
-                            p.setSecondChance(false);
-                            p.move(-10);
-                            p.setFoodTokens(3);
-                            System.out.println(p.getDino().getName() + " got a second chance!");
-                        } else {
-                            System.out.println(p.getDino().getName() + " is extinct!");
-                            p.setExtinct(true);
+                    for (Player f : players) {
+                        if (f.getFoodTokens() <= 0) {
+                            System.out.println(f.getDino().getName() + " has run out of food tokens!");
+                            if (f.getSecondChance()) {
+                                f.setSecondChance(false);
+                                f.move(-10);
+                                f.setFoodTokens(3);
+                                System.out.println(f.getDino().getName() + " got a second chance!");
+                            } else {
+                                System.out.println(f.getDino().getName() + " is extinct!");
+                                f.setExtinct(true);
+                            }
                         }
                     }
 

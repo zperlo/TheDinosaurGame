@@ -45,7 +45,7 @@ public class Game_GUI {
                                 System.out.println(f.getDino().getName() + " got a second chance!");
                             } else {
                                 System.out.println(f.getDino().getName() + " is extinct!");
-                                p.setExtinct(true);
+                                f.setExtinct(true);
                             }
                         }
                     }
@@ -94,6 +94,7 @@ public class Game_GUI {
         else {
             // have player move on board
             p.move(roll);
+            gp.refreshTokensAndFood();
 
             // check for attack event
             boolean playSpace = true;
