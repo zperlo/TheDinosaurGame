@@ -24,6 +24,11 @@ public class TestGame {
 
     final int foodForTesting = 50;
 
+    @Test public void testPlayer(){
+        TestPlayer tp = new TestPlayer();
+
+    }
+
     @Test public void testTurn(){
         Player p1 = new Player(new Dinosaur("TestDino1", true, "Forest",1,1,
                 1, 1,1,1,1,1), foodForTesting);
@@ -530,7 +535,7 @@ public class TestGame {
     }
 
     @Test public void testAttack(){
-        Space[] board = Game_GUI.createBoard();
+        Space[] board = Game.createBoard();
         Player p1 = new Player(new Dinosaur("TestDino1", true, "Swamp",1,1,
                 1, 1,1,1,1,1), 5);
         //one player to pass all tests, one to fail all attacks one to tie
@@ -672,24 +677,24 @@ public class TestGame {
         //deck2 for habitat safe testing and turn loss
         //space 0 is a forest habitat so p1 should be habitat safe, but p2 won't be.
         //covers both safe conditions and both penalties with two players
-        Space[] board = Game_GUI.createBoard();
+        Space[] board = Game.createBoard();
 
         int food1 = p1.getFoodTokens();
         int food2 = p2.getFoodTokens();
         int turns1 = p1.getLostTurns();
         //int turns2 = p2.getLostTurns();
 
-        Game_GUI.naturalDisaster(p1, ndDeck1, board);
+        Game.naturalDisaster(p1, ndDeck1, board);
         assertEquals(food1, p1.getFoodTokens());
-        Game_GUI.naturalDisaster(p2, ndDeck1, board);
+        Game.naturalDisaster(p2, ndDeck1, board);
         assertEquals(food2 - 2, p2.getFoodTokens());
 
         System.out.println(board[p2.getLocation()].getHabitat());
         System.out.println(p2.getDino().getHabitat());
         System.out.println(board[p2.getLocation()].getHabitat().equalsIgnoreCase(p2.getDino().getHabitat()));
-        Game_GUI.naturalDisaster(p1, ndDeck2, board);
+        Game.naturalDisaster(p1, ndDeck2, board);
         assertEquals(turns1, p1.getLostTurns());
-        Game_GUI.naturalDisaster(p2, ndDeck2, board);
+        Game.naturalDisaster(p2, ndDeck2, board);
         assertEquals(2, p2.getLostTurns());
     }
 
@@ -698,37 +703,37 @@ public class TestGame {
                 1, -1,-1,1,0,0), 5);
         p.move(22);
         int prevLocation = p.getLocation();
-        Game_GUI.dangerZone(p);
+        Game.dangerZone(p);
         int postLocation = p.getLocation();
         assertEquals(prevLocation - 9, postLocation);
 
         p.move(29);
         prevLocation = p.getLocation();
-        Game_GUI.dangerZone(p);
+        Game.dangerZone(p);
         postLocation = p.getLocation();
         assertEquals(prevLocation - 8, postLocation);
 
         p.move(26);
         int prevFood = p.getFoodTokens();
-        Game_GUI.dangerZone(p);
+        Game.dangerZone(p);
         int postFood = p.getFoodTokens();
         assertEquals(prevFood - 3, postFood);
 
         p.move(9);
         prevFood = p.getFoodTokens();
-        Game_GUI.dangerZone(p);
+        Game.dangerZone(p);
         postFood = p.getFoodTokens();
         assertEquals(prevFood - 4, postFood);
 
         p.move(15);
         prevFood = p.getFoodTokens();
-        Game_GUI.dangerZone(p);
+        Game.dangerZone(p);
         postFood = p.getFoodTokens();
         assertEquals(prevFood - 3, postFood);
 
         p.move(19);
         prevLocation = p.getLocation();
-        Game_GUI.dangerZone(p);
+        Game.dangerZone(p);
         postLocation = p.getLocation();
         assertEquals(prevLocation - 8, postLocation);
     }
