@@ -24,10 +24,7 @@ public class TestGame {
 
     final int foodForTesting = 50;
 
-    @Test public void testPlayer(){
-        TestPlayer tp = new TestPlayer();
 
-    }
 
     @Test public void testTurn(){
         Player p1 = new Player(new Dinosaur("TestDino1", true, "Forest",1,1,
