@@ -152,7 +152,7 @@ public class TestGame {
                 1, 1,1,1,1,1), foodForTesting);
         Player p2 = new Player(new Dinosaur("TestDino2", false, "Desert",-1,-1,
                 -1, -1,-1,-1,-1,-1), foodForTesting);
-        Player[] players = {p1, p2};
+        Player[] players = new Player[2];
         Space[] board = Game.createBoard();
 
         AttackCard aCard0 = new AttackCard("para1","para2", "ror","food", 1,
@@ -173,11 +173,19 @@ public class TestGame {
         int prevF1;
         int prevF2;
 
-        for(int q = 0; q < 2; q++) { // first time both players, second time p2 is extinct
-            if(q == 1) {
+        for(int q = 0; q <42; q++) { // first time both players, second time p2 is extinct
+            if(q > 1) {
                 p2.setFoodTokens(0);
                 p2.setSecondChance(false);
                 p2.setExtinct(true);
+            }
+            if(q == 1 || q == 3) {
+                players[0] = p2;
+                players[1] = p1;
+            }
+            else {
+                players[0] = p1;
+                players[1] = p2;
             }
             for (int k = 0; k < 20; k++) {    //Run through 20 times to test each case
                 ChallengeCard cCard = cDeck.draw();
@@ -664,6 +672,8 @@ public class TestGame {
         //one player to pass all tests, one to fail all tests
         Player p2 = new Player(new Dinosaur("TestDino2", true, "Desert",-1,-1,
                 -1, -1,-1,-1,-1,-1), 5);
+        NaturalDisasterDeck ndDeck = Game.createNaturalDisasterDeck();
+
         NaturalDisasterDeck ndDeck1 = new NaturalDisasterDeck();
         NaturalDisasterCard card1 = new NaturalDisasterCard("", "", "", false, "intelligence",
                 new int[] {1}, 2);
