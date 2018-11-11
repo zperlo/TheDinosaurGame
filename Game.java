@@ -1216,7 +1216,7 @@ public class Game {
         }
         if(!safe){
             String statChecked = ndCard.getStat();
-            int pStat;
+            int pStat = -2;
             switch (statChecked){
                 case "speed":
                     if(p.isEvolveCardSpdSiz()){
@@ -1265,9 +1265,6 @@ public class Game {
                 case "none":
                     pStat = -2;
                     none = true;
-                    break;
-                default:
-                    pStat = -2;
                     break;
             }
             for(int x: ndCard.getSafeStatValues()){

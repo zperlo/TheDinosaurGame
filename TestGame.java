@@ -668,47 +668,202 @@ public class TestGame {
 
     @Test public void testNaturalDisaster(){
         Player p1 = new Player(new Dinosaur("TestDino1", true, "Forest",1,1,
-                1, 1,1,1,1,1), 5);
+                1, 1,1,1,1,1), foodForTesting);
         //one player to pass all tests, one to fail all tests
         Player p2 = new Player(new Dinosaur("TestDino2", true, "Desert",-1,-1,
-                -1, -1,-1,-1,-1,-1), 5);
+                -1, -1,-1,-1,-1,-1), foodForTesting);
+        Player p3 = new Player(new Dinosaur("TestDino2", true, "Swamp",-1,-1,
+                -1, -1,-1,-1,-1,-1), foodForTesting);
+        p3.setEvolveCardSenInt(true);
+        p3.setEvolveCardSpdSiz(true);
+        final int lostTurns = 2;
+        Space[] board = Game.createBoard();
         NaturalDisasterDeck ndDeck = Game.createNaturalDisasterDeck();
 
-        NaturalDisasterDeck ndDeck1 = new NaturalDisasterDeck();
-        NaturalDisasterCard card1 = new NaturalDisasterCard("", "", "", false, "intelligence",
-                new int[] {1}, 2);
+        NaturalDisasterCard card0 = ndDeck.draw();
+        NaturalDisasterCard card1 = ndDeck.draw();
+        NaturalDisasterCard card2 = ndDeck.draw();
+        NaturalDisasterCard card3 = ndDeck.draw();
+        NaturalDisasterCard card4 = ndDeck.draw();
+        NaturalDisasterCard card5 = ndDeck.draw();
+        NaturalDisasterCard card6 = ndDeck.draw();
+        NaturalDisasterCard card7 = ndDeck.draw();
+        NaturalDisasterCard card8 = ndDeck.draw();
+        NaturalDisasterCard card9 = ndDeck.draw();
+        NaturalDisasterCard card10 = ndDeck.draw();
+        NaturalDisasterCard card11 = ndDeck.draw();
+        NaturalDisasterCard card12 = ndDeck.draw();
+        NaturalDisasterCard card13 = ndDeck.draw();
+        NaturalDisasterCard card14 = ndDeck.draw();
+        NaturalDisasterCard card15 = ndDeck.draw();
+        NaturalDisasterCard card16 = ndDeck.draw();
+        NaturalDisasterCard card17 = ndDeck.draw();
+        NaturalDisasterCard card18 = ndDeck.draw();
+        NaturalDisasterCard card19 = ndDeck.draw();
+        NaturalDisasterCard[] carr = new NaturalDisasterCard[20];
+        carr[0] = card0;
+        carr[1] = card1;
+        carr[2] = card2;
+        carr[3] = card3;
+        carr[4] = card4;
+        carr[5] = card5;
+        carr[6] = card6;
+        carr[7] = card7;
+        carr[8] = card8;
+        carr[9] = card9;
+        carr[10] = card10;
+        carr[11] = card11;
+        carr[12] = card12;
+        carr[13] = card13;
+        carr[14] = card14;
+        carr[15] = card15;
+        carr[16] = card16;
+        carr[17] = card17;
+        carr[18] = card18;
+        carr[19] = card19;
+
+        NaturalDisasterDeck deck0 = ndTestHelper(card0);
+        NaturalDisasterDeck deck1 = ndTestHelper(card1);
+        NaturalDisasterDeck deck2 = ndTestHelper(card2);
+        NaturalDisasterDeck deck3 = ndTestHelper(card3);
+        NaturalDisasterDeck deck4 = ndTestHelper(card4);
+        NaturalDisasterDeck deck5 = ndTestHelper(card5);
+        NaturalDisasterDeck deck6 = ndTestHelper(card6);
+        NaturalDisasterDeck deck7 = ndTestHelper(card7);
+        NaturalDisasterDeck deck8 = ndTestHelper(card8);
+        NaturalDisasterDeck deck9 = ndTestHelper(card9);
+        NaturalDisasterDeck deck10 = ndTestHelper(card10);
+        NaturalDisasterDeck deck11 = ndTestHelper(card11);
+        NaturalDisasterDeck deck12 = ndTestHelper(card12);
+        NaturalDisasterDeck deck13 = ndTestHelper(card13);
+        NaturalDisasterDeck deck14 = ndTestHelper(card14);
+        NaturalDisasterDeck deck15 = ndTestHelper(card15);
+        NaturalDisasterDeck deck16 = ndTestHelper(card16);
+        NaturalDisasterDeck deck17 = ndTestHelper(card17);
+        NaturalDisasterDeck deck18 = ndTestHelper(card18);
+        NaturalDisasterDeck deck19 = ndTestHelper(card19);
+        NaturalDisasterDeck[] darr = new NaturalDisasterDeck[20];
+        darr[0] = deck0;
+        darr[1] = deck1;
+        darr[2] = deck2;
+        darr[3] = deck3;
+        darr[4] = deck4;
+        darr[5] = deck5;
+        darr[6] = deck6;
+        darr[7] = deck7;
+        darr[8] = deck8;
+        darr[9] = deck9;
+        darr[10] = deck10;
+        darr[11] = deck11;
+        darr[12] = deck12;
+        darr[13] = deck13;
+        darr[14] = deck14;
+        darr[15] = deck15;
+        darr[16] = deck16;
+        darr[17] = deck17;
+        darr[18] = deck18;
+        darr[19] = deck19;
+
+        Player[] players = {p1, p2, p3};
+
+        for(int i = 0; i <20; i++) {
+            NaturalDisasterCard ncard = carr[i];
+            NaturalDisasterDeck ndeck = darr[i];
+
+            for (int j = 0; j < 3; j++) {
+                Player p = players[j];
+                int pFood = p.getFoodTokens();
+                int pTurns = p.getLostTurns();
+                Game.naturalDisaster(p, ndeck, board);
+                boolean safe = false;
+                boolean none = false;
+                if (ncard.getHabitatSafe()) {
+                    if (board[p.getLocation()].getHabitat().equalsIgnoreCase(p.getDino().getHabitat())) {
+                        safe = true;
+                    }
+                }
+                if (!safe) {
+                    String statChecked = ncard.getStat();
+                    int pStat;
+                    switch (statChecked) {
+                        case "speed":
+                            if (p.isEvolveCardSpdSiz()) {
+                                pStat = 1;
+                            } else {
+                                pStat = p.getDino().getSpeed();
+                            }
+                            break;
+                        case "size":
+                            if (p.isEvolveCardSpdSiz()) {
+                                pStat = 1;
+                            } else {
+                                pStat = p.getDino().getSize();
+                            }
+                            break;
+                        case "intelligence":
+                            if (p.isEvolveCardSenInt()) {
+                                pStat = 1;
+                            } else {
+                                pStat = p.getDino().getIntelligence();
+                            }
+                            break;
+                        case "defenses":
+                            pStat = p.getDino().getDefenses();
+                            break;
+                        case "weapons":
+                            pStat = p.getDino().getWeapons();
+                            break;
+                        case "senses":
+                            if (p.isEvolveCardSenInt()) {
+                                pStat = 1;
+                            } else {
+                                pStat = p.getDino().getSenses();
+                            }
+                            break;
+                        case "ror":
+                            pStat = p.getDino().getRor();
+                            break;
+                        case "ata":
+                            pStat = p.getDino().getAta();
+                            break;
+                        case "none":
+                            pStat = -2;
+                            none = true;
+                            break;
+                        default:
+                            pStat = -2;
+                            break;
+                    }
+                    for (int x : ncard.getSafeStatValues()) {
+                        System.out.println(pStat + "    compared to card's " + x);
+                        if (x == pStat) {
+                            safe = true;
+                        }
+                    }
+                }
+                if (safe) {
+                    assertEquals(pFood, p.getFoodTokens());
+                    assertEquals(pTurns, p.getLostTurns());
+                }
+                else{
+                    if (none) {
+                        assertEquals(pFood, p.getFoodTokens());
+                        assertEquals(lostTurns, p.getLostTurns());
+                    } else {
+                        assertEquals(pFood - ncard.getFoodLost(), p.getFoodTokens());
+                        assertEquals(pTurns, p.getLostTurns());
+                    }
+                }
+            }
+        }
+
+    }
+
+    public NaturalDisasterDeck ndTestHelper(NaturalDisasterCard card){
+        NaturalDisasterDeck deck = new NaturalDisasterDeck();
         for(int i = 0; i < 20; i++)
-            ndDeck1.setDeck(i, card1);
-
-        NaturalDisasterDeck ndDeck2 = new NaturalDisasterDeck();
-        NaturalDisasterCard card2 = new NaturalDisasterCard("OOPS!", "QUICKSAND! You fell into " +
-                "quicksand.", "You are stuck for 2 turns.", true, "none");
-        for(int i = 0; i < 20; i++)
-            ndDeck2.setDeck(i, card2);
-        //make my own decks for different types for penalties
-        //deck1 for testing safe values and food token loss
-        //deck2 for habitat safe testing and turn loss
-        //space 0 is a forest habitat so p1 should be habitat safe, but p2 won't be.
-        //covers both safe conditions and both penalties with two players
-        Space[] board = Game.createBoard();
-
-        int food1 = p1.getFoodTokens();
-        int food2 = p2.getFoodTokens();
-        int turns1 = p1.getLostTurns();
-        //int turns2 = p2.getLostTurns();
-
-        Game.naturalDisaster(p1, ndDeck1, board);
-        assertEquals(food1, p1.getFoodTokens());
-        Game.naturalDisaster(p2, ndDeck1, board);
-        assertEquals(food2 - 2, p2.getFoodTokens());
-
-        System.out.println(board[p2.getLocation()].getHabitat());
-        System.out.println(p2.getDino().getHabitat());
-        System.out.println(board[p2.getLocation()].getHabitat().equalsIgnoreCase(p2.getDino().getHabitat()));
-        Game.naturalDisaster(p1, ndDeck2, board);
-        assertEquals(turns1, p1.getLostTurns());
-        Game.naturalDisaster(p2, ndDeck2, board);
-        assertEquals(2, p2.getLostTurns());
+            deck.setDeck(i, card);
+        return deck;
     }
 
     @Test public void testDangerZone(){
