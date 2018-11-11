@@ -548,85 +548,319 @@ public class TestGame {
     @Test public void testAttack(){
         Space[] board = Game.createBoard();
         Player p1 = new Player(new Dinosaur("TestDino1", true, "Swamp",1,1,
-                1, 1,1,1,1,1), 5);
+                1, 1,1,1,1,1), foodForTesting);
         //one player to pass all tests, one to fail all attacks one to tie
         Player p2 = new Player(new Dinosaur("TestDino2", true, "Forest",-1,-1,
-                -1, -1,-1,-1,-1,-1), 5);
+                -1, -1,-1,-1,-1,-1), foodForTesting);
         Player p3 = new Player(new Dinosaur("TestDino3", true, "Forest",-1,-1,
-                -1, -1,-1,-1,-1,-1), 5);
+                -1, -1,-1,-1,-1,-1), foodForTesting);
 
+        p3.setEvolveCardSpdSiz(true);
+        p3.setEvolveCardSenInt(true);
         //all penalties will result in movement backwards, so put players at the max -1 for caution
-        p1.move(104);
-        p2.move(104);
-        p3.move(104);
+        p1.move(52);
+        p2.move(52);
+        p3.move(52);
 
-        AttackDeck deck0 = new AttackDeck();
-        AttackDeck deck1 = new AttackDeck();
-        AttackDeck deck2 = new AttackDeck();
-        AttackDeck deck3 = new AttackDeck();
-        AttackDeck deck4 = new AttackDeck();
-        AttackDeck deck5 = new AttackDeck();
-        AttackDeck deck6 = new AttackDeck();
-        AttackDeck deck7 = new AttackDeck();
-        AttackDeck deck8 = new AttackDeck();
+        AttackDeck ndDeck = Game.createAttackDeck();
 
-        //{"speed", "size", "intelligence", "defenses",
-        //    "weapons", "senses", "ror", "ata", "habitat"}
+        AttackCard card0 = ndDeck.draw();
+        AttackCard card1 = ndDeck.draw();
+        AttackCard card2 = ndDeck.draw();
+        AttackCard card3 = ndDeck.draw();
+        AttackCard card4 = ndDeck.draw();
+        AttackCard card5 = ndDeck.draw();
+        AttackCard card6 = ndDeck.draw();
+        AttackCard card7 = ndDeck.draw();
+        AttackCard card8 = ndDeck.draw();
+        AttackCard card9 = ndDeck.draw();
+        AttackCard card10 = ndDeck.draw();
+        AttackCard card11 = ndDeck.draw();
+        AttackCard card12 = ndDeck.draw();
+        AttackCard card13 = ndDeck.draw();
+        AttackCard card14 = ndDeck.draw();
+        AttackCard card15 = ndDeck.draw();
+        AttackCard card16 = ndDeck.draw();
+        AttackCard card17 = ndDeck.draw();
+        AttackCard card18 = ndDeck.draw();
+        AttackCard card19 = ndDeck.draw();
+        AttackCard[] carr = new AttackCard[20];
+        carr[0] = card0;
+        carr[1] = card1;
+        carr[2] = card2;
+        carr[3] = card3;
+        carr[4] = card4;
+        carr[5] = card5;
+        carr[6] = card6;
+        carr[7] = card7;
+        carr[8] = card8;
+        carr[9] = card9;
+        carr[10] = card10;
+        carr[11] = card11;
+        carr[12] = card12;
+        carr[13] = card13;
+        carr[14] = card14;
+        carr[15] = card15;
+        carr[16] = card16;
+        carr[17] = card17;
+        carr[18] = card18;
+        carr[19] = card19;
 
-        AttackCard aCard0 = new AttackCard("para1","para2", "speed",
-                "move", 3, 0);
-        AttackCard aCard1 = new AttackCard("para1","para2", "size",
-                "move", 3, 0);
-        AttackCard aCard2 = new AttackCard("para1","para2","intelligence",
-                "move", 3, 0);
-        AttackCard aCard3 = new AttackCard("para1","para2","defenses",
-                "move", 3, 0);
-        AttackCard aCard4 = new AttackCard("para1","para2","weapons",
-                "move", 3, 0);
-        AttackCard aCard5 = new AttackCard("para1","para2", "senses",
-                "move", 3, 0);
-        AttackCard aCard6 = new AttackCard("para1","para2", "ror",
-                "move", 3, 0);
-        AttackCard aCard7 = new AttackCard("para1","para2", "ata",
-                "move", 3, 0);
-        AttackCard aCard8 = new AttackCard("para1","para2", "habitat",
-                "move", 3, 0);
+        AttackDeck deck0 = aTestHelper(card0);
+        AttackDeck deck1 = aTestHelper(card1);
+        AttackDeck deck2 = aTestHelper(card2);
+        AttackDeck deck3 = aTestHelper(card3);
+        AttackDeck deck4 = aTestHelper(card4);
+        AttackDeck deck5 = aTestHelper(card5);
+        AttackDeck deck6 = aTestHelper(card6);
+        AttackDeck deck7 = aTestHelper(card7);
+        AttackDeck deck8 = aTestHelper(card8);
+        AttackDeck deck9 = aTestHelper(card9);
+        AttackDeck deck10 = aTestHelper(card10);
+        AttackDeck deck11 = aTestHelper(card11);
+        AttackDeck deck12 = aTestHelper(card12);
+        AttackDeck deck13 = aTestHelper(card13);
+        AttackDeck deck14 = aTestHelper(card14);
+        AttackDeck deck15 = aTestHelper(card15);
+        AttackDeck deck16 = aTestHelper(card16);
+        AttackDeck deck17 = aTestHelper(card17);
+        AttackDeck deck18 = aTestHelper(card18);
+        AttackDeck deck19 = aTestHelper(card19);
+        AttackDeck[] darr = new AttackDeck[20];
+        darr[0] = deck0;
+        darr[1] = deck1;
+        darr[2] = deck2;
+        darr[3] = deck3;
+        darr[4] = deck4;
+        darr[5] = deck5;
+        darr[6] = deck6;
+        darr[7] = deck7;
+        darr[8] = deck8;
+        darr[9] = deck9;
+        darr[10] = deck10;
+        darr[11] = deck11;
+        darr[12] = deck12;
+        darr[13] = deck13;
+        darr[14] = deck14;
+        darr[15] = deck15;
+        darr[16] = deck16;
+        darr[17] = deck17;
+        darr[18] = deck18;
+        darr[19] = deck19;
 
-        for(int i = 0; i < 20; i++){
-            deck0.setDeck(i,aCard0);
-            deck1.setDeck(i,aCard1);
-            deck2.setDeck(i,aCard2);
-            deck3.setDeck(i,aCard3);
-            deck4.setDeck(i,aCard4);
-            deck5.setDeck(i,aCard5);
-            deck6.setDeck(i,aCard6);
-            deck7.setDeck(i,aCard7);
-            deck8.setDeck(i,aCard8);
+        Player[] players = {p1, p2, p3};
+        
+        for(int i = 0; i < 20; i++) {
+            AttackCard aCard = carr[i];
+            AttackDeck aDeck = darr[i];
+
+            for (int j = 0; j < 3; j++) {
+                Player p = players[j];
+                Player q = players[(j+1)%3];
+                String statChecked = aCard.getStat();
+                boolean prev = false;
+                boolean tie = false;
+                Player winner = p;
+                Player loser = q;
+                switch (statChecked) { //{"speed", "size", "intelligence", "defenses",
+                    //    "weapons", "senses", "ror", "ata", "habitat"}
+                    case "speed":
+                        int pspd, qspd;
+                        if (p.isEvolveCardSpdSiz()) {
+                            pspd = 1;
+                        } else {
+                            pspd = p.getDino().getSpeed();
+                        }
+                        if (q.isEvolveCardSpdSiz()) {
+                            qspd = 1;
+                        } else {
+                            qspd = q.getDino().getSpeed();
+                        }
+                        if (pspd > qspd) {
+                            winner = p;
+                            loser = q;
+                        } else if (pspd < qspd) {
+                            winner = p;
+                            loser = q;
+                        } else {
+                            tie = true;
+                        }
+                        break;
+                    case "size":
+                        int psiz, qsiz;
+                        if (p.isEvolveCardSpdSiz()) {
+                            psiz = 1;
+                        } else {
+                            psiz = p.getDino().getSize();
+                        }
+                        if (q.isEvolveCardSpdSiz()) {
+                            qsiz = 1;
+                        } else {
+                            qsiz = q.getDino().getSize();
+                        }
+                        if (psiz > qsiz) {
+                            winner = p;
+                            loser = q;
+                        } else if (psiz < qsiz) {
+                            winner = q;
+                            loser = p;
+                        } else {
+                            tie = true;
+                        }
+                        break;
+                    case "intelligence":
+                        int pint, qint;
+                        if (p.isEvolveCardSenInt()) {
+                            pint = 1;
+                        } else {
+                            pint = p.getDino().getIntelligence();
+                        }
+                        if (q.isEvolveCardSenInt()) {
+                            qint = 1;
+                        } else {
+                            qint = q.getDino().getIntelligence();
+                        }
+                        if (pint > qint) {
+                            winner = p;
+                            loser = q;
+                        } else if (pint < qint) {
+                            winner = q;
+                            loser = p;
+                        } else {
+                            tie = true;
+                        }
+                        break;
+                    case "defenses":
+                        if (p.getDino().getDefenses() > q.getDino().getDefenses()) {
+                            winner = p;
+                            loser = q;
+                        } else if (p.getDino().getDefenses() < q.getDino().getDefenses()) {
+                            winner = q;
+                            loser = p;
+                        } else {
+                            tie = true;
+                        }
+                        break;
+                    case "weapons":
+                        if (p.getDino().getWeapons() > q.getDino().getWeapons()) {
+                            winner = p;
+                            loser = q;
+                        } else if (p.getDino().getWeapons() < q.getDino().getWeapons()) {
+                            winner = q;
+                            loser = p;
+                        } else {
+                            tie = true;
+                        }
+                        break;
+                    case "senses":
+                        int psen, qsen;
+                        if (p.isEvolveCardSenInt()) {
+                            psen = 1;
+                        } else {
+                            psen = p.getDino().getSenses();
+                        }
+                        if (q.isEvolveCardSenInt()) {
+                            qsen = 1;
+                        } else {
+                            qsen = q.getDino().getSenses();
+                        }
+                        if (psen > qsen) {
+                            winner = p;
+                            loser = q;
+                        } else if (psen < qsen) {
+                            winner = q;
+                            loser = p;
+                        } else {
+                            tie = true;
+                        }
+                        break;
+                    case "ror":
+                        if (p.getDino().getRor() > q.getDino().getRor()) {
+                            winner = p;
+                            loser = q;
+                        } else if (p.getDino().getRor() < q.getDino().getRor()) {
+                            winner = q;
+                            loser = p;
+                        } else {
+                            tie = true;
+                        }
+                        break;
+                    case "ata":
+                        if (p.getDino().getAta() > q.getDino().getAta()) {
+                            winner = p;
+                            loser = q;
+                        } else if (p.getDino().getAta() < q.getDino().getAta()) {
+                            winner = q;
+                            loser = p;
+                        } else {
+                            tie = true;
+                        }
+                        break;
+                    case "habitat":
+                        if (board[p.getLocation()].getHabitat().equalsIgnoreCase(p.getDino().getHabitat()) &&
+                                !board[q.getLocation()].getHabitat().equalsIgnoreCase(q.getDino().getHabitat())) {
+                            winner = p;
+                            loser = q;
+                        } else if (!board[p.getLocation()].getHabitat().equalsIgnoreCase(p.getDino().getHabitat()) &&
+                                board[q.getLocation()].getHabitat().equalsIgnoreCase(q.getDino().getHabitat())) {
+                            winner = q;
+                            loser = p;
+                        } else {
+                            tie = true;
+                        }
+                        break;
+                }
+
+                if(!tie) {
+                    int wFood = winner.getFoodTokens();
+                    int wLoc = winner.getLocation();
+                    int lFood = loser.getFoodTokens();
+                    int lLoc = loser.getLocation();
+                    Game.attack(p, q, aDeck, board, prev);
+                    if (aCard.getPenalty().equals("food")) {
+                        assertEquals(wFood + 1, winner.getFoodTokens());
+                        assertEquals(lFood - 1, loser.getFoodTokens());
+                        assertEquals(wLoc, winner.getLocation());
+                        assertEquals(lLoc, loser.getLocation());
+                    }
+                    else {
+                        if (aCard.getWinner() == 0) {
+                            assertEquals(lLoc - aCard.getPenaltyAmount(), loser.getLocation());
+                            assertEquals(wFood, winner.getFoodTokens());
+                            assertEquals(wLoc, winner.getLocation());
+                            assertEquals(lFood, loser.getFoodTokens());
+                        }
+                        else {
+                            assertEquals(wLoc + aCard.getPenaltyAmount(), winner.getLocation());
+                            assertEquals(wFood, winner.getFoodTokens());
+                            assertEquals(lFood, loser.getFoodTokens());
+                            assertEquals(lLoc, loser.getLocation());
+                        }
+                    }
+                }
+
+                if (tie && !prev) {
+                    int wFood = winner.getFoodTokens();
+                    int wLoc = winner.getLocation();
+                    int lFood = loser.getFoodTokens();
+                    int lLoc = loser.getLocation();
+                    Game.attack(p, q, aDeck, board, true);
+                    assertEquals(wFood, winner.getFoodTokens());
+                    assertEquals(wLoc, winner.getLocation());
+                    assertEquals(lFood, loser.getFoodTokens());
+                    assertEquals(lLoc, loser.getLocation());
+                }
+            }
         }
-
-        AttackDeck[] adeckarr = {deck0, deck1, deck2, deck3, deck4, deck5, deck6, deck7, deck8};
-        for(int i = 0; i < 9; i++){
-            int prevL1 = p1.getLocation();
-            int prevL2 = p2.getLocation();
-            int prevL3 = p3.getLocation();
-
-            Game.attack(p1, p2, adeckarr[i], board, false);
-            //p2 should lose to p1
-            assertEquals(prevL2 - 3, p2.getLocation());
-            assertEquals(prevL1, p1.getLocation());
-            //move p2 back to before the attack
-            p2.move(3);
-
-            Game.attack(p2, p3, adeckarr[i], board, false);
-            //p3 should tie to p2 but p3 is in its habitat, so p2 should lose
-            assertEquals(prevL2, p2.getLocation());
-            assertEquals(prevL3, p3.getLocation());
-            //move p2 back to before the attack
-            p2.move(3);
-        }
-
     }
 
+    public AttackDeck aTestHelper(AttackCard card){
+        AttackDeck deck = new AttackDeck();
+        for(int i = 0; i < 20; i++)
+            deck.setDeck(i, card);
+        return deck;
+    }
+    
     @Test public void testDeterminePenalty(){
         Player p1 = new Player(new Dinosaur("TestDino1", true, "Forest",1,1,
                 1, 1,1,1,1,1), 5);

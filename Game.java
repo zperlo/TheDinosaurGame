@@ -595,7 +595,7 @@ public class Game {
                 "The survivor moves ahead 3 spaces.", "weapons",
                 "move", 3, 1);
         AttackCard aCard11 = new AttackCard("The FASTEST dinosaur survives.",
-                "TThe survivor moves ahead 3 spaces.", "weapons",
+                "TThe survivor moves ahead 3 spaces.", "speed",
                 "move", 3, 1);
         AttackCard aCard12 = new AttackCard("The dinosaur with the HIGHEST RATE OF REPRODUCTION survives.",
                 "The survivor receives 1 food token from the loser.", "ror",
