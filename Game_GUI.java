@@ -2,11 +2,38 @@ import javax.print.attribute.standard.JobKOctetsProcessed;
 import javax.swing.*;
 import java.util.Scanner;
 
-// central class to run game events
+/**
+ * This is the main, runnable class. It runs through all aspects of playing the game,
+ * including the setup phase where players choose dinosaurs, and running each turn of
+ * the game until it is over and there is a winner.
+ *
+ * @author Dylan Briggs, Zach Perlo, Tyler Anderson, C. Jacob Rich
+ * @version 1.13
+ * @since 2018-11-1
+ */
 public class Game_GUI {
 
     static GamePanel gp;
 
+    /**
+     * Main method that runs through the game. It does the initialization phase of setting up
+     * all three decks, as well as the dinosaur cards. It also runs through the player
+     * setup phase, and sets up the game board. After this, it runs the main loop of the game
+     * that runs through a turn for each player until there is a winner and the game is over.
+     *
+     * @param args This is unused, just part of the java default runnable method main().
+     * @see Dinosaur
+     * @see NaturalDisasterDeck
+     * @see NaturalDisasterCard
+     * @see ChallengeDeck
+     * @see ChallengeCard
+     * @see AttackDeck
+     * @see AttackCard
+     * @see Player
+     * @see Space
+     * @see java.util.Scanner
+     * @see java.lang.Math
+     */
     public static void main(String[] args) {
 
         Dinosaur[] dinoCards = createDinoCards();
@@ -78,7 +105,26 @@ public class Game_GUI {
 
     }
 
-    // one player takes their turn
+    /**
+     * A method for running a single turn for a single player.
+     *
+     * @param p The player who is taking a turn right now.
+     * @param roll The dice roll, an integer from 1 to 6, how far the player will move on this turn.
+     * @param board The game board.
+     * @param players The array storing all the players, including the one taking this turn.
+     * @param cDeck The deck of challenge cards.
+     * @param aDeck The deck of attack cards.
+     * @param ndDeck The deck of natural disaster cards.
+     * @see Dinosaur
+     * @see NaturalDisasterDeck
+     * @see NaturalDisasterCard
+     * @see ChallengeDeck
+     * @see ChallengeCard
+     * @see AttackDeck
+     * @see AttackCard
+     * @see Player
+     * @see Space
+     */
     public static void turn(Player p, int roll, Space[] board, Player[] players, ChallengeDeck cDeck,
                             AttackDeck aDeck, NaturalDisasterDeck ndDeck) {
 
@@ -146,7 +192,12 @@ public class Game_GUI {
 
     }
 
-    // hardcode the board into game
+    /**
+     * Initializes the entire board, hardcoded in. This is hardcoded because
+     * there is no pattern or function to easily generate the given game board.
+     * @return The completed board as a Space array.
+     * @see Space
+     */
     public static Space[] createBoard() {
 
         Space[] board = new Space[106];
@@ -290,7 +341,15 @@ public class Game_GUI {
         return board;
     }
 
-    // get player dino choices from user input and initialize players
+    /**
+     * Get player dino choices from user input and initialize players array.
+     * @param dinoCards The array storing all possible dinosaurs the players
+     *                  have to choose from.
+     * @return An array storing all players, initialized with their chosen dinosaurs.
+     * @see Player
+     * @see Dinosaur
+     * @see java.util.Scanner
+     */
     public static Player[] initializePlayers(Dinosaur[] dinoCards) {
         JOptionPane menuOptions = new JOptionPane();
 
@@ -373,7 +432,12 @@ public class Game_GUI {
         return players;
     }
 
-    // create an array of all dinosaurs
+    /**
+     * Creates all dinosaurs. Hardcoded in as there is no way to easily generate all 16 by a function.
+     * Each dinosaur is initialized with all its attributes.
+     * @return An array storing all playable dinosaurs for players to choose from.
+     * @see Dinosaur
+     */
     public static Dinosaur[] createDinoCards() {
         Dinosaur[] dinoCards = new Dinosaur[16];
 
@@ -413,7 +477,13 @@ public class Game_GUI {
         return dinoCards;
     }
 
-    // Creating the Natural Disaster Card Deck
+    /**
+     * Creating the Natural Disaster Card Deck, each card hardcoded in.
+     * Then a deck is initialized and populated with all the cards.
+     * @return The NaturalDisasterDeck of all Natural Disaster cards.
+     * @see NaturalDisasterDeck
+     * @see NaturalDisasterCard
+     */
     public static NaturalDisasterDeck createNaturalDisasterDeck() {
         NaturalDisasterCard card0 = new NaturalDisasterCard("SLIM PICKINGS!",
                 "FAMINE: Food is getting hard to find. Are your senses sharp enough to find food?",
@@ -520,7 +590,14 @@ public class Game_GUI {
         return ndDeck;
     }
 
-    // create the attack card deck
+    /**
+     * Creates the deck of Attack cards, each card hardcoded in with descriptions, the relevant stat, the penalty
+     * of moving or affecting food tokens, the amount of that penalty, and whether the winner gains something,
+     * or the loser loses something.
+     * @return The deck of all Attack cards.
+     * @see AttackCard
+     * @see AttackDeck
+     */
     public static AttackDeck createAttackDeck() {
         AttackCard aCard0 = new AttackCard("The dinosaur with the LEAST WEAPONS loses.",
                 "The loser moves back 3 spaces.", "weapons", "move", 3, 0);
@@ -600,6 +677,13 @@ public class Game_GUI {
         return aDeck;
     }
 
+    /**
+     * This creates the deck of challenge cards. Each challenge card is hardcoded in to include the text the GUI displays,
+     * the unique ID of the player, and what type of card it is. This type is how the GUI represents each card.
+     * @return The deck of challenge cards.
+     * @see ChallengeCard
+     * @see ChallengeDeck
+     */
     public static ChallengeDeck createChallengeDeck(){
         ChallengeCard cCard0 = new ChallengeCard("If you are in YOUR HABITAT: move ahead 5 spaces and play that square."
                 , "OR", "Receive 1 food token", 0, 1);
@@ -688,6 +772,28 @@ public class Game_GUI {
         return cDeck;
     }
 
+    /**
+     * This method runs through a challenge event when a player draws a challenge card.
+     *
+     * @param player The player who drew the challenge card. This player will receive the effects of the card.
+     * @param id The unique identification code of the card that was drawn. This is used to determine what effect happens
+     *           to the player.
+     * @param choice The choice, if applicable, of the player for which effect of the challenge they want.
+     * @param players The array of players, used in cases when this card can effect other players.
+     * @param board The game board.
+     * @param aDeck The deck of remaining attack cards.
+     * @param cDeck The deck of challenge cards.
+     * @param ndDeck The deck of natural disaster cards.
+     * @see Dinosaur
+     * @see NaturalDisasterDeck
+     * @see NaturalDisasterCard
+     * @see ChallengeDeck
+     * @see ChallengeCard
+     * @see AttackDeck
+     * @see AttackCard
+     * @see Player
+     * @see Space
+     */
     public static void challengeByID(Player player, int id, int choice, Player[] players, Space[] board,
                                      AttackDeck aDeck, ChallengeDeck cDeck, NaturalDisasterDeck ndDeck){
         switch(id){
@@ -922,6 +1028,21 @@ public class Game_GUI {
         }
     }
 
+    /**
+     * Runs through an attack situation when a player lands on a space occupied by another player.
+     * Draws an attack card and runs it on both players to determine a winner. If there is a tie,
+     * a second card is run to determine a winner. If they tie again, a third card is not drawn -
+     * nothing happens to either player.
+     * @param p1 One of the players in the attack situation.
+     * @param p2 The other player in the attack situation.
+     * @param aDeck The deck of attack cards.
+     * @param board The game board.
+     * @param prev Whether there was a previous attack situation that just tied, requiring another card to be drawn.
+     * @see Player
+     * @see AttackCard
+     * @see AttackDeck
+     * @see Space
+     */
     public static void attack(Player p1, Player p2, AttackDeck aDeck, Space[] board, boolean prev){
         AttackCard aCard = aDeck.draw();
         String statChecked = aCard.getStat();
@@ -1072,6 +1193,15 @@ public class Game_GUI {
         }
     }
 
+    /**
+     * Calculates what the effect of an attack card is on each player in the attack situation.
+     * Implements this effect on the applicable player(s).
+     * @param p1 The player that won the attack.
+     * @param p2 The player that lost the attack.
+     * @param aCard The drawn attack card that is being run on both players.
+     * @see Player
+     * @see AttackCard
+     */
     public static void determinePenalty(Player p1, Player p2, AttackCard aCard){
         if (aCard.getWinner() == 0) {
             if (aCard.getPenalty().equals("food")) {
@@ -1090,6 +1220,17 @@ public class Game_GUI {
         }
     }
 
+    /**
+     * Runs through a natural disaster situation when a player lands on a natural disaster space.
+     * @param p The player who landed on a natural disaster space, encountering the natural disaster
+     *          situation.
+     * @param ndDeck The deck of remaining natural disaster cards.
+     * @param board The game board.
+     * @see Player
+     * @see Space
+     * @see NaturalDisasterCard
+     * @see NaturalDisasterDeck
+     */
     public static void naturalDisaster(Player p, NaturalDisasterDeck ndDeck, Space[] board){
         NaturalDisasterCard ndCard = ndDeck.draw();
         gp.showNaturalDisaster(ndCard);
@@ -1172,6 +1313,13 @@ public class Game_GUI {
         }
     }
 
+    /**
+     * Run through a danger zone situation when a player lands on a danger zone space. Unlike other space types,
+     * there is no deck of danger zone cards - each danger zone space specifies what its effect is. This method
+     * simply looks at where the player is located to determine the effect. These effects are simple but
+     * substantial - it sends the player back many spaces or takes away a lot of food tokens.
+     * @param p The player that landed on the danger zone space, to receive some adverse effect.
+     */
     public static void dangerZone(Player p) {
 
         // get the player's location - each case is one of the danger zone spaces, so landing on that
