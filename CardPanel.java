@@ -12,6 +12,7 @@ public class CardPanel extends JPanel {
 
     // utility variables
     private int labelClickSem;
+    private int panelClickSem;
 
     // constructor
     public CardPanel() {
@@ -30,6 +31,7 @@ public class CardPanel extends JPanel {
         gbc.gridx = 0;
         gbc.gridy = 0;
         add(labelTop, gbc);
+        labelTop.addMouseListener(new LabelListener());
 
         // labelMid
         labelMid = new JLabel();
@@ -44,6 +46,7 @@ public class CardPanel extends JPanel {
         gbc.gridx = 0;
         gbc.gridy = 2;
         add(labelBot, gbc);
+        labelBot.addMouseListener(new LabelListener());
 
         // labelHab
         labelHab = new JLabel();
@@ -51,6 +54,8 @@ public class CardPanel extends JPanel {
         gbc.gridx = 0;
         gbc.gridy = 3;
         add(labelHab, gbc);
+
+        this.addMouseListener(new PanelListener());
     }
 
     public void showAttack(AttackCard c) {
@@ -63,10 +68,13 @@ public class CardPanel extends JPanel {
 
         setVisible(true);
 
-        // TODO: replace with actual dismissal
-
-        for (int i = 0; i < 1000000; i++) {
-            System.out.print(".");
+        panelClickSem = 0;
+        while (panelClickSem == 0) {
+            try {
+                Thread.sleep(1);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         }
 
         setVisible(false);
@@ -79,9 +87,6 @@ public class CardPanel extends JPanel {
         labelMid.setText(c.getMiddlePara());
         labelBot.setText(c.getChoice2());
         labelHab.setText(null);
-
-        labelTop.addMouseListener(new LabelListener());
-        labelBot.addMouseListener(new LabelListener());
 
         setVisible(true);
 
@@ -114,9 +119,13 @@ public class CardPanel extends JPanel {
 
         setVisible(true);
 
-        // TODO: replace with actual dismissal
-        for (int i = 0; i < 1000000; i++) {
-            System.out.print(".");
+        panelClickSem = 0;
+        while (panelClickSem == 0) {
+            try {
+                Thread.sleep(1);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         }
 
         setVisible(false);
@@ -145,12 +154,40 @@ public class CardPanel extends JPanel {
 
         @Override
         public void mouseClicked(MouseEvent e) {
+            panelClickSem = 1;
             if (e.getComponent().equals(labelTop)) {
                 labelClickSem = 1;
             }
             else if (e.getComponent().equals(labelBot)) {
                 labelClickSem = 2;
             }
+        }
+    }
+
+    private class PanelListener implements MouseListener {
+        @Override
+        public void mouseClicked(MouseEvent e) {
+            panelClickSem = 1;
+        }
+
+        @Override
+        public void mousePressed(MouseEvent e) {
+
+        }
+
+        @Override
+        public void mouseReleased(MouseEvent e) {
+
+        }
+
+        @Override
+        public void mouseEntered(MouseEvent e) {
+
+        }
+
+        @Override
+        public void mouseExited(MouseEvent e) {
+
         }
     }
 }
