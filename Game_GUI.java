@@ -1,4 +1,3 @@
-import javax.print.attribute.standard.JobKOctetsProcessed;
 import javax.swing.*;
 import java.util.Scanner;
 
@@ -357,18 +356,19 @@ public class Game_GUI {
         int playerCount = 0;
         String playerCountStr = "";
         while (playerCount < 1 || playerCount > 4) {
+            playerCount = 0;
             playerCountStr = menuOptions.showInputDialog(
                     gp,
                     "How many players are playing? (1-4)",
                     "The Dinosaur Game",
                     JOptionPane.PLAIN_MESSAGE);
-            if (playerCountStr.equals(JOptionPane.CLOSED_OPTION)) {
-                System.exit(0);
-            }
             try {
                 playerCount = Integer.valueOf(playerCountStr);
             }
             catch (NumberFormatException nfe) {}
+            if (playerCount == 0) {
+                System.exit(0);
+            }
             if (playerCount < 1 || playerCount > 4) {
                 if (menuOptions.showOptionDialog(
                         gp,
@@ -396,6 +396,7 @@ public class Game_GUI {
             int num = 0;
             String dinoChoice = "";
             while (num < 1 || num > 16) {
+                num = 0;
                 dinoChoice = menuOptions.showInputDialog(
                         gp,
                         "Player " + (i + 1) + " input the number for the dinosaur you want:\n" + dinoMsg,
@@ -405,21 +406,36 @@ public class Game_GUI {
                     num = Integer.valueOf(dinoChoice);
                 }
                 catch (NumberFormatException nfe) {}
+                if (num == 0) {
+                    System.exit(0);
+                }
                 if (num < 1 || num > 16) {
-                    menuOptions.showMessageDialog(
+                    if (menuOptions.showOptionDialog(
                             gp,
                             "Invalid dinosaur number. Input the number for the dinosaur you want (1 - 16).",
                             "The Dinosaur Game",
-                            JOptionPane.ERROR_MESSAGE);
+                            JOptionPane.DEFAULT_OPTION,
+                            JOptionPane.ERROR_MESSAGE,
+                            null,
+                            null,
+                            null) == JOptionPane.CLOSED_OPTION) {
+                        System.exit(0);
+                    }
                 }
                 int j = 0;
                 while (j < i) {
                     if (chosenDinos[j] == num) {
-                        menuOptions.showMessageDialog(
+                        if (menuOptions.showOptionDialog(
                                 gp,
                                 "Chosen dinosaur already chosen by a previous player. Choose another dinosaur.",
                                 "The Dinosaur Game",
-                                JOptionPane.ERROR_MESSAGE);
+                                JOptionPane.DEFAULT_OPTION,
+                                JOptionPane.ERROR_MESSAGE,
+                                null,
+                                null,
+                                null) == JOptionPane.CLOSED_OPTION) {
+                            System.exit(0);
+                        }
                         num = 0;
                     }
                     else j++;
