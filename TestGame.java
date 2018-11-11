@@ -552,7 +552,7 @@ public class TestGame {
         //one player to pass all tests, one to fail all attacks one to tie
         Player p2 = new Player(new Dinosaur("TestDino2", true, "Forest",-1,-1,
                 -1, -1,-1,-1,-1,-1), foodForTesting);
-        Player p3 = new Player(new Dinosaur("TestDino3", true, "Forest",-1,-1,
+        Player p3 = new Player(new Dinosaur("TestDino3", true, "Desert",-1,-1,
                 -1, -1,-1,-1,-1,-1), foodForTesting);
 
         p3.setEvolveCardSpdSiz(true);
@@ -680,8 +680,8 @@ public class TestGame {
                             winner = p;
                             loser = q;
                         } else if (pspd < qspd) {
-                            winner = p;
-                            loser = q;
+                            winner = q;
+                            loser = p;
                         } else {
                             tie = true;
                         }
