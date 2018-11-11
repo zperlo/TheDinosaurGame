@@ -1,1 +1,1 @@
-# The Dinosaur Game: Survival or Extinction ©
+# The Dinosaur Game: Survival or Extinction
