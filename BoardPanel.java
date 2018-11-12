@@ -10,6 +10,9 @@ public class BoardPanel extends JLayeredPane{
     private PlayerToken[] tokens;
 
     // utility variables
+    final int SCREEN_HEIGHT = (int) Toolkit.getDefaultToolkit().getScreenSize().getHeight();
+    final double SCALE_FACTOR = SCREEN_HEIGHT / 1000;
+    private final Dimension CARD_DIM = new Dimension((int) (500 * SCALE_FACTOR), (int) (300 * SCALE_FACTOR));
     private Dinosaur[] dinos;
     private Player[] players;
     private Color[] colors = {Color.red, Color.blue, Color.green, Color.yellow};
@@ -40,7 +43,7 @@ public class BoardPanel extends JLayeredPane{
         GridBagConstraints gbc;
 
         // create scaled image of board
-        final Image board = ImageIO.read(getClass().getResource("/resources/Game Board Final.jpeg")).getScaledInstance(1000, 1000, Image.SCALE_SMOOTH);
+        final Image board = ImageIO.read(getClass().getResource("/resources/Game Board Final.jpeg")).getScaledInstance(SCREEN_HEIGHT, SCREEN_HEIGHT, Image.SCALE_SMOOTH);
 
         // board label
         boardLabel = new JLabel(new ImageIcon(board)) {
@@ -83,21 +86,35 @@ public class BoardPanel extends JLayeredPane{
 
         // card panel
         card = new CardPanel();
+        card.setPreferredSize(CARD_DIM);
         gbc = new GridBagConstraints();
         gbc.gridx = 1;
         gbc.gridy = 1;
-        add(card, gbc, JLayeredPane.DEFAULT_LAYER);
+        gbc.weightx = 1.0;
+        gbc.weighty = 1.0;
+        gbc.anchor = GridBagConstraints.CENTER;
+        add(card, gbc, JLayeredPane.DEFAULT_LAYER - 1);
     }
 
     public void showAttack(AttackCard c) {
+        moveToFront(card);
+        card.setPreferredSize(CARD_DIM);
         card.showAttack(c);
+        moveToBack(card);
     }
 
     public int showChallenge(ChallengeCard c) {
-        return card.showChallenge(c);
+        moveToFront(card);
+        card.setPreferredSize(CARD_DIM);
+        int ret = card.showChallenge(c);
+        moveToBack(card);
+        return ret;
     }
 
     public void showNaturalDisaster(NaturalDisasterCard c) {
+        moveToFront(card);
+        card.setPreferredSize(CARD_DIM);
         card.showNaturalDisaster(c);
+        moveToBack(card);
     }
 }

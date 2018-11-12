@@ -115,7 +115,8 @@ public class PlayerToken{
             new Point(766, 118),
             new Point(820, 116),
             new Point(898, 95)};
-    public final int DIAM = 30;
+    private final double SCALE_FACTOR = Toolkit.getDefaultToolkit().getScreenSize().getHeight() / 1000;
+    public final int DIAM = (int) (30 * SCALE_FACTOR);
 
     // constructor
     public PlayerToken(Player player, Color color) {
@@ -133,11 +134,13 @@ public class PlayerToken{
     }
 
     public int getX() {
-        return location.x - DIAM / 2;
+        int x = (int) (location.x * SCALE_FACTOR);
+        return x - DIAM / 2;
     }
 
     public int getY() {
-        return location.y - DIAM / 2;
+        int y = (int) (location.y * SCALE_FACTOR);
+        return y - DIAM / 2;
     }
 
     public int getPlayerLocation() {
