@@ -1,4 +1,5 @@
 import javax.swing.*;
+import java.awt.*;
 import java.util.Scanner;
 
 /**
@@ -48,11 +49,18 @@ public class Game_GUI {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         gp = new GamePanel(players);
         frame.getContentPane().add(gp);
-        frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
+        frame.setExtendedState(Frame.MAXIMIZED_BOTH);
         frame.setUndecorated(true);
         frame.setResizable(false);
         frame.pack();
         frame.setVisible(true);
+        GraphicsDevice myDevice = GraphicsEnvironment.getLocalGraphicsEnvironment().getScreenDevices()[0];
+        Window myWindow = new Window(frame);
+        try {
+            myDevice.setFullScreenWindow(myWindow);
+        } finally {
+            myDevice.setFullScreenWindow(null);
+        }
 
         boolean gameEnd = false;
         while(!gameEnd) {
