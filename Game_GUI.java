@@ -42,12 +42,15 @@ public class Game_GUI {
         Player[] players = initializePlayers(dinoCards);
         Space[] board = createBoard();
 
+        JOptionPane jop = new JOptionPane();
+
         JFrame frame = new JFrame("dinogame");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         gp = new GamePanel(players);
         frame.getContentPane().add(gp);
         frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
-        //frame.setUndecorated(true);
+        frame.setUndecorated(true);
+        frame.setResizable(false);
         frame.pack();
         frame.setVisible(true);
 
@@ -55,6 +58,8 @@ public class Game_GUI {
         while(!gameEnd) {
             for (Player p: players) {
                 if (!p.isExtinct()) {
+
+                    jop.showMessageDialog(gp, p.getDino().getName() + "'s turn");
 
                     gp.takeTurn(p.getDino());
 
@@ -99,7 +104,6 @@ public class Game_GUI {
                     if (gameEnd) {
                         break;
                     }
-                    gp.waitForNextTurn();
                 }
             }
         }

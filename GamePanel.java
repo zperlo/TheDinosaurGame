@@ -73,7 +73,7 @@ public class GamePanel extends JPanel {
         add(buttonRoll, gbc);
 
         buttonHelp = new JButton();
-        buttonHelp.setText(/*"Help"*/"Click for next turn");
+        buttonHelp.setText(/*"Help"*/"Quit");
         gbc = new GridBagConstraints();
         gbc.gridx = 2;
         gbc.gridy = 1;
@@ -91,7 +91,7 @@ public class GamePanel extends JPanel {
 
     private class TempListener implements ActionListener {
         public void actionPerformed(ActionEvent event) {
-            tempTurnSem = 1;
+            System.exit(0);
         }
     }
 
