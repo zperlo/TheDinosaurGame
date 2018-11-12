@@ -46,6 +46,8 @@ public class Game_GUI {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         gp = new GamePanel(players);
         frame.getContentPane().add(gp);
+        frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
+        //frame.setUndecorated(true);
         frame.pack();
         frame.setVisible(true);
 
@@ -424,7 +426,7 @@ public class Game_GUI {
                 }
                 int j = 0;
                 while (j < i) {
-                    if (chosenDinos[j] == num) {
+                    if (chosenDinos[j] == num - 1) {
                         if (menuOptions.showOptionDialog(
                                 gp,
                                 "Chosen dinosaur already chosen by a previous player. Choose another dinosaur.",
@@ -441,8 +443,8 @@ public class Game_GUI {
                     else j++;
                 }
             }
-            chosenDinos[i] = num;
-            players[i] = new Player(dinoCards[num], 3);
+            chosenDinos[i] = num - 1;
+            players[i] = new Player(dinoCards[num - 1], 3);
         }
 
         return players;
