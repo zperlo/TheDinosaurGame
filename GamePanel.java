@@ -3,8 +3,6 @@ import javax.swing.border.BevelBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 
 public class GamePanel extends JPanel {
     // top level gameplay components
@@ -17,7 +15,6 @@ public class GamePanel extends JPanel {
     // utility variables
     private Player[] players;
     private int rollSem;
-    private int tempTurnSem;
 
     // constructor
     public GamePanel(Player[] players) {

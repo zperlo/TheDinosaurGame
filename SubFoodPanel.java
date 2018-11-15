@@ -11,6 +11,7 @@ public class SubFoodPanel extends JPanel {
     // utility variables
     private Player player;
     private Color color;
+    private IconRef ir = new IconRef();
 
     // constructor
     public SubFoodPanel(Player player, Color color) {
@@ -29,8 +30,7 @@ public class SubFoodPanel extends JPanel {
         GridBagConstraints gbc;
 
         // icon label
-        Image icon = ImageIO.read(getClass().getResource("/resources/Styrac_Test_Square.jpg")).getScaledInstance(100, 100, Image.SCALE_SMOOTH);
-        iconLabel = new JLabel(new ImageIcon(icon));
+        iconLabel = new JLabel(ir.getIcon(player.getDino()));
         gbc = new GridBagConstraints();
         gbc.gridx = 0;
         gbc.gridy = 0;

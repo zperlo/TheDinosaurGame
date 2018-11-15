@@ -60,7 +60,7 @@ public class DinoCardPanel extends JPanel {
     private JPanel compareCard;
     private Player[] players;
     private Image icon;
-    private Image sizeCompareToHuman;
+    private IconRef ir = new IconRef();
 
     // constructor
     public DinoCardPanel(Player[] players) {
@@ -78,8 +78,7 @@ public class DinoCardPanel extends JPanel {
         cl = new CardLayout();
         setLayout(cl);
 
-        sizeCompareToHuman = ImageIO.read(getClass().getResource("/resources/Styrac_Test_Wide.jpg")).getScaledInstance(320, 180, Image.SCALE_SMOOTH);
-        icon = ImageIO.read(getClass().getResource("/resources/Styrac_Test_Square.jpg")).getScaledInstance(100, 100, Image.SCALE_SMOOTH);
+                icon = ImageIO.read(getClass().getResource("/resources/Dinosaurs/Styracosaurus/icon.jpg")).getScaledInstance(100, 100, Image.SCALE_SMOOTH);
 
         // add a card for each dino
         for (int i = 0; i < players.length; i++) {
@@ -135,7 +134,7 @@ public class DinoCardPanel extends JPanel {
         GridBagConstraints gbc;
 
         // icon label
-        hLabelImage = new JLabel(new ImageIcon(icon));
+        hLabelImage = new JLabel(ir.getIcon(p.getDino()));
         gbc = new GridBagConstraints();
         gbc.gridx = 0;
         gbc.gridy = 0;
@@ -400,7 +399,7 @@ public class DinoCardPanel extends JPanel {
         gbc.anchor = GridBagConstraints.WEST;
         card.add(dinoATA, gbc);
         // image label
-        imageLabel = new JLabel(new ImageIcon(sizeCompareToHuman));
+        imageLabel = new JLabel(ir.getCompareToHuman(d));
         gbc = new GridBagConstraints();
         gbc.gridx = 0;
         gbc.gridy = 13;

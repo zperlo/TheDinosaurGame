@@ -16,6 +16,7 @@ public class BoardPanel extends JLayeredPane{
     private Dinosaur[] dinos;
     private Player[] players;
     private Color[] colors = {Color.red, Color.blue, Color.green, Color.yellow};
+    private IconRef ir = new IconRef();
 
     // constructor
     public BoardPanel(Player[] players) {
@@ -28,22 +29,17 @@ public class BoardPanel extends JLayeredPane{
         for (int i = 0; i < players.length; i++) {
             tokens[i] = new PlayerToken(players[i], colors[i]);
         }
-
-        try {
-            setup();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        setup();
     }
 
     // initialize components
-    private void setup() throws IOException {
+    private void setup() {
         // layout tools
         setLayout(new GridBagLayout());
         GridBagConstraints gbc;
 
         // create scaled image of board
-        final Image board = ImageIO.read(getClass().getResource("/resources/Game Board Final.jpeg")).getScaledInstance(BOARD_HEIGHT, BOARD_HEIGHT, Image.SCALE_SMOOTH);
+        final Image board = ir.getBoard();
 
         // board label
         boardLabel = new JLabel(new ImageIcon(board)) {
