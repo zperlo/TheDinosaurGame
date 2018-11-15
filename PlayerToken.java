@@ -115,7 +115,7 @@ public class PlayerToken{
             new Point(766, 118),
             new Point(820, 116),
             new Point(898, 95)};
-    private final double SCALE_FACTOR = Toolkit.getDefaultToolkit().getScreenSize().getHeight() / 1000;
+    private final double SCALE_FACTOR = Toolkit.getDefaultToolkit().getScreenSize().getHeight() * 0.90 / 1000;
     public final int DIAM = (int) (30 * SCALE_FACTOR);
 
     // constructor

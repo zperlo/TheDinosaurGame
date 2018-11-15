@@ -3,6 +3,8 @@ import javax.swing.border.BevelBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 
 public class GamePanel extends JPanel {
     // top level gameplay components
@@ -31,6 +33,7 @@ public class GamePanel extends JPanel {
 
         // configure board display
         board = new BoardPanel(players);
+        board.setBorder(BorderFactory.createLineBorder(Color.BLACK, 10));
         gbc = new GridBagConstraints();
         gbc.gridx = 0;
         gbc.gridy = 0;
@@ -95,6 +98,8 @@ public class GamePanel extends JPanel {
         }
     }
 
+
+
     public void takeTurn(Dinosaur d) {
         dinoCards.show(d);
     }
@@ -134,16 +139,5 @@ public class GamePanel extends JPanel {
         rollConfirm.showMessageDialog(this, "you rolled a " + rollSem + "!", "dinogame", JOptionPane.PLAIN_MESSAGE);
 
         return rollSem;
-    }
-
-    public void waitForNextTurn() {
-        tempTurnSem = 0;
-        while (tempTurnSem == 0) {
-            try {
-                Thread.sleep(1);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
     }
 }

@@ -1,5 +1,7 @@
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
+import java.io.IOException;
 
 public class SubFoodPanel extends JPanel {
     // lower level components
@@ -14,16 +16,21 @@ public class SubFoodPanel extends JPanel {
     public SubFoodPanel(Player player, Color color) {
         this.player = player;
         this.color = color;
-        setup();
+        try {
+            setup();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
-    private void setup() {
+    private void setup() throws IOException {
         // layout tools
         setLayout(new GridBagLayout());
         GridBagConstraints gbc;
 
         // icon label
-        iconLabel = new JLabel(new ImageIcon(getClass().getResource("/com/sun/deploy/resources/image/aboutjava.png")));
+        Image icon = ImageIO.read(getClass().getResource("/resources/Styrac_Test_Square.jpg")).getScaledInstance(100, 100, Image.SCALE_SMOOTH);
+        iconLabel = new JLabel(new ImageIcon(icon));
         gbc = new GridBagConstraints();
         gbc.gridx = 0;
         gbc.gridy = 0;

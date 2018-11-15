@@ -1,5 +1,7 @@
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
+import java.io.IOException;
 
 public class DinoCardPanel extends JPanel {
     // static card level components
@@ -57,18 +59,27 @@ public class DinoCardPanel extends JPanel {
     private CardLayout cl;
     private JPanel compareCard;
     private Player[] players;
+    private Image icon;
+    private Image sizeCompareToHuman;
 
     // constructor
     public DinoCardPanel(Player[] players) {
         this.players = players;
-        setup();
+        try {
+            setup();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     // initialize and set up top component
-    private void setup() {
+    private void setup() throws IOException {
         // use card layout
         cl = new CardLayout();
         setLayout(cl);
+
+        sizeCompareToHuman = ImageIO.read(getClass().getResource("/resources/Styrac_Test_Wide.jpg")).getScaledInstance(320, 180, Image.SCALE_SMOOTH);
+        icon = ImageIO.read(getClass().getResource("/resources/Styrac_Test_Square.jpg")).getScaledInstance(100, 100, Image.SCALE_SMOOTH);
 
         // add a card for each dino
         for (int i = 0; i < players.length; i++) {
@@ -124,7 +135,7 @@ public class DinoCardPanel extends JPanel {
         GridBagConstraints gbc;
 
         // icon label
-        hLabelImage = new JLabel(new ImageIcon(getClass().getResource("/com/sun/deploy/resources/image/aboutjava.png")));
+        hLabelImage = new JLabel(new ImageIcon(icon));
         gbc = new GridBagConstraints();
         gbc.gridx = 0;
         gbc.gridy = 0;
@@ -389,7 +400,7 @@ public class DinoCardPanel extends JPanel {
         gbc.anchor = GridBagConstraints.WEST;
         card.add(dinoATA, gbc);
         // image label
-        imageLabel = new JLabel(new ImageIcon(getClass().getResource("/com/sun/deploy/resources/image/aboutjava.png")));
+        imageLabel = new JLabel(new ImageIcon(sizeCompareToHuman));
         gbc = new GridBagConstraints();
         gbc.gridx = 0;
         gbc.gridy = 13;

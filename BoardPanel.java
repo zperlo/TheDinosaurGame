@@ -10,8 +10,8 @@ public class BoardPanel extends JLayeredPane{
     private PlayerToken[] tokens;
 
     // utility variables
-    final int SCREEN_HEIGHT = (int) Toolkit.getDefaultToolkit().getScreenSize().getHeight();
-    final double SCALE_FACTOR = SCREEN_HEIGHT / 1000;
+    private final int BOARD_HEIGHT = (int) (Toolkit.getDefaultToolkit().getScreenSize().getHeight() * 0.90);
+    private final double SCALE_FACTOR = BOARD_HEIGHT / 1000;
     private final Dimension CARD_DIM = new Dimension((int) (500 * SCALE_FACTOR), (int) (300 * SCALE_FACTOR));
     private Dinosaur[] dinos;
     private Player[] players;
@@ -43,7 +43,7 @@ public class BoardPanel extends JLayeredPane{
         GridBagConstraints gbc;
 
         // create scaled image of board
-        final Image board = ImageIO.read(getClass().getResource("/resources/Game Board Final.jpeg")).getScaledInstance(SCREEN_HEIGHT, SCREEN_HEIGHT, Image.SCALE_SMOOTH);
+        final Image board = ImageIO.read(getClass().getResource("/resources/Game Board Final.jpeg")).getScaledInstance(BOARD_HEIGHT, BOARD_HEIGHT, Image.SCALE_SMOOTH);
 
         // board label
         boardLabel = new JLabel(new ImageIcon(board)) {

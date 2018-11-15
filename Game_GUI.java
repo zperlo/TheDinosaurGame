@@ -1,6 +1,4 @@
 import javax.swing.*;
-import java.awt.*;
-import java.util.Scanner;
 
 /**
  * This is the main, runnable class. It runs through all aspects of playing the game,
@@ -49,18 +47,9 @@ public class Game_GUI {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         gp = new GamePanel(players);
         frame.getContentPane().add(gp);
-        frame.setExtendedState(Frame.MAXIMIZED_BOTH);
-        frame.setUndecorated(true);
         frame.setResizable(false);
         frame.pack();
         frame.setVisible(true);
-        GraphicsDevice myDevice = GraphicsEnvironment.getLocalGraphicsEnvironment().getScreenDevices()[0];
-        Window myWindow = new Window(frame);
-        try {
-            myDevice.setFullScreenWindow(myWindow);
-        } finally {
-            myDevice.setFullScreenWindow(null);
-        }
 
         boolean gameEnd = false;
         while(!gameEnd) {
@@ -413,7 +402,7 @@ public class Game_GUI {
                 num = 0;
                 dinoChoice = menuOptions.showInputDialog(
                         gp,
-                        "Player " + (i + 1) + " input the number for the dinosaur you want:\n" + dinoMsg,
+                        "Player " + (i + 1) + " input the number for the dinosaur you want.\n" + dinoMsg,
                         "The Dinosaur Game",
                         JOptionPane.PLAIN_MESSAGE);
                 try {
