@@ -7,7 +7,7 @@ public class FoodPanel extends JPanel {
 
     // utility variables
     private Player[] players;
-    private Color[] colors = {Color.red, Color.blue, Color.green, Color.yellow};
+    private Color[] colors = {Color.red, Color.blue, new Color(71, 209, 71), new Color (255, 204, 0)};
     private SubFoodPanel[] subPanels;
 
     // constructor
@@ -25,11 +25,11 @@ public class FoodPanel extends JPanel {
 
         // add lower level elements
         for (int i = 0; i < players.length; i++) {
+            subPanel = new SubFoodPanel(players[i], colors[i]);
+            subPanels[i] = subPanel;
             gbc = new GridBagConstraints();
             gbc.gridx = 0;
             gbc.gridy = i;
-            subPanel = new SubFoodPanel(players[i], colors[i]);
-            subPanels[i] = subPanel;
             add(subPanel, gbc);
         }
     }

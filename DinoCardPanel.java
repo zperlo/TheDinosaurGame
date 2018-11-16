@@ -1,5 +1,6 @@
 import javax.imageio.ImageIO;
 import javax.swing.*;
+import javax.swing.border.BevelBorder;
 import java.awt.*;
 import java.io.IOException;
 
@@ -108,6 +109,7 @@ public class DinoCardPanel extends JPanel {
         gbc = new GridBagConstraints();
         gbc.gridx = 0;
         gbc.gridy = 0;
+        gbc.insets = new Insets(7, 7, 7, 7);
         card.add(createHalfCard(attacker, stat), gbc);
 
         // VERSUS
@@ -115,12 +117,14 @@ public class DinoCardPanel extends JPanel {
         gbc = new GridBagConstraints();
         gbc.gridx = 0;
         gbc.gridy = 1;
+        gbc.insets = new Insets(7, 7, 7, 7);
         card.add(vsLabel, gbc);
 
         // defender half card
         gbc = new GridBagConstraints();
         gbc.gridx = 0;
         gbc.gridy = 2;
+        gbc.insets = new Insets(7, 7, 7, 7);
         card.add(createHalfCard(defender, stat), gbc);
 
         return card;
@@ -139,6 +143,7 @@ public class DinoCardPanel extends JPanel {
         gbc.gridx = 0;
         gbc.gridy = 0;
         gbc.gridheight = 2;
+        gbc.insets = new Insets(7, 7, 7, 7);
         halfCard.add(hLabelImage, gbc);
 
         // name
@@ -147,6 +152,7 @@ public class DinoCardPanel extends JPanel {
         gbc.gridx = 1;
         gbc.gridy = 0;
         gbc.gridwidth = 2;
+        gbc.insets = new Insets(7, 7, 7, 7);
         halfCard.add(hLabelName, gbc);
 
         // stat
@@ -154,6 +160,7 @@ public class DinoCardPanel extends JPanel {
         gbc = new GridBagConstraints();
         gbc.gridx = 1;
         gbc.gridy = 1;
+        gbc.insets = new Insets(7, 7, 7, 7);
         halfCard.add(hLabelStat, gbc);
 
         // value
@@ -194,6 +201,7 @@ public class DinoCardPanel extends JPanel {
         gbc = new GridBagConstraints();
         gbc.gridx = 2;
         gbc.gridy = 1;
+        gbc.insets = new Insets(7, 7, 7, 7);
         halfCard.add(hLabelValue, gbc);
 
         return halfCard;
@@ -214,6 +222,7 @@ public class DinoCardPanel extends JPanel {
         gbc.gridx = 0;
         gbc.gridy = 0;
         gbc.gridwidth = 3;
+        gbc.insets = new Insets(7, 7, 7, 7);
         card.add(title, gbc);
         // info labels
         // labelName
@@ -222,6 +231,7 @@ public class DinoCardPanel extends JPanel {
         gbc.gridx = 0;
         gbc.gridy = 1;
         gbc.gridwidth = 2;
+        gbc.insets = new Insets(7, 7, 7, 7);
         gbc.anchor = GridBagConstraints.WEST;
         card.add(labelName, gbc);
         // labelDiet
@@ -231,6 +241,7 @@ public class DinoCardPanel extends JPanel {
         gbc.gridy = 2;
         gbc.gridwidth = 2;
         gbc.anchor = GridBagConstraints.WEST;
+        gbc.insets = new Insets(7, 7, 7, 7);
         card.add(labelDiet, gbc);
         // labelHabitat
         labelHabitat = new JLabel("Habitat:");
@@ -239,6 +250,7 @@ public class DinoCardPanel extends JPanel {
         gbc.gridy = 3;
         gbc.gridwidth = 2;
         gbc.anchor = GridBagConstraints.WEST;
+        gbc.insets = new Insets(7, 7, 7, 7);
         card.add(labelHabitat, gbc);
         // stat labels
         // labelSpe
@@ -248,6 +260,7 @@ public class DinoCardPanel extends JPanel {
         gbc.gridy = 5;
         gbc.gridwidth = 2;
         gbc.anchor = GridBagConstraints.WEST;
+        gbc.insets = new Insets(7, 7, 7, 7);
         card.add(labelSpe, gbc);
         // labelSiz
         labelSiz = new JLabel("SIZE");
@@ -256,30 +269,34 @@ public class DinoCardPanel extends JPanel {
         gbc.gridy = 6;
         gbc.gridwidth = 2;
         gbc.anchor = GridBagConstraints.WEST;
+        gbc.insets = new Insets(7, 7, 7, 7);
         card.add(labelSiz, gbc);
         // labelInt
         labelInt = new JLabel("INTELLIGENCE");
-        gbc = gbc = new GridBagConstraints();
+        gbc = new GridBagConstraints();
         gbc.gridx = 1;
         gbc.gridy = 7;
         gbc.gridwidth = 2;
         gbc.anchor = GridBagConstraints.WEST;
+        gbc.insets = new Insets(7, 7, 7, 7);
         card.add(labelInt, gbc);
         // labelDef
         labelDef = new JLabel("DEFENSES");
-        gbc = gbc = new GridBagConstraints();
+        gbc = new GridBagConstraints();
         gbc.gridx = 1;
         gbc.gridy = 8;
         gbc.gridwidth = 2;
         gbc.anchor = GridBagConstraints.WEST;
+        gbc.insets = new Insets(7, 7, 7, 7);
         card.add(labelDef, gbc);
         // labelWep
         labelWep = new JLabel("WEAPONS");
-        gbc = gbc = new GridBagConstraints();
+        gbc = new GridBagConstraints();
         gbc.gridx = 1;
         gbc.gridy = 9;
         gbc.gridwidth = 2;
         gbc.anchor = GridBagConstraints.WEST;
+        gbc.insets = new Insets(7, 7, 7, 7);
         card.add(labelWep, gbc);
         // labelSen
         labelSen = new JLabel("SENSES");
@@ -288,6 +305,7 @@ public class DinoCardPanel extends JPanel {
         gbc.gridy = 10;
         gbc.gridwidth = 2;
         gbc.anchor = GridBagConstraints.WEST;
+        gbc.insets = new Insets(7, 7, 7, 7);
         card.add(labelSen, gbc);
         // labelROR
         labelROR = new JLabel("RATE OF REPRODUCTION");
@@ -296,6 +314,7 @@ public class DinoCardPanel extends JPanel {
         gbc.gridy = 11;
         gbc.gridwidth = 2;
         gbc.anchor = GridBagConstraints.WEST;
+        gbc.insets = new Insets(7, 7, 7, 7);
         card.add(labelROR, gbc);
         // labelATA
         labelATA = new JLabel("ABILITY TO ADAPT");
@@ -304,6 +323,7 @@ public class DinoCardPanel extends JPanel {
         gbc.gridy = 12;
         gbc.gridwidth = 2;
         gbc.anchor = GridBagConstraints.WEST;
+        gbc.insets = new Insets(7, 7, 7, 7);
         card.add(labelATA, gbc);
 
         // dynamic label configuration
@@ -316,6 +336,7 @@ public class DinoCardPanel extends JPanel {
         gbc.gridy = 1;
         gbc.gridwidth = 2;
         gbc.anchor = GridBagConstraints.WEST;
+        gbc.insets = new Insets(7, 7, 7, 7);
         card.add(dinoName, gbc);
         // dinoDiet
         dinoDiet = new JLabel((d.isHerbivore()) ? "Herbivore" : "Carnivore");
@@ -324,6 +345,7 @@ public class DinoCardPanel extends JPanel {
         gbc.gridy = 2;
         gbc.gridwidth = 2;
         gbc.anchor = GridBagConstraints.WEST;
+        gbc.insets = new Insets(7, 7, 7, 7);
         card.add(dinoDiet, gbc);
         // dinoHabitat
         dinoHabitat = new JLabel(d.getHabitat());
@@ -332,6 +354,7 @@ public class DinoCardPanel extends JPanel {
         gbc.gridy = 3;
         gbc.gridwidth = 2;
         gbc.anchor = GridBagConstraints.WEST;
+        gbc.insets = new Insets(7, 7, 7, 7);
         card.add(dinoHabitat, gbc);
         // stat header
         labelStatHeader = new JLabel(d.getName() + " Statistics:");
@@ -340,6 +363,7 @@ public class DinoCardPanel extends JPanel {
         gbc.gridy = 4;
         gbc.gridwidth = 3;
         gbc.anchor = GridBagConstraints.WEST;
+        gbc.insets = new Insets(7, 7, 7, 7);
         card.add(labelStatHeader, gbc);
         // stat labels
         // dinoSpe
@@ -348,6 +372,7 @@ public class DinoCardPanel extends JPanel {
         gbc.gridx = 0;
         gbc.gridy = 5;
         gbc.anchor = GridBagConstraints.WEST;
+        gbc.insets = new Insets(7, 7, 7, 7);
         card.add(dinoSpe, gbc);
         // dinoSiz
         dinoSiz = new JLabel(getMinusZeroPlus(d.getSize()));
@@ -355,6 +380,7 @@ public class DinoCardPanel extends JPanel {
         gbc.gridx = 0;
         gbc.gridy = 6;
         gbc.anchor = GridBagConstraints.WEST;
+        gbc.insets = new Insets(7, 7, 7, 7);
         card.add(dinoSiz, gbc);
         // dinoInt
         dinoInt = new JLabel(getMinusZeroPlus(d.getIntelligence()));
@@ -362,6 +388,7 @@ public class DinoCardPanel extends JPanel {
         gbc.gridx = 0;
         gbc.gridy = 7;
         gbc.anchor = GridBagConstraints.WEST;
+        gbc.insets = new Insets(7, 7, 7, 7);
         card.add(dinoInt, gbc);
         // dinoDef
         dinoDef = new JLabel(getMinusZeroPlus(d.getDefenses()));
@@ -369,6 +396,7 @@ public class DinoCardPanel extends JPanel {
         gbc.gridx = 0;
         gbc.gridy = 8;
         gbc.anchor = GridBagConstraints.WEST;
+        gbc.insets = new Insets(7, 7, 7, 7);
         card.add(dinoDef, gbc);
         // dinoWep
         dinoWep = new JLabel(getMinusZeroPlus(d.getWeapons()));
@@ -376,6 +404,7 @@ public class DinoCardPanel extends JPanel {
         gbc.gridx = 0;
         gbc.gridy = 9;
         gbc.anchor = GridBagConstraints.WEST;
+        gbc.insets = new Insets(7, 7, 7, 7);
         card.add(dinoWep, gbc);
         // dinoSen
         dinoSen = new JLabel(getMinusZeroPlus(d.getSenses()));
@@ -383,6 +412,7 @@ public class DinoCardPanel extends JPanel {
         gbc.gridx = 0;
         gbc.gridy = 10;
         gbc.anchor = GridBagConstraints.WEST;
+        gbc.insets = new Insets(7, 7, 7, 7);
         card.add(dinoSen, gbc);
         // dinoROR
         dinoROR = new JLabel(getMinusZeroPlus(d.getRor()));
@@ -390,6 +420,7 @@ public class DinoCardPanel extends JPanel {
         gbc.gridx = 0;
         gbc.gridy = 11;
         gbc.anchor = GridBagConstraints.WEST;
+        gbc.insets = new Insets(7, 7, 7, 7);
         card.add(dinoROR, gbc);
         // dinoATA
         dinoATA = new JLabel(getMinusZeroPlus(d.getAta()));
@@ -397,13 +428,16 @@ public class DinoCardPanel extends JPanel {
         gbc.gridx = 0;
         gbc.gridy = 12;
         gbc.anchor = GridBagConstraints.WEST;
+        gbc.insets = new Insets(7, 7, 7, 7);
         card.add(dinoATA, gbc);
         // image label
         imageLabel = new JLabel(ir.getCompareToHuman(d));
+        imageLabel.setBorder(BorderFactory.createBevelBorder(BevelBorder.LOWERED));
         gbc = new GridBagConstraints();
         gbc.gridx = 0;
         gbc.gridy = 13;
         gbc.gridwidth = 3;
+        gbc.insets = new Insets(7, 7, 7, 7);
         card.add(imageLabel, gbc);
 
         return card;

@@ -13,6 +13,8 @@ public class CardPanel extends JPanel {
     // utility variables
     private int labelClickSem;
     private int panelClickSem;
+    private Font defaultFont;
+    private Font hoverFont;
 
     // constructor
     public CardPanel() {
@@ -56,6 +58,9 @@ public class CardPanel extends JPanel {
         add(labelHab, gbc);
 
         addMouseListener(new PanelListener());
+
+        defaultFont = labelTop.getFont();
+        hoverFont = new Font(defaultFont.getName(), Font.BOLD, defaultFont.getSize() + 2);
     }
 
     public void showAttack(AttackCard c) {
@@ -84,17 +89,40 @@ public class CardPanel extends JPanel {
         labelBot.setText(c.getChoice2());
         labelHab.setText(null);
 
-        labelClickSem = 0;
-        while (labelClickSem <= 0 && labelClickSem > -10000) {
-            try {
-                labelClickSem--;
-                Thread.sleep(1);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
+        LabelListener top = (LabelListener) labelTop.getMouseListeners()[0];
+        top.activate();
+        LabelListener bot = (LabelListener) labelBot.getMouseListeners()[0];
+        bot.activate();
+
+        int r = -1;
+        if (c.getType() == 0 || c.getType() == 1) {
+            labelClickSem = 0;
+            while (labelClickSem == 0) {
+                try {
+                    Thread.sleep(1);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
             }
+            r = labelClickSem;
+        } else if (c.getType() == 2 || c.getType() == 3) {
+            panelClickSem = 0;
+            while (panelClickSem == 0) {
+                try {
+                    Thread.sleep(1);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+            r = panelClickSem;
         }
 
-        return labelClickSem;
+        top.assertMouseExited(labelTop);
+        bot.assertMouseExited(labelBot);
+        top.deactivate();
+        bot.deactivate();
+
+        return r;
     }
 
     public void showNaturalDisaster(NaturalDisasterCard c) {
@@ -120,6 +148,8 @@ public class CardPanel extends JPanel {
     }
 
     private class LabelListener implements MouseListener {
+        private boolean active = false;
+
         @Override
         public void mousePressed(MouseEvent e) {
 
@@ -132,12 +162,16 @@ public class CardPanel extends JPanel {
 
         @Override
         public void mouseEntered(MouseEvent e) {
-
+            if (active) {
+                e.getComponent().setFont(hoverFont);
+            }
         }
 
         @Override
         public void mouseExited(MouseEvent e) {
-
+            if (active) {
+                e.getComponent().setFont(defaultFont);
+            }
         }
 
         @Override
@@ -148,6 +182,20 @@ public class CardPanel extends JPanel {
             }
             else if (e.getComponent().equals(labelBot)) {
                 labelClickSem = 2;
+            }
+        }
+
+        public void activate() {
+            active = true;
+        }
+
+        public void deactivate() {
+            active = false;
+        }
+
+        public void assertMouseExited(Component c) {
+            if (active) {
+                c.setFont(defaultFont);
             }
         }
     }
