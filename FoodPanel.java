@@ -30,6 +30,7 @@ public class FoodPanel extends JPanel {
             gbc = new GridBagConstraints();
             gbc.gridx = 0;
             gbc.gridy = i;
+            gbc.insets = new Insets(7, 7, 7, 7);
             add(subPanel, gbc);
         }
     }
