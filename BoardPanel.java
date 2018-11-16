@@ -1,7 +1,5 @@
-import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
-import java.io.IOException;
 
 public class BoardPanel extends JLayeredPane{
     // board items
@@ -11,7 +9,7 @@ public class BoardPanel extends JLayeredPane{
 
     // utility variables
     private final int BOARD_HEIGHT = (int) (Toolkit.getDefaultToolkit().getScreenSize().getHeight() * 0.90);
-    private final double SCALE_FACTOR = BOARD_HEIGHT / 1000;
+    private final double SCALE_FACTOR = BOARD_HEIGHT / 1000.0;
     private final Dimension CARD_DIM = new Dimension((int) (500 * SCALE_FACTOR), (int) (300 * SCALE_FACTOR));
     private Dinosaur[] dinos;
     private Player[] players;
@@ -80,36 +78,31 @@ public class BoardPanel extends JLayeredPane{
         gbc.gridheight = 3;
         add(boardLabel, gbc, JLayeredPane.DEFAULT_LAYER);
 
-        // card panel
+        // card
         card = new CardPanel();
         card.setPreferredSize(CARD_DIM);
         gbc = new GridBagConstraints();
         gbc.gridx = 1;
         gbc.gridy = 1;
-        gbc.weightx = 1.0;
-        gbc.weighty = 1.0;
         gbc.anchor = GridBagConstraints.CENTER;
         add(card, gbc, JLayeredPane.DEFAULT_LAYER - 1);
     }
 
     public void showAttack(AttackCard c) {
         moveToFront(card);
-        card.setPreferredSize(CARD_DIM);
         card.showAttack(c);
         moveToBack(card);
     }
 
     public int showChallenge(ChallengeCard c) {
         moveToFront(card);
-        card.setPreferredSize(CARD_DIM);
-        int ret = card.showChallenge(c);
+        int r = card.showChallenge((c));
         moveToBack(card);
-        return ret;
+        return r;
     }
 
     public void showNaturalDisaster(NaturalDisasterCard c) {
         moveToFront(card);
-        card.setPreferredSize(CARD_DIM);
         card.showNaturalDisaster(c);
         moveToBack(card);
     }

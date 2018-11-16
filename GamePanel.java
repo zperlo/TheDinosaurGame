@@ -79,7 +79,7 @@ public class GamePanel extends JPanel {
         gbc.gridy = 1;
         gbc.weightx = 1.0;
         gbc.fill = GridBagConstraints.HORIZONTAL;
-        buttonHelp.addActionListener(new TempListener());
+        buttonHelp.addActionListener(new HelpListener());
         add(buttonHelp, gbc);
     }
 
@@ -89,7 +89,7 @@ public class GamePanel extends JPanel {
         }
     }
 
-    private class TempListener implements ActionListener {
+    private class HelpListener implements ActionListener {
         public void actionPerformed(ActionEvent event) {
             System.exit(0);
         }

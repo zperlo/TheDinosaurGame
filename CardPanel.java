@@ -30,8 +30,8 @@ public class CardPanel extends JPanel {
         gbc = new GridBagConstraints();
         gbc.gridx = 0;
         gbc.gridy = 0;
-        add(labelTop, gbc);
         labelTop.addMouseListener(new LabelListener());
+        add(labelTop, gbc);
 
         // labelMid
         labelMid = new JLabel();
@@ -45,8 +45,8 @@ public class CardPanel extends JPanel {
         gbc = new GridBagConstraints();
         gbc.gridx = 0;
         gbc.gridy = 2;
-        add(labelBot, gbc);
         labelBot.addMouseListener(new LabelListener());
+        add(labelBot, gbc);
 
         // labelHab
         labelHab = new JLabel();
@@ -55,7 +55,7 @@ public class CardPanel extends JPanel {
         gbc.gridy = 3;
         add(labelHab, gbc);
 
-        this.addMouseListener(new PanelListener());
+        addMouseListener(new PanelListener());
     }
 
     public void showAttack(AttackCard c) {
