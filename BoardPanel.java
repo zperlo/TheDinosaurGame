@@ -84,6 +84,8 @@ public class BoardPanel extends JLayeredPane{
         gbc = new GridBagConstraints();
         gbc.gridx = 1;
         gbc.gridy = 1;
+        gbc.weightx = 1.0;
+        gbc.weighty = 1.0;
         gbc.anchor = GridBagConstraints.CENTER;
         add(card, gbc, JLayeredPane.DEFAULT_LAYER - 1);
     }

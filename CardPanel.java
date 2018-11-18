@@ -64,7 +64,6 @@ public class CardPanel extends JPanel {
     }
 
     public void showAttack(AttackCard c) {
-        System.out.println("Showing attack");
         setBackground(Color.green);
         labelTop.setText(c.getPara1());
         labelMid.setText(null);
@@ -82,7 +81,6 @@ public class CardPanel extends JPanel {
     }
 
     public int showChallenge(ChallengeCard c) {
-        System.out.println("Showing challenge");
         setBackground(Color.CYAN);
         labelTop.setText(c.getChoice1());
         labelMid.setText(c.getMiddlePara());
@@ -126,7 +124,6 @@ public class CardPanel extends JPanel {
     }
 
     public void showNaturalDisaster(NaturalDisasterCard c) {
-        System.out.println("Showing natural disaster");
         setBackground(Color.PINK);
         labelTop.setText(c.getPara1());
         labelMid.setText(c.getPara2());

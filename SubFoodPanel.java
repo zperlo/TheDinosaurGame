@@ -30,7 +30,7 @@ public class SubFoodPanel extends JPanel {
         gbc = new GridBagConstraints();
         gbc.gridx = 0;
         gbc.gridy = 0;
-        gbc.insets = new Insets(7, 0, 7, 7);
+        gbc.insets = new Insets(7, 7, 7, 0);
         add(iconLabel, gbc);
 
         // food label

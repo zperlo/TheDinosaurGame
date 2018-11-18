@@ -618,7 +618,7 @@ public class Game_GUI {
      * @see AttackDeck
      */
     public static AttackDeck createAttackDeck() {
-        AttackCard aCard0 = new AttackCard("The dinosaur with the LEAST WEAPONS loses.",
+        AttackCard aCard0 = new AttackCard("<html>The dinosaur with the <span style=\"font-family:Showcard Gothic;font-size:13px;\">LEAST WEAPONS</span> loses.<html>",
                 "The loser moves back 3 spaces.", "weapons", "move", 3, 0);
         AttackCard aCard1 = new AttackCard("The dinosaur with the BEST ABILITY TO ADAPT survives.",
                 "The survivor receives 1 food token from the loser.", "ata",
