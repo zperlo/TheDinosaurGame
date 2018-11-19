@@ -1309,19 +1309,19 @@ public class Game {
                 System.out.println("FLOOD! go back 8 spaces");
                 p.move(-8);
                 break;
-            case 60: // EARTHQUAKE! lose 3 food tokens
+            case 64: // EARTHQUAKE! lose 3 food tokens
                 System.out.println("EARTHQUAKE! lose 3 food tokens");
                 p.changeFood(-3);
                 break;
-            case 69: // HOT! lose 4 food tokens
+            case 73: // HOT! lose 4 food tokens
                 System.out.println("HOT! lose 4 food tokens");
                 p.changeFood(-4);
                 break;
-            case 84: // LIGHTNING! lose 3 food tokens
+            case 88: // LIGHTNING! lose 3 food tokens
                 System.out.println("LIGHTNING! lose 3 food tokens");
                 p.changeFood(-3);
                 break;
-            case 103: // DISEASE! go back 8 spaces
+            case 107: // DISEASE! go back 8 spaces
                 System.out.println("DISEASE! go back 8 spaces");
                 p.move(-8);
                 break;
