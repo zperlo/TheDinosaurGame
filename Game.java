@@ -200,7 +200,7 @@ public class Game {
      */
     public static Space[] createBoard() {
 
-        Space[] board = new Space[106];
+        Space[] board = new Space[110];
 
         // starting space
         board[0] = new Space("forest", "start");
@@ -499,7 +499,7 @@ public class Game {
         NaturalDisasterCard card9 = new NaturalDisasterCard("DO YOU SMELL SMOKE?", "FOREST FIRE: " +
                 "A forest fire is blazing toward you. Can you smell the smoke in time to run away?",
                 "If your SENSES are average (0) or below average (-) lose 3 food tokens.", false,
-                "senses", new int[] {1}, 2);
+                "senses", new int[] {1}, 3);
         NaturalDisasterCard card10 = new NaturalDisasterCard("GET OUT OF MY WAY!", "OVER POPULATION:" +
                 " The food supply is scarce because of overcrowding. Are you tough enough to fight" +
                 " for your food?", "If your WEAPONS are average (0) or below average (-) lose 2 food " +
