@@ -603,7 +603,7 @@ public class Game {
                 "The survivor moves ahead 3 spaces.", "weapons",
                 "move", 3, 1);
         AttackCard aCard11 = new AttackCard("The FASTEST dinosaur survives.",
-                "TThe survivor moves ahead 3 spaces.", "speed",
+                "The survivor moves ahead 3 spaces.", "speed",
                 "move", 3, 1);
         AttackCard aCard12 = new AttackCard("The dinosaur with the HIGHEST RATE OF REPRODUCTION survives.",
                 "The survivor receives 1 food token from the loser.", "ror",
@@ -618,7 +618,7 @@ public class Game {
                 "The survivor receives 1 food token from the loser.", "speed",
                 "food", 1, 0);
         AttackCard aCard16 = new AttackCard("The dinosaur with the BEST SENSES survives.",
-                "TThe survivor receives 1 food token from the loser.", "senses",
+                "The survivor receives 1 food token from the loser.", "senses",
                 "food", 1, 0);
         AttackCard aCard17 = new AttackCard("The dinosaur with the BEST WEAPONS survives.",
                 "The survivor receives 1 food token from the loser.", "weapons",
@@ -1165,6 +1165,18 @@ public class Game {
                     tie = true;
                 }
                 break;
+        }
+
+        if(tie){
+            if (board[p1.getLocation()].getHabitat().equalsIgnoreCase(p1.getDino().getHabitat()) &&
+                    !board[p2.getLocation()].getHabitat().equalsIgnoreCase(p2.getDino().getHabitat())) {
+                determinePenalty(p1, p2, aCard);
+                tie = false;
+            } else if (!board[p1.getLocation()].getHabitat().equalsIgnoreCase(p1.getDino().getHabitat()) &&
+                    board[p2.getLocation()].getHabitat().equalsIgnoreCase(p2.getDino().getHabitat())) {
+                determinePenalty(p2, p1, aCard);
+                tie = false;
+            }
         }
 
         if(tie && !prev){  // have tied once but not twice

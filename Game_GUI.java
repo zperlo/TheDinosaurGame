@@ -667,7 +667,7 @@ public class Game_GUI {
                 "The survivor receives 1 food token from the loser.", "speed",
                 "food", 1, 0);
         AttackCard aCard16 = new AttackCard("The dinosaur with the BEST SENSES survives.",
-                "TThe survivor receives 1 food token from the loser.", "senses",
+                "The survivor receives 1 food token from the loser.", "senses",
                 "food", 1, 0);
         AttackCard aCard17 = new AttackCard("The dinosaur with the BEST WEAPONS survives.",
                 "The survivor receives 1 food token from the loser.", "weapons",
@@ -1214,6 +1214,18 @@ public class Game_GUI {
                     tie = true;
                 }
                 break;
+        }
+
+        if(tie){
+            if (board[p1.getLocation()].getHabitat().equalsIgnoreCase(p1.getDino().getHabitat()) &&
+                    !board[p2.getLocation()].getHabitat().equalsIgnoreCase(p2.getDino().getHabitat())) {
+                determinePenalty(p1, p2, aCard);
+                tie = false;
+            } else if (!board[p1.getLocation()].getHabitat().equalsIgnoreCase(p1.getDino().getHabitat()) &&
+                    board[p2.getLocation()].getHabitat().equalsIgnoreCase(p2.getDino().getHabitat())) {
+                determinePenalty(p2, p1, aCard);
+                tie = false;
+            }
         }
 
         if(tie && !prev){  // have tied once but not twice
