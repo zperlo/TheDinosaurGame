@@ -23,17 +23,17 @@ public class TestGame_GUI { //when TestGame_GUI file is run, it runs all test me
 
         AttackCard aCard0 = new AttackCard("para1","para2", "ror","food", 1,
                 0);
-        AttackDeck aDeck = new AttackDeck();
+        Deck<AttackCard> aDeck = new Deck<>();
         for(int i = 0; i < 20; i++)
             aDeck.setDeck(i, aCard0);
 
-        NaturalDisasterDeck ndDeck = new NaturalDisasterDeck();
+        Deck<NaturalDisasterCard> ndDeck = new Deck<>();
         NaturalDisasterCard ndCard0 = new NaturalDisasterCard("", "", "", false, "intelligence",
                 new int[] {1}, 2);
         for(int i = 0; i < 20; i++)
             ndDeck.setDeck(i, ndCard0);
 
-        ChallengeDeck cDeck = Game_GUI.createChallengeDeck();
+        Deck<ChallengeCard> cDeck = Game_GUI.createChallengeDeck();
 
         int prevL1;
         int prevF1;
@@ -428,7 +428,7 @@ public class TestGame_GUI { //when TestGame_GUI file is run, it runs all test me
         p2.move(52);
         p3.move(52);
 
-        AttackDeck ndDeck = Game_GUI.createAttackDeck();
+        Deck<AttackCard> ndDeck = Game_GUI.createAttackDeck();
 
         AttackCard card0 = ndDeck.draw();
         AttackCard card1 = ndDeck.draw();
@@ -450,7 +450,9 @@ public class TestGame_GUI { //when TestGame_GUI file is run, it runs all test me
         AttackCard card17 = ndDeck.draw();
         AttackCard card18 = ndDeck.draw();
         AttackCard card19 = ndDeck.draw();
+
         AttackCard[] carr = new AttackCard[20];
+
         carr[0] = card0;
         carr[1] = card1;
         carr[2] = card2;
@@ -472,53 +474,11 @@ public class TestGame_GUI { //when TestGame_GUI file is run, it runs all test me
         carr[18] = card18;
         carr[19] = card19;
 
-        AttackDeck deck0 = aTestHelper(card0);
-        AttackDeck deck1 = aTestHelper(card1);
-        AttackDeck deck2 = aTestHelper(card2);
-        AttackDeck deck3 = aTestHelper(card3);
-        AttackDeck deck4 = aTestHelper(card4);
-        AttackDeck deck5 = aTestHelper(card5);
-        AttackDeck deck6 = aTestHelper(card6);
-        AttackDeck deck7 = aTestHelper(card7);
-        AttackDeck deck8 = aTestHelper(card8);
-        AttackDeck deck9 = aTestHelper(card9);
-        AttackDeck deck10 = aTestHelper(card10);
-        AttackDeck deck11 = aTestHelper(card11);
-        AttackDeck deck12 = aTestHelper(card12);
-        AttackDeck deck13 = aTestHelper(card13);
-        AttackDeck deck14 = aTestHelper(card14);
-        AttackDeck deck15 = aTestHelper(card15);
-        AttackDeck deck16 = aTestHelper(card16);
-        AttackDeck deck17 = aTestHelper(card17);
-        AttackDeck deck18 = aTestHelper(card18);
-        AttackDeck deck19 = aTestHelper(card19);
-        AttackDeck[] darr = new AttackDeck[20];
-        darr[0] = deck0;
-        darr[1] = deck1;
-        darr[2] = deck2;
-        darr[3] = deck3;
-        darr[4] = deck4;
-        darr[5] = deck5;
-        darr[6] = deck6;
-        darr[7] = deck7;
-        darr[8] = deck8;
-        darr[9] = deck9;
-        darr[10] = deck10;
-        darr[11] = deck11;
-        darr[12] = deck12;
-        darr[13] = deck13;
-        darr[14] = deck14;
-        darr[15] = deck15;
-        darr[16] = deck16;
-        darr[17] = deck17;
-        darr[18] = deck18;
-        darr[19] = deck19;
-
         Player[] players = {p1, p2, p3};
 
         for(int i = 0; i < 20; i++) {
             AttackCard aCard = carr[i];
-            AttackDeck aDeck = darr[i];
+            Deck<AttackCard> aDeck = aTestHelper(carr[i]);
 
             for (int j = 0; j < 3; j++) {
                 Player p = players[j];
@@ -720,8 +680,8 @@ public class TestGame_GUI { //when TestGame_GUI file is run, it runs all test me
         }
     }
 
-    public AttackDeck aTestHelper(AttackCard card){
-        AttackDeck deck = new AttackDeck();
+    public Deck<AttackCard> aTestHelper(AttackCard card){
+        Deck<AttackCard> deck = new Deck<>();
         for(int i = 0; i < 20; i++)
             deck.setDeck(i, card);
         return deck;
@@ -778,7 +738,7 @@ public class TestGame_GUI { //when TestGame_GUI file is run, it runs all test me
         p3.setEvolveCardSpdSiz(true);
         final int lostTurns = 2;
         Space[] board = Game_GUI.createBoard();
-        NaturalDisasterDeck ndDeck = Game_GUI.createNaturalDisasterDeck();
+        Deck<NaturalDisasterCard> ndDeck = Game_GUI.createNaturalDisasterDeck();
 
         NaturalDisasterCard card0 = ndDeck.draw();
         NaturalDisasterCard card1 = ndDeck.draw();
@@ -800,7 +760,9 @@ public class TestGame_GUI { //when TestGame_GUI file is run, it runs all test me
         NaturalDisasterCard card17 = ndDeck.draw();
         NaturalDisasterCard card18 = ndDeck.draw();
         NaturalDisasterCard card19 = ndDeck.draw();
+
         NaturalDisasterCard[] carr = new NaturalDisasterCard[20];
+
         carr[0] = card0;
         carr[1] = card1;
         carr[2] = card2;
@@ -822,53 +784,11 @@ public class TestGame_GUI { //when TestGame_GUI file is run, it runs all test me
         carr[18] = card18;
         carr[19] = card19;
 
-        NaturalDisasterDeck deck0 = ndTestHelper(card0);
-        NaturalDisasterDeck deck1 = ndTestHelper(card1);
-        NaturalDisasterDeck deck2 = ndTestHelper(card2);
-        NaturalDisasterDeck deck3 = ndTestHelper(card3);
-        NaturalDisasterDeck deck4 = ndTestHelper(card4);
-        NaturalDisasterDeck deck5 = ndTestHelper(card5);
-        NaturalDisasterDeck deck6 = ndTestHelper(card6);
-        NaturalDisasterDeck deck7 = ndTestHelper(card7);
-        NaturalDisasterDeck deck8 = ndTestHelper(card8);
-        NaturalDisasterDeck deck9 = ndTestHelper(card9);
-        NaturalDisasterDeck deck10 = ndTestHelper(card10);
-        NaturalDisasterDeck deck11 = ndTestHelper(card11);
-        NaturalDisasterDeck deck12 = ndTestHelper(card12);
-        NaturalDisasterDeck deck13 = ndTestHelper(card13);
-        NaturalDisasterDeck deck14 = ndTestHelper(card14);
-        NaturalDisasterDeck deck15 = ndTestHelper(card15);
-        NaturalDisasterDeck deck16 = ndTestHelper(card16);
-        NaturalDisasterDeck deck17 = ndTestHelper(card17);
-        NaturalDisasterDeck deck18 = ndTestHelper(card18);
-        NaturalDisasterDeck deck19 = ndTestHelper(card19);
-        NaturalDisasterDeck[] darr = new NaturalDisasterDeck[20];
-        darr[0] = deck0;
-        darr[1] = deck1;
-        darr[2] = deck2;
-        darr[3] = deck3;
-        darr[4] = deck4;
-        darr[5] = deck5;
-        darr[6] = deck6;
-        darr[7] = deck7;
-        darr[8] = deck8;
-        darr[9] = deck9;
-        darr[10] = deck10;
-        darr[11] = deck11;
-        darr[12] = deck12;
-        darr[13] = deck13;
-        darr[14] = deck14;
-        darr[15] = deck15;
-        darr[16] = deck16;
-        darr[17] = deck17;
-        darr[18] = deck18;
-        darr[19] = deck19;
-
         Player[] players = {p1, p2, p3};
 
         for(int i = 0; i <20; i++) {
             NaturalDisasterCard ncard = carr[i];
-            NaturalDisasterDeck ndeck = darr[i];
+            Deck<NaturalDisasterCard> ndeck = ndTestHelper(carr[i]);
 
             for (int j = 0; j < 3; j++) {
                 Player p = players[j];
@@ -959,8 +879,8 @@ public class TestGame_GUI { //when TestGame_GUI file is run, it runs all test me
 
     }
 
-    public NaturalDisasterDeck ndTestHelper(NaturalDisasterCard card){
-        NaturalDisasterDeck deck = new NaturalDisasterDeck();
+    public Deck<NaturalDisasterCard> ndTestHelper(NaturalDisasterCard card){
+        Deck<NaturalDisasterCard> deck = new Deck<>();
         for(int i = 0; i < 20; i++)
             deck.setDeck(i, card);
         return deck;

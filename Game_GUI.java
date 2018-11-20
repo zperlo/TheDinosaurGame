@@ -35,9 +35,9 @@ public class Game_GUI {
     public static void main(String[] args) {
 
         Dinosaur[] dinoCards = createDinoCards();
-        NaturalDisasterDeck ndDeck = createNaturalDisasterDeck();
-        AttackDeck aDeck = createAttackDeck();
-        ChallengeDeck cDeck = createChallengeDeck();
+        Deck<NaturalDisasterCard> ndDeck = createNaturalDisasterDeck();
+        Deck<AttackCard> aDeck = createAttackDeck();
+        Deck<ChallengeCard> cDeck = createChallengeDeck();
         Player[] players = initializePlayers(dinoCards);
         Space[] board = createBoard();
 
@@ -127,8 +127,8 @@ public class Game_GUI {
      * @see Player
      * @see Space
      */
-    public static void turn(Player p, int roll, Space[] board, Player[] players, ChallengeDeck cDeck,
-                            AttackDeck aDeck, NaturalDisasterDeck ndDeck) {
+    public static void turn(Player p, int roll, Space[] board, Player[] players, Deck<ChallengeCard> cDeck,
+                            Deck<AttackCard> aDeck, Deck<NaturalDisasterCard> ndDeck) {
 
         String dinoName = p.getDino().getName();
 
@@ -509,7 +509,7 @@ public class Game_GUI {
      * @see NaturalDisasterDeck
      * @see NaturalDisasterCard
      */
-    public static NaturalDisasterDeck createNaturalDisasterDeck() {
+    public static Deck<NaturalDisasterCard> createNaturalDisasterDeck() {
         NaturalDisasterCard card0 = new NaturalDisasterCard("SLIM PICKINGS!",
                 "FAMINE: Food is getting hard to find. Are your senses sharp enough to find food?",
                 "If your SENSES are average (0) or below average (-) lose 2 food tokens.",
@@ -590,7 +590,9 @@ public class Game_GUI {
                 false, "defenses", new int[] {-1}, 1);
         NaturalDisasterCard card19 = new NaturalDisasterCard("OOPS!", "QUICKSAND! You fell into " +
                 "quicksand.", "You are stuck for 2 turns.", true, "none");
-        NaturalDisasterDeck ndDeck = new NaturalDisasterDeck();
+
+        Deck<NaturalDisasterCard> ndDeck = new Deck<>();
+
         ndDeck.setDeck(0, card0);
         ndDeck.setDeck(1, card1);
         ndDeck.setDeck(2, card2);
@@ -623,7 +625,7 @@ public class Game_GUI {
      * @see AttackCard
      * @see AttackDeck
      */
-    public static AttackDeck createAttackDeck() {
+    public static Deck<AttackCard> createAttackDeck() {
         AttackCard aCard0 = new AttackCard("<html>The dinosaur with the <span style=\"font-family:Showcard Gothic;font-size:13px;\">LEAST WEAPONS</span> loses.<html>",
                 "The loser moves back 3 spaces.", "weapons", "move", 3, 0);
         AttackCard aCard1 = new AttackCard("The dinosaur with the BEST ABILITY TO ADAPT survives.",
@@ -677,7 +679,7 @@ public class Game_GUI {
                 "The survivor receives 1 food token from the loser.", "habitat",
                 "food", 1, 0);
 
-        AttackDeck aDeck = new AttackDeck();
+        Deck<AttackCard> aDeck = new Deck<>();
         aDeck.setDeck(0, aCard0);
         aDeck.setDeck(1, aCard1);
         aDeck.setDeck(2, aCard2);
@@ -709,7 +711,7 @@ public class Game_GUI {
      * @see ChallengeCard
      * @see ChallengeDeck
      */
-    public static ChallengeDeck createChallengeDeck(){
+    public static Deck<ChallengeCard> createChallengeDeck(){
         ChallengeCard cCard0 = new ChallengeCard("If you are in YOUR HABITAT: move ahead 5 spaces and play that square."
                 , "OR", "Receive 1 food token", 0, 1);
 
@@ -772,7 +774,8 @@ public class Game_GUI {
         ChallengeCard cCard19 = new ChallengeCard("Lose 1 food token.", "OR",
                 "Lose a turn.", 19, 0);
 
-        ChallengeDeck cDeck = new ChallengeDeck();
+        Deck<ChallengeCard> cDeck = new Deck<>();
+
         cDeck.setDeck(0, cCard0);
         cDeck.setDeck(1, cCard1);
         cDeck.setDeck(2, cCard2);
@@ -820,7 +823,7 @@ public class Game_GUI {
      * @see Space
      */
     public static void challengeByID(Player player, int id, int choice, Player[] players, Space[] board,
-                                     AttackDeck aDeck, ChallengeDeck cDeck, NaturalDisasterDeck ndDeck){
+                                     Deck<AttackCard> aDeck, Deck<ChallengeCard> cDeck, Deck<NaturalDisasterCard> ndDeck){
         switch(id){
             case 0:
                 if(choice == 1){
@@ -1068,7 +1071,7 @@ public class Game_GUI {
      * @see AttackDeck
      * @see Space
      */
-    public static void attack(Player p1, Player p2, AttackDeck aDeck, Space[] board, boolean prev){
+    public static void attack(Player p1, Player p2, Deck<AttackCard> aDeck, Space[] board, boolean prev){
         AttackCard aCard = aDeck.draw();
         String statChecked = aCard.getStat();
         gp.showComparison(p1, p2, statChecked);
@@ -1256,7 +1259,7 @@ public class Game_GUI {
      * @see NaturalDisasterCard
      * @see NaturalDisasterDeck
      */
-    public static void naturalDisaster(Player p, NaturalDisasterDeck ndDeck, Space[] board){
+    public static void naturalDisaster(Player p, Deck<NaturalDisasterCard> ndDeck, Space[] board){
         NaturalDisasterCard ndCard = ndDeck.draw();
         gp.showNaturalDisaster(ndCard);
         System.out.println(ndCard.getPara1());

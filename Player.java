@@ -70,7 +70,7 @@ public class Player {
         }
 
         // allow player to move so long as they don't go past the finish space
-        else if (location + numSpaces <= 105) {
+        else if (location + numSpaces <= 109) {
             location = location + numSpaces;
         }
 
