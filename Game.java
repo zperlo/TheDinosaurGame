@@ -663,18 +663,18 @@ public class Game {
      * @see ChallengeDeck
      */
     public static Deck<ChallengeCard> createChallengeDeck(){
-        ChallengeCard cCard0 = new ChallengeCard("If you are in YOUR HABITAT: move ahead 5 spaces and play that square."
-                , "OR", "Receive 1 food token", 0, 1);
+        ChallengeCard cCard0 = new ChallengeCard("If you are in YOUR HABITAT: move ahead 5 spaces and play that square.",
+                "OR", "Receive 1 food token", 0, 1);
 
-        ChallengeCard cCard1 = new ChallengeCard("","Give the next player a food token from the bank"
-                , "", 1, 2);
+        ChallengeCard cCard1 = new ChallengeCard("","Give the next player a food token from the bank",
+                "", 1, 2);
 
         ChallengeCard cCard2 = new ChallengeCard("CONGRATULATIONS!",
-                "Your Dinosaur has evolved above average (+) SPEED" + "and SIZE.",
+                "Your Dinosaur has evolved above average (+) SPEED" + " and SIZE.",
                 "Keep this card to use in any attack situation for the rest of the game.", 2, 3);
 
         ChallengeCard cCard3 = new ChallengeCard("CONGRATULATIONS!",
-                "Your Dinosaur has evolved above average (+) SENSES" + "and INTELLIGENCE.",
+                "Your Dinosaur has evolved above average (+) SENSES" + " and INTELLIGENCE.",
                 "Keep this card to use in any attack situation for the rest of the game.", 3, 3);
 
         ChallengeCard cCard4 = new ChallengeCard("If you are NOT in YOUR HABITAT: move back 5 spaces and play that square",
@@ -713,7 +713,7 @@ public class Game {
         ChallengeCard cCard15 = new ChallengeCard("Go ahead 3 spaces and DO NOT play that square.",
                 "OR", "Receive 1 food token.", 15, 0);
 
-        ChallengeCard cCard16 = new ChallengeCard("Move to your next food square and receive a food token .",
+        ChallengeCard cCard16 = new ChallengeCard("Move to your next food square and receive a food token.",
                 "OR", "Roll again.", 16, 0);
 
         ChallengeCard cCard17 = new ChallengeCard("Give the next player 1 food token.",
