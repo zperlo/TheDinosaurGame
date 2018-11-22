@@ -723,7 +723,7 @@ public class Game_GUI {
                 "Keep this card to use in any attack situation for the rest of the game.", 2, 3);
 
         ChallengeCard cCard3 = new ChallengeCard("CONGRATULATIONS!",
-                "Your Dinosaur has evolved above average (+) SENSES" + "and INTELLIGENCE.",
+                "Your Dinosaur has evolved above average (+) SENSES " + "and INTELLIGENCE.",
                 "Keep this card to use in any attack situation for the rest of the game.", 3, 3);
 
         ChallengeCard cCard4 = new ChallengeCard("If you are NOT in YOUR HABITAT: move back 5 spaces and play that square",
