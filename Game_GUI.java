@@ -628,54 +628,54 @@ public class Game_GUI {
     public static Deck<AttackCard> createAttackDeck() {
         AttackCard aCard0 = new AttackCard("<html>The dinosaur with the <span style=\"font-family:Showcard Gothic;font-size:13px;\">LEAST WEAPONS</span> loses.<html>",
                 "The loser moves back 3 spaces.", "weapons", "move", 3, 0);
-        AttackCard aCard1 = new AttackCard("The dinosaur with the BEST ABILITY TO ADAPT survives.",
+        AttackCard aCard1 = new AttackCard("<html>The dinosaur with the <span style=\"font-family:Showcard Gothic;font-size:13px;\">BEST ABILITY TO ADAPT</span> survives.<html>",
                 "The survivor receives 1 food token from the loser.", "ata",
                 "food", 1, 0);
-        AttackCard aCard2 = new AttackCard("The dinosaur with the LOWEST RATE OF REPRODUCTION loses.",
+        AttackCard aCard2 = new AttackCard("<html>The dinosaur with the <span style=\"font-family:Showcard Gothic;font-size:13px;\">LOWEST RATE OF REPRODUCTION</span> loses.<html>",
                 "The loser moves back 4 spaces.", "ror", "move", 4, 0);
-        AttackCard aCard3 = new AttackCard("The SLOWEST dinosaur loses.",
+        AttackCard aCard3 = new AttackCard("<html>The <span style=\"font-family:Showcard Gothic;font-size:13px;\">SLOWEST</span> dinosaur loses.<html>",
                 "The loser moves back 3 spaces.", "speed", "move", 3, 0);
-        AttackCard aCard4 = new AttackCard("Any dinosaur OUT OF ITS HABITAT loses.",
+        AttackCard aCard4 = new AttackCard("<html>Any dinosaur <span style=\"font-family:Showcard Gothic;font-size:13px;\">OUT OF ITS HABITAT</span> loses.<html>",
                 "The loser moves back 4 spaces.", "habitat", "move", 4, 0);
-        AttackCard aCard5 = new AttackCard("The SMALLEST dinosaur loses.",
+        AttackCard aCard5 = new AttackCard("<html>The <span style=\"font-family:Showcard Gothic;font-size:13px;\">SMALLEST</span> dinosaur loses.<html>",
                 "The loser moves back 2 spaces.", "size", "move", 2, 0);
-        AttackCard aCard6 = new AttackCard("The dinosaur with the LOWEST ABILITY TO ADAPT loses.",
+        AttackCard aCard6 = new AttackCard("<html>The dinosaur with the <span style=\"font-family:Showcard Gothic;font-size:13px;\">LOWEST ABILITY TO ADAPT</span> loses.<html>",
                 "The loser moves back 3 spaces.", "ata", "move", 3, 0);
-        AttackCard aCard7 = new AttackCard("The dinosaur with the LEAST SENSES loses.",
+        AttackCard aCard7 = new AttackCard("<html>The dinosaur with the <span style=\"font-family:Showcard Gothic;font-size:13px;\">LEAST SENSES</span> loses.<html>",
                 "The loser moves back 2 spaces.", "senses", "move", 2, 0);
-        AttackCard aCard8 = new AttackCard("The LARGEST dinosaur survives.",
+        AttackCard aCard8 = new AttackCard("<html>The <span style=\"font-family:Showcard Gothic;font-size:13px;\">LARGEST</span> dinosaur survives.<html>",
                 "The survivor moves ahead 4 spaces.", "size", "move", 4, 1);
-        AttackCard aCard9 = new AttackCard("The MOST INTELLIGENT dinosaur survives.",
+        AttackCard aCard9 = new AttackCard("<html>The <span style=\"font-family:Showcard Gothic;font-size:13px;\">MOST INTELLIGENT</span> dinosaur survives.<html>",
                 "The survivor moves ahead 2 spaces.", "intelligence",
                 "move", 2, 1);
-        AttackCard aCard10 = new AttackCard("The dinosaur with the BEST DEFENSES survives.",
-                "The survivor moves ahead 3 spaces.", "weapons",
+        AttackCard aCard10 = new AttackCard("<html>The dinosaur with the <span style=\"font-family:Showcard Gothic;font-size:13px;\">BEST DEFENSES</span> survives.<html>",
+                "The survivor moves ahead 3 spaces.", "defenses",
                 "move", 3, 1);
-        AttackCard aCard11 = new AttackCard("The FASTEST dinosaur survives.",
+        AttackCard aCard11 = new AttackCard("<html>The <span style=\"font-family:Showcard Gothic;font-size:13px;\">FASTEST</span> dinosaur survives.<html>",
                 "The survivor moves ahead 3 spaces.", "speed",
                 "move", 3, 1);
-        AttackCard aCard12 = new AttackCard("The dinosaur with the HIGHEST RATE OF REPRODUCTION survives.",
+        AttackCard aCard12 = new AttackCard("<html>The dinosaur with the <span style=\"font-family:Showcard Gothic;font-size:13px;\">HIGHEST RATE OF REPRODUCTION</span> survives.<html>",
                 "The survivor receives 1 food token from the loser.", "ror",
                 "food", 1, 0);
-        AttackCard aCard13 = new AttackCard("The MOST INTELLIGENT dinosaur survives.",
+        AttackCard aCard13 = new AttackCard("<html>The <span style=\"font-family:Showcard Gothic;font-size:13px;\">MOST INTELLIGENT</span> dinosaur survives.<html>",
                 "The survivor receives 1 food token from the loser.", "intelligence",
                 "food", 1, 0);
-        AttackCard aCard14 = new AttackCard("The dinosaur with the BEST DEFENSES survives.",
+        AttackCard aCard14 = new AttackCard("<html>The dinosaur with the <span style=\"font-family:Showcard Gothic;font-size:13px;\">BEST DEFENSES</span> survives.<html>",
                 "The survivor receives 1 food token from the loser.", "defenses",
                 "food", 1, 0);
-        AttackCard aCard15 = new AttackCard("The FASTEST dinosaur survives.",
+        AttackCard aCard15 = new AttackCard("<html>The <span style=\"font-family:Showcard Gothic;font-size:13px;\">FASTEST</span> dinosaur survives.<html>",
                 "The survivor receives 1 food token from the loser.", "speed",
                 "food", 1, 0);
-        AttackCard aCard16 = new AttackCard("The dinosaur with the BEST SENSES survives.",
-                "TThe survivor receives 1 food token from the loser.", "senses",
+        AttackCard aCard16 = new AttackCard("<html>The dinosaur with the <span style=\"font-family:Showcard Gothic;font-size:13px;\">BEST SENSES</span> survives.<html>",
+                "The survivor receives 1 food token from the loser.", "senses",
                 "food", 1, 0);
-        AttackCard aCard17 = new AttackCard("The dinosaur with the BEST WEAPONS survives.",
+        AttackCard aCard17 = new AttackCard("<html>The dinosaur with the <span style=\"font-family:Showcard Gothic;font-size:13px;\">BEST WEAPONS</span> survives.<html>",
                 "The survivor receives 1 food token from the loser.", "weapons",
                 "food", 1, 0);
-        AttackCard aCard18 = new AttackCard("The LARGEST dinosaur survives.",
+        AttackCard aCard18 = new AttackCard("<html>The <span style=\"font-family:Showcard Gothic;font-size:13px;\">LARGEST</span> dinosaur survives.<html>",
                 "The survivor receives 1 food token from the loser.", "size",
                 "food", 1, 0);
-        AttackCard aCard19 = new AttackCard("The dinosaur in ITS OWN HABITAT survives.",
+        AttackCard aCard19 = new AttackCard("<html>The dinosaur in <span style=\"font-family:Showcard Gothic;font-size:13px;\">ITS OWN HABITAT</span> survives.<html>",
                 "The survivor receives 1 food token from the loser.", "habitat",
                 "food", 1, 0);
 
@@ -712,18 +712,18 @@ public class Game_GUI {
      * @see ChallengeDeck
      */
     public static Deck<ChallengeCard> createChallengeDeck(){
-        ChallengeCard cCard0 = new ChallengeCard("If you are in YOUR HABITAT: move ahead 5 spaces and play that square."
-                , "OR", "Receive 1 food token", 0, 1);
+        ChallengeCard cCard0 = new ChallengeCard("If you are in YOUR HABITAT: move ahead 5 spaces and play that square.",
+                "OR", "Receive 1 food token", 0, 1);
 
-        ChallengeCard cCard1 = new ChallengeCard("","Give the next player a food token from the bank"
-                , "", 1, 2);
+        ChallengeCard cCard1 = new ChallengeCard("","Give the next player a food token from the bank",
+                "", 1, 2);
 
         ChallengeCard cCard2 = new ChallengeCard("CONGRATULATIONS!",
-                "Your Dinosaur has evolved above average (+) SPEED" + "and SIZE.",
+                "Your Dinosaur has evolved above average (+) SPEED" + " and SIZE.",
                 "Keep this card to use in any attack situation for the rest of the game.", 2, 3);
 
         ChallengeCard cCard3 = new ChallengeCard("CONGRATULATIONS!",
-                "Your Dinosaur has evolved above average (+) SENSES " + "and INTELLIGENCE.",
+                "Your Dinosaur has evolved above average (+) SENSES" + " and INTELLIGENCE.",
                 "Keep this card to use in any attack situation for the rest of the game.", 3, 3);
 
         ChallengeCard cCard4 = new ChallengeCard("If you are NOT in YOUR HABITAT: move back 5 spaces and play that square",
@@ -762,7 +762,7 @@ public class Game_GUI {
         ChallengeCard cCard15 = new ChallengeCard("Go ahead 3 spaces and DO NOT play that square.",
                 "OR", "Receive 1 food token.", 15, 0);
 
-        ChallengeCard cCard16 = new ChallengeCard("Move to your next food square and receive a food token .",
+        ChallengeCard cCard16 = new ChallengeCard("Move to your next food square and receive a food token.",
                 "OR", "Roll again.", 16, 0);
 
         ChallengeCard cCard17 = new ChallengeCard("Give the next player 1 food token.",
@@ -920,7 +920,7 @@ public class Game_GUI {
                     player.changeFood(1);
                 }
                 else {
-                    int roll = (int)(Math.random() * 6 + 1);
+                    int roll = gp.getRoll();
                     turn(player, roll, board, players, cDeck, aDeck, ndDeck);
                 }
                 break;
@@ -1005,7 +1005,7 @@ public class Game_GUI {
                     }
                 }
                 else {
-                    int roll = (int)(Math.random() * 6 + 1);
+                    int roll = gp.getRoll();
                     turn(player, roll, board, players, cDeck, aDeck, ndDeck);
                 }
                 break;
@@ -1214,6 +1214,18 @@ public class Game_GUI {
                     tie = true;
                 }
                 break;
+        }
+
+        if(tie){
+            if (board[p1.getLocation()].getHabitat().equalsIgnoreCase(p1.getDino().getHabitat()) &&
+                    !board[p2.getLocation()].getHabitat().equalsIgnoreCase(p2.getDino().getHabitat())) {
+                determinePenalty(p1, p2, aCard);
+                tie = false;
+            } else if (!board[p1.getLocation()].getHabitat().equalsIgnoreCase(p1.getDino().getHabitat()) &&
+                    board[p2.getLocation()].getHabitat().equalsIgnoreCase(p2.getDino().getHabitat())) {
+                determinePenalty(p2, p1, aCard);
+                tie = false;
+            }
         }
 
         if(tie && !prev){  // have tied once but not twice

@@ -603,7 +603,7 @@ public class Game {
                 "The survivor moves ahead 3 spaces.", "weapons",
                 "move", 3, 1);
         AttackCard aCard11 = new AttackCard("The FASTEST dinosaur survives.",
-                "TThe survivor moves ahead 3 spaces.", "speed",
+                "The survivor moves ahead 3 spaces.", "speed",
                 "move", 3, 1);
         AttackCard aCard12 = new AttackCard("The dinosaur with the HIGHEST RATE OF REPRODUCTION survives.",
                 "The survivor receives 1 food token from the loser.", "ror",
@@ -618,7 +618,7 @@ public class Game {
                 "The survivor receives 1 food token from the loser.", "speed",
                 "food", 1, 0);
         AttackCard aCard16 = new AttackCard("The dinosaur with the BEST SENSES survives.",
-                "TThe survivor receives 1 food token from the loser.", "senses",
+                "The survivor receives 1 food token from the loser.", "senses",
                 "food", 1, 0);
         AttackCard aCard17 = new AttackCard("The dinosaur with the BEST WEAPONS survives.",
                 "The survivor receives 1 food token from the loser.", "weapons",
@@ -663,18 +663,18 @@ public class Game {
      * @see ChallengeDeck
      */
     public static Deck<ChallengeCard> createChallengeDeck(){
-        ChallengeCard cCard0 = new ChallengeCard("If you are in YOUR HABITAT: move ahead 5 spaces and play that square."
-                , "OR", "Receive 1 food token", 0, 1);
+        ChallengeCard cCard0 = new ChallengeCard("If you are in YOUR HABITAT: move ahead 5 spaces and play that square.",
+                "OR", "Receive 1 food token", 0, 1);
 
-        ChallengeCard cCard1 = new ChallengeCard("","Give the next player a food token from the bank"
-                , "", 1, 2);
+        ChallengeCard cCard1 = new ChallengeCard("","Give the next player a food token from the bank",
+                "", 1, 2);
 
         ChallengeCard cCard2 = new ChallengeCard("CONGRATULATIONS!",
-                "Your Dinosaur has evolved above average (+) SPEED" + "and SIZE.",
+                "Your Dinosaur has evolved above average (+) SPEED" + " and SIZE.",
                 "Keep this card to use in any attack situation for the rest of the game.", 2, 3);
 
         ChallengeCard cCard3 = new ChallengeCard("CONGRATULATIONS!",
-                "Your Dinosaur has evolved above average (+) SENSES " + "and INTELLIGENCE.",
+                "Your Dinosaur has evolved above average (+) SENSES" + " and INTELLIGENCE.",
                 "Keep this card to use in any attack situation for the rest of the game.", 3, 3);
 
         ChallengeCard cCard4 = new ChallengeCard("If you are NOT in YOUR HABITAT: move back 5 spaces and play that square",
@@ -713,7 +713,7 @@ public class Game {
         ChallengeCard cCard15 = new ChallengeCard("Go ahead 3 spaces and DO NOT play that square.",
                 "OR", "Receive 1 food token.", 15, 0);
 
-        ChallengeCard cCard16 = new ChallengeCard("Move to your next food square and receive a food token .",
+        ChallengeCard cCard16 = new ChallengeCard("Move to your next food square and receive a food token.",
                 "OR", "Roll again.", 16, 0);
 
         ChallengeCard cCard17 = new ChallengeCard("Give the next player 1 food token.",
@@ -1165,6 +1165,18 @@ public class Game {
                     tie = true;
                 }
                 break;
+        }
+
+        if(tie){
+            if (board[p1.getLocation()].getHabitat().equalsIgnoreCase(p1.getDino().getHabitat()) &&
+                    !board[p2.getLocation()].getHabitat().equalsIgnoreCase(p2.getDino().getHabitat())) {
+                determinePenalty(p1, p2, aCard);
+                tie = false;
+            } else if (!board[p1.getLocation()].getHabitat().equalsIgnoreCase(p1.getDino().getHabitat()) &&
+                    board[p2.getLocation()].getHabitat().equalsIgnoreCase(p2.getDino().getHabitat())) {
+                determinePenalty(p2, p1, aCard);
+                tie = false;
+            }
         }
 
         if(tie && !prev){  // have tied once but not twice
