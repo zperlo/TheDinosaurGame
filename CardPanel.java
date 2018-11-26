@@ -87,13 +87,13 @@ public class CardPanel extends JPanel {
         labelBot.setText(c.getChoice2());
         labelHab.setText(null);
 
-        LabelListener top = (LabelListener) labelTop.getMouseListeners()[0];
-        top.activate();
-        LabelListener bot = (LabelListener) labelBot.getMouseListeners()[0];
-        bot.activate();
-
         int r = -1;
         if (c.getType() == 0 || c.getType() == 1) {
+            LabelListener top = (LabelListener) labelTop.getMouseListeners()[0];
+            top.activate();
+            LabelListener bot = (LabelListener) labelBot.getMouseListeners()[0];
+            bot.activate();
+
             labelClickSem = 0;
             while (labelClickSem == 0) {
                 try {
@@ -103,6 +103,11 @@ public class CardPanel extends JPanel {
                 }
             }
             r = labelClickSem;
+
+            top.assertMouseExited(labelTop);
+            bot.assertMouseExited(labelBot);
+            top.deactivate();
+            bot.deactivate();
         } else if (c.getType() == 2 || c.getType() == 3) {
             panelClickSem = 0;
             while (panelClickSem == 0) {
@@ -114,11 +119,6 @@ public class CardPanel extends JPanel {
             }
             r = panelClickSem;
         }
-
-        top.assertMouseExited(labelTop);
-        bot.assertMouseExited(labelBot);
-        top.deactivate();
-        bot.deactivate();
 
         return r;
     }

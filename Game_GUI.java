@@ -45,11 +45,12 @@ public class Game_GUI {
 
         JFrame frame = new JFrame("dinogame");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        gp = new GamePanel(players);
+        gp = new GamePanel();
         frame.getContentPane().add(gp);
         frame.setResizable(false);
         frame.pack();
         frame.setVisible(true);
+        gp.executeMenu();
 
         boolean gameEnd = false;
         while(!gameEnd) {
@@ -64,7 +65,8 @@ public class Game_GUI {
                     int roll = gp.getRoll();
 
                     turn(p, roll, board, players, cDeck, aDeck, ndDeck);
-                    gp.refreshTokensAndFood();
+                    gp.refreshTokens();
+                    gp.refreshFood();
 
                     for (Player f : players) {
                         if (f.getFoodTokens() <= 0) {
@@ -131,6 +133,7 @@ public class Game_GUI {
                             Deck<AttackCard> aDeck, Deck<NaturalDisasterCard> ndDeck) {
 
         String dinoName = p.getDino().getName();
+        JOptionPane jop = new JOptionPane();
 
         // see if the player currently is on a lost turn
         int lostTurns = p.getLostTurns();
@@ -143,15 +146,16 @@ public class Game_GUI {
         else {
             // have player move on board
             p.move(roll);
-            gp.refreshTokensAndFood();
+            gp.refreshTokens();
 
             // check for attack event
             boolean playSpace = true;
             for (Player x: players){
                 if(x.getLocation() == p.getLocation() && x != p && !x.isExtinct()){
                     playSpace = false;
-                    System.out.println(dinoName + " is attacking " + x.getDino().getName());
                     attack(p, x, aDeck, board, false);
+                    gp.refreshTokens();
+                    gp.refreshFood();
                     break;
                 }
             }
@@ -160,32 +164,33 @@ public class Game_GUI {
             if(playSpace) {
                 switch (board[p.getLocation()].getType()) {
                     case "herbivore":
-                        System.out.println("herbivore space");
                         if (p.getDino().isHerbivore()) {
-                            System.out.println(dinoName + " gets a food token");
+                            jop.showMessageDialog(gp,
+                                    p.getDino().getName() + " is an herbivore, so you get one food token!",
+                                    "dinogame",
+                                    JOptionPane.INFORMATION_MESSAGE);
                             p.changeFood(1);
                         }
                         break;
                     case "carnivore":
-                        System.out.println("carnivore space");
                         if (!p.getDino().isHerbivore()) {
-                            System.out.println(dinoName + " gets a food token");
+                            jop.showMessageDialog(gp,
+                                    p.getDino().getName() + " is a carnivore, so you get one food token!",
+                                    "dinogame",
+                                    JOptionPane.INFORMATION_MESSAGE);
                             p.changeFood(1);
                         }
                         break;
                     case "challenge":
-                        System.out.println("challenge space");
                         ChallengeCard cCard = cDeck.draw();
                         int id = cCard.getId();
                         int choice = gp.showChallenge(cCard);
                         challengeByID(p, id, choice, players, board, aDeck, cDeck, ndDeck);
                         break;
                     case "natural disaster":
-                        System.out.println("natural disaster space");
                         naturalDisaster(p, ndDeck, board);
                         break;
                     case "danger zone":
-                        System.out.println("danger zone space");
                         dangerZone(p);
                         break;
                 }
@@ -1362,34 +1367,53 @@ public class Game_GUI {
      */
     public static void dangerZone(Player p) {
 
+        JOptionPane jop = new JOptionPane();
+
         // get the player's location - each case is one of the danger zone spaces, so landing on that
         // space forces the player to receive that effect.
         switch (p.getLocation()) {
             case 22: // VOLCANO! go back 9 spaces
-                System.out.println("VOLCANO! go back 9 spaces");
+                jop.showMessageDialog(gp,
+                        "VOLCANO! go back 9 spaces",
+                        "dinogame",
+                        JOptionPane.WARNING_MESSAGE);
                 p.move(-9);
                 break;
             case 42: // FLOOD! go back 8 spaces
-                System.out.println("FLOOD! go back 8 spaces");
+                jop.showMessageDialog(gp,
+                        "FLOOD! go back 8 spaces",
+                        "dinogame",
+                        JOptionPane.WARNING_MESSAGE);
                 p.move(-8);
                 break;
             case 64: // EARTHQUAKE! lose 3 food tokens
-                System.out.println("EARTHQUAKE! lose 3 food tokens");
+                jop.showMessageDialog(gp,
+                        "EARTHQUAKE! lose 3 food tokens",
+                        "dinogame",
+                        JOptionPane.WARNING_MESSAGE);
                 p.changeFood(-3);
                 break;
             case 73: // HOT! lose 4 food tokens
-                System.out.println("HOT! lose 4 food tokens");
+                jop.showMessageDialog(gp,
+                        "HOT! lose 4 food tokens",
+                        "dinogame",
+                        JOptionPane.WARNING_MESSAGE);
                 p.changeFood(-4);
                 break;
             case 88: // LIGHTNING! lose 3 food tokens
-                System.out.println("LIGHTNING! lose 3 food tokens");
+                jop.showMessageDialog(gp,
+                        "LIGHTNING! lose 3 food tokens",
+                        "dinogame",
+                        JOptionPane.WARNING_MESSAGE);
                 p.changeFood(-3);
                 break;
             case 107: // DISEASE! go back 8 spaces
-                System.out.println("DISEASE! go back 8 spaces");
+                jop.showMessageDialog(gp,
+                        "DISEASE! go back 8 spaces",
+                        "dinogame",
+                        JOptionPane.WARNING_MESSAGE);
                 p.move(-8);
                 break;
         }
-
     }
 }

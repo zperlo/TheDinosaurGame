@@ -1,8 +1,7 @@
 import javax.swing.*;
 import javax.swing.border.BevelBorder;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.event.*;
 
 public class GamePanel extends JPanel {
     // top level gameplay components
@@ -15,15 +14,37 @@ public class GamePanel extends JPanel {
     // utility variables
     private Player[] players;
     private int rollSem;
+    private int splashSem;
 
     // constructor
-    public GamePanel(Player[] players) {
-        this.players = players;
-        setup();
+    public GamePanel() {}
+
+    public void executeMenu() {
+        splash();
+    }
+
+    private void splash() {
+        // layout tools
+        setLayout(new GridBagLayout());
+        GridBagConstraints gbc;
+
+        setBackground(new Color(188, 116, 88));
+
+        setFocusable(true);
+        addKeyListener(new SplashListener());
+        splashSem = 0;
+        while (splashSem == 0) {
+            try {
+                Thread.sleep(1);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+        System.exit(0);
     }
 
     // initialize and set up top level components
-    private void setup() {
+    private void gameSetup() {
         // layout tools
         setLayout(new GridBagLayout());
         GridBagConstraints gbc;
@@ -95,8 +116,6 @@ public class GamePanel extends JPanel {
         }
     }
 
-
-
     public void takeTurn(Dinosaur d) {
         dinoCards.show(d);
     }
@@ -117,8 +136,11 @@ public class GamePanel extends JPanel {
         dinoCards.showComparison(attacker, defender, stat);
     }
 
-    public void refreshTokensAndFood() {
+    public void refreshTokens() {
         board.repaint();
+    }
+
+    public void refreshFood() {
         food.updateFood();
     }
 
@@ -137,4 +159,48 @@ public class GamePanel extends JPanel {
 
         return rollSem;
     }
+
+    private class SplashListener implements KeyListener {
+        @Override
+        public void keyTyped(KeyEvent e) {
+
+        }
+
+        @Override
+        public void keyPressed(KeyEvent e) {
+
+        }
+
+        @Override
+        public void keyReleased(KeyEvent e) {
+            splashSem = 1;
+        }
+    }
+
+    /*private class SplashListener implements MouseListener {
+        @Override
+        public void mouseClicked(MouseEvent e) {
+            splashSem = 1;
+        }
+
+        @Override
+        public void mousePressed(MouseEvent e) {
+
+        }
+
+        @Override
+        public void mouseReleased(MouseEvent e) {
+
+        }
+
+        @Override
+        public void mouseEntered(MouseEvent e) {
+
+        }
+
+        @Override
+        public void mouseExited(MouseEvent e) {
+
+        }
+    }*/
 }
