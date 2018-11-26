@@ -769,6 +769,21 @@ public class TestGame {
                         break;
                 }
 
+
+                if(tie){
+                    if (board[p.getLocation()].getHabitat().equalsIgnoreCase(p.getDino().getHabitat()) &&
+                            !board[q.getLocation()].getHabitat().equalsIgnoreCase(q.getDino().getHabitat())) {
+                        winner = p;
+                        loser = q;
+                        tie = false;
+                    } else if (!board[p.getLocation()].getHabitat().equalsIgnoreCase(p.getDino().getHabitat()) &&
+                            board[q.getLocation()].getHabitat().equalsIgnoreCase(q.getDino().getHabitat())) {
+                        winner = q;
+                        loser = p;
+                        tie = false;
+                    }
+                }
+
                 if(!tie) {
                     int wFood = winner.getFoodTokens();
                     int wLoc = winner.getLocation();
@@ -808,6 +823,7 @@ public class TestGame {
                     assertEquals(lFood, loser.getFoodTokens());
                     assertEquals(lLoc, loser.getLocation());
                 }
+
             }
         }
     }
