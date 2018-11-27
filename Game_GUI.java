@@ -891,19 +891,19 @@ public class Game_GUI {
                 }
                 break;
             case 8:
-                boolean found1 = false;
                 if(choice == 1){
+                    int playerIndex = 0;
                     for(int i = 0; i < players.length; i++){
-                        if(players[i] == player && i != (players.length - 1) && !players[i+1].isExtinct()){
-                            attack(player, players[i+1], aDeck, board, false);
-                            found1 = true;
+                        if(players[i] == player){
+                            playerIndex = i;
+                        }
+                    }
+                    for(int i = playerIndex + 1; i < 2 * players.length; i++){
+                        if(players[i%players.length] != player && !players[i%players.length].isExtinct()){
+                            attack(player, players[i%players.length], aDeck, board, false);
                             break;
                         }
                     }
-                    if(!found1)
-                        if(!players[0].isExtinct()){
-                            attack(player, players[0], aDeck, board, false);
-                        }
                 }
                 else{
                     player.changeFood(-3);
