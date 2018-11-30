@@ -13,12 +13,13 @@ public class BoardPanel extends JLayeredPane{
     private final Dimension CARD_DIM = new Dimension((int) (500 * SCALE_FACTOR), (int) (300 * SCALE_FACTOR));
     private Dinosaur[] dinos;
     private Player[] players;
-    private Color[] colors = {Color.red, Color.blue, new Color(71, 209, 71), new Color (255, 204, 0)};
-    private IconRef ir = new IconRef();
+    private Color[] colors = {new Color(230, 59, 46), new Color(67, 124, 144), new Color(143, 206, 41), new Color (255, 119, 51)};
+    private IconRef ir;
 
     // constructor
-    public BoardPanel(Player[] players) {
+    public BoardPanel(Player[] players, IconRef ir) {
         this.players = players;
+        this.ir = ir;
         dinos = new Dinosaur[players.length];
         for (int i = 0; i < players.length; i++) {
             dinos[i] = players[i].getDino();

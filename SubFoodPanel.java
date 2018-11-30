@@ -10,12 +10,16 @@ public class SubFoodPanel extends JPanel {
     // utility variables
     private Player player;
     private Color color;
-    private IconRef ir = new IconRef();
+    private IconRef ir;
+    private Color bg;
 
     // constructor
-    public SubFoodPanel(Player player, Color color) {
+    public SubFoodPanel(Player player, Color color, IconRef ir, Color bg) {
         this.player = player;
         this.color = color;
+        this.ir = ir;
+        this.bg = bg;
+        setBackground(bg);
         setup();
     }
 
@@ -27,6 +31,7 @@ public class SubFoodPanel extends JPanel {
         // icon label
         iconLabel = new JLabel(ir.getIcon(player.getDino()));
         iconLabel.setBorder(BorderFactory.createBevelBorder(BevelBorder.LOWERED));
+        iconLabel.setBackground(bg);
         gbc = new GridBagConstraints();
         gbc.gridx = 0;
         gbc.gridy = 0;

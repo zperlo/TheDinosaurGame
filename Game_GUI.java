@@ -1,4 +1,5 @@
 import javax.swing.*;
+import java.awt.*;
 
 /**
  * This is the main, runnable class. It runs through all aspects of playing the game,
@@ -45,11 +46,13 @@ public class Game_GUI {
 
         JFrame frame = new JFrame("dinogame");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        gp = new GamePanel();
+        frame.setPreferredSize(new Dimension(1500, 1000));
+        gp = new GamePanel(players);
         frame.getContentPane().add(gp);
         frame.setResizable(false);
         frame.pack();
         frame.setVisible(true);
+
         gp.executeMenu();
 
         boolean gameEnd = false;

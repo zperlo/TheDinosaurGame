@@ -60,26 +60,23 @@ public class DinoCardPanel extends JPanel {
     private CardLayout cl;
     private JPanel compareCard;
     private Player[] players;
-    private Image icon;
-    private IconRef ir = new IconRef();
+    private IconRef ir;
+    private Color bg;
 
     // constructor
-    public DinoCardPanel(Player[] players) {
+    public DinoCardPanel(Player[] players, IconRef ir, Color bg) {
         this.players = players;
-        try {
-            setup();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        this.ir = ir;
+        this.bg = bg;
+        setBackground(bg);
+        setup();
     }
 
     // initialize and set up top component
-    private void setup() throws IOException {
+    private void setup() {
         // use card layout
         cl = new CardLayout();
         setLayout(cl);
-
-                icon = ImageIO.read(getClass().getResource("/resources/Dinosaurs/Styracosaurus/icon.jpg")).getScaledInstance(100, 100, Image.SCALE_SMOOTH);
 
         // add a card for each dino
         for (int i = 0; i < players.length; i++) {
@@ -103,6 +100,7 @@ public class DinoCardPanel extends JPanel {
     private JPanel createCompareCard(Player attacker, Player defender, String stat) {
         // create return value and layout tools
         JPanel card = new JPanel(new GridBagLayout());
+        card.setBackground(bg);
         GridBagConstraints gbc;
 
         // attacker half card
@@ -135,6 +133,7 @@ public class DinoCardPanel extends JPanel {
 
         // create return value and layout tools
         JPanel halfCard = new JPanel(new GridBagLayout());
+        halfCard.setBackground(bg);
         GridBagConstraints gbc;
 
         // icon label
@@ -212,6 +211,7 @@ public class DinoCardPanel extends JPanel {
 
         // create return value and layout tools
         JPanel card = new JPanel(new GridBagLayout());
+        card.setBackground(bg);
         GridBagConstraints gbc;
 
         // static label configuration
@@ -433,6 +433,7 @@ public class DinoCardPanel extends JPanel {
         // image label
         imageLabel = new JLabel(ir.getCompareToHuman(d));
         imageLabel.setBorder(BorderFactory.createBevelBorder(BevelBorder.LOWERED));
+        imageLabel.setBackground(bg);
         gbc = new GridBagConstraints();
         gbc.gridx = 0;
         gbc.gridy = 13;
