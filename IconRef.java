@@ -78,6 +78,9 @@ public class IconRef {
             case 2:
                 imageName = "tri_cursor.png";
                 break;
+            case 3:
+                imageName = "tri_cover.png";
+                break;
             default:
                 imageName = "";
                 break;

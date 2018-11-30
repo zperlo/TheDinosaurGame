@@ -50,7 +50,7 @@ public class GamePanel extends JPanel {
 
     public void executeMenu() {
         ir = new IconRef();
-        //add(mainMenu(), "main");
+        add(mainMenu(), "main");
         //add(dinoSelect(), "dinoSelect");
         add(gameplay(), "gameplay");
         continueLabel.setForeground(Color.BLACK);
@@ -187,7 +187,7 @@ public class GamePanel extends JPanel {
         gbc.weighty = 1.0;
         mainMenu.add(playRulesQuitLabel, gbc);
 
-        //mainMenu.addlisteners
+        mainMenu.addKeyListener(new MainListener());
 
         return mainMenu;
     }
@@ -332,6 +332,33 @@ public class GamePanel extends JPanel {
         @Override
         public void keyReleased(KeyEvent e) {
             splashSem = 1;
+        }
+    }
+
+    private class MainListener implements KeyListener {
+        @Override
+        public void keyTyped(KeyEvent e) {
+
+        }
+
+        @Override
+        public void keyPressed(KeyEvent e) {
+
+        }
+
+        @Override
+        public void keyReleased(KeyEvent e) {
+            int i = e.getKeyCode();
+            switch (i) {
+                case KeyEvent.VK_UP:
+                    //
+                    break;
+                case KeyEvent.VK_DOWN:
+                    //
+                    break;
+                default:
+                    break;
+            }
         }
     }
 }
