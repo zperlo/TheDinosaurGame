@@ -14,14 +14,18 @@ public class GamePanel extends JPanel {
     private JLabel splashImage;
     private JLabel continueLabel;
 
-    private JPanel mainMenu;
+    private JPanel mainMenuPanel;
     private JLabel titleLabel;
     private JLabel brachImage;
     private JLabel tRexImage;
     private JLabel playRulesQuitLabel;
     private JLabel triPlayImage;
+    private boolean playbool;
     private JLabel triRulesImage;
+    private boolean rulesbool;
     private JLabel triQuitImage;
+    private boolean quitbool;
+    private int menuSem = 0;
 
     private JPanel dinoSelect;
 
@@ -37,22 +41,24 @@ public class GamePanel extends JPanel {
     private Color backColor = new Color(188, 116, 88);
     private IconRef ir;
     private Player[] players;
+    private Dinosaur[] dinosaurs;
     private int rollSem;
     private int splashSem;
+    private final double scale;
 
     // constructor
-    public GamePanel(Player[] players) {
-        this.players = players;
+    public GamePanel(Dinosaur[] dinosaurs, double scale) {
+        this.dinosaurs = dinosaurs;
+        this.scale = scale;
         cl = new CardLayout();
         setLayout(cl);
         add(splash(), "splash");
     }
 
-    public void executeMenu() {
-        ir = new IconRef();
+    public Player[] executeMenu() {
+        ir = new IconRef(scale);
         add(mainMenu(), "main");
         //add(dinoSelect(), "dinoSelect");
-        add(gameplay(), "gameplay");
         continueLabel.setForeground(Color.BLACK);
         splashSem = 0;
         while (splashSem == 0) {
@@ -62,7 +68,36 @@ public class GamePanel extends JPanel {
                 e.printStackTrace();
             }
         }
+
         cl.next(this);
+        mainMenuPanel.requestFocus();
+        menuSem = 0;
+        while (menuSem == 0) {
+            try {
+                Thread.sleep(1);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+        switch (menuSem) {
+            case 1:
+                players = initializePlayers(dinosaurs);
+                break;
+            case 2:
+                players = initializePlayers(dinosaurs);
+                break;
+            case 3:
+                System.exit(0);
+                break;
+            default:
+                break;
+        }
+        add(gameplay(), "gameplay");
+
+        cl.next(this);
+        gameplayPanel.requestFocus();
+
+        return players;
     }
 
     private JPanel splash() {
@@ -75,7 +110,7 @@ public class GamePanel extends JPanel {
         splash.setBackground(backColor);
 
         try {
-            splashImage = new JLabel(new ImageIcon(ImageIO.read(getClass().getResource("/resources/Other/splash_image.png")).getScaledInstance(1350, 900, Image.SCALE_SMOOTH)));
+            splashImage = new JLabel(new ImageIcon(ImageIO.read(getClass().getResource("/resources/Other/splash_image.png")).getScaledInstance((int) (1350 * scale), (int) (900 * scale), Image.SCALE_SMOOTH)));
             gbc = new GridBagConstraints();
             gbc.gridx = 0;
             gbc.gridy = 0;
@@ -97,7 +132,7 @@ public class GamePanel extends JPanel {
         gbc.gridy = 0;
         gbc.weightx = 1.0;
         gbc.weighty = 1.0;
-        gbc.insets = new Insets(250, 0, 0, 150);
+        gbc.insets = new Insets((int) (250 * scale), 0, 0, (int) (150 * scale));
         gbc.anchor = GridBagConstraints.NORTHEAST;
         splash.add(continueLabel, gbc);
 
@@ -108,15 +143,15 @@ public class GamePanel extends JPanel {
     }
 
     private JPanel mainMenu() {
-        mainMenu = new JPanel();
-        mainMenu.setBackground(backColor);
+        mainMenuPanel = new JPanel();
+        mainMenuPanel.setBackground(backColor);
 
-        mainMenu.setLayout(new GridBagLayout());
+        mainMenuPanel.setLayout(new GridBagLayout());
         GridBagConstraints gbc;
 
         titleLabel = new JLabel();
-        titleLabel.setFont(new Font("Showcard Gothic", Font.PLAIN, 100));
-        titleLabel.setText("<html><center>THE DINOSAUR GAME<br><font size=50>SURVIVAL OR EXTINCTION</html>");
+        titleLabel.setFont(new Font("Showcard Gothic", Font.PLAIN, (int) (100 * scale)));
+        titleLabel.setText("<html><center>THE DINOSAUR GAME<br><font size=" + (int) (50 * scale) + ">SURVIVAL OR EXTINCTION</html>");
         gbc = new GridBagConstraints();
         gbc.gridx = 0;
         gbc.gridy = 0;
@@ -124,8 +159,8 @@ public class GamePanel extends JPanel {
         gbc.gridheight = 1;
         gbc.weightx = 1.0;
         gbc.weighty = 1.0;
-        gbc.insets = new Insets(100, 35, 0, 0);
-        mainMenu.add(titleLabel, gbc);
+        gbc.insets = new Insets((int) (100 * scale), (int) (35 * scale), 0, 0);
+        mainMenuPanel.add(titleLabel, gbc);
 
         tRexImage = new JLabel(ir.getMainMenuImage(0));
         gbc = new GridBagConstraints();
@@ -136,7 +171,7 @@ public class GamePanel extends JPanel {
         gbc.weightx = 1.0;
         gbc.weighty = 1.0;
         gbc.anchor = GridBagConstraints.SOUTHWEST;
-        mainMenu.add(tRexImage, gbc);
+        mainMenuPanel.add(tRexImage, gbc);
 
         brachImage = new JLabel(ir.getMainMenuImage(1));
         gbc = new GridBagConstraints();
@@ -147,37 +182,40 @@ public class GamePanel extends JPanel {
         gbc.weightx = 1.0;
         gbc.weighty = 1.0;
         gbc.anchor = GridBagConstraints.SOUTHEAST;
-        mainMenu.add(brachImage, gbc);
+        mainMenuPanel.add(brachImage, gbc);
 
         triPlayImage = new JLabel(ir.getMainMenuImage(2));
+        playbool = true;
         gbc = new GridBagConstraints();
         gbc.gridx = 1;
         gbc.gridy = 1;
         gbc.weightx = 1.0;
         gbc.weighty = 1.0;
-        gbc.insets = new Insets(0, 0, 25, 0);
+        gbc.insets = new Insets(0, 0, (int) (25 * scale), 0);
         gbc.anchor = GridBagConstraints.SOUTHEAST;
-        mainMenu.add(triPlayImage, gbc);
+        mainMenuPanel.add(triPlayImage, gbc);
 
-        triRulesImage = new JLabel(ir.getMainMenuImage(2));
+        triRulesImage = new JLabel(ir.getMainMenuImage(3));
+        rulesbool = false;
         gbc = new GridBagConstraints();
         gbc.gridx = 1;
         gbc.gridy = 2;
         gbc.anchor = GridBagConstraints.EAST;
-        mainMenu.add(triRulesImage, gbc);
+        mainMenuPanel.add(triRulesImage, gbc);
 
-        triQuitImage = new JLabel(ir.getMainMenuImage(2));
+        triQuitImage = new JLabel(ir.getMainMenuImage(3));
+        quitbool = false;
         gbc = new GridBagConstraints();
         gbc.gridx = 1;
         gbc.gridy = 3;
         gbc.weightx = 1.0;
         gbc.weighty = 0.89;
-        gbc.insets = new Insets(30, 0, 0, 0);
+        gbc.insets = new Insets((int) (30 * scale), 0, 0, 0);
         gbc.anchor = GridBagConstraints.NORTHEAST;
-        mainMenu.add(triQuitImage, gbc);
+        mainMenuPanel.add(triQuitImage, gbc);
 
         playRulesQuitLabel = new JLabel("<html><left>PLAY<br>RULES<br>QUIT");
-        playRulesQuitLabel.setFont(new Font("Showcard Gothic", Font.PLAIN, 80));
+        playRulesQuitLabel.setFont(new Font("Showcard Gothic", Font.PLAIN, (int) (80 * scale)));
         gbc = new GridBagConstraints();
         gbc.gridx = 2;
         gbc.gridy = 1;
@@ -185,11 +223,12 @@ public class GamePanel extends JPanel {
         gbc.gridheight = 3;
         gbc.weightx = 1.0;
         gbc.weighty = 1.0;
-        mainMenu.add(playRulesQuitLabel, gbc);
+        mainMenuPanel.add(playRulesQuitLabel, gbc);
 
-        mainMenu.addKeyListener(new MainListener());
+        mainMenuPanel.setFocusable(true);
+        mainMenuPanel.addKeyListener(new MainListener());
 
-        return mainMenu;
+        return mainMenuPanel;
     }
 
     private JPanel dinoSelect() {
@@ -351,14 +390,160 @@ public class GamePanel extends JPanel {
             int i = e.getKeyCode();
             switch (i) {
                 case KeyEvent.VK_UP:
-                    //
+                    if (playbool) {
+                        // do nothing
+                    }
+                    else if (rulesbool) {
+                        triRulesImage.setIcon(ir.getMainMenuImage(3));
+                        triPlayImage.setIcon(ir.getMainMenuImage(2));
+                        rulesbool = false;
+                        playbool = true;
+                    }
+                    else if (quitbool) {
+                        triQuitImage.setIcon(ir.getMainMenuImage(3));
+                        triRulesImage.setIcon(ir.getMainMenuImage(2));
+                        quitbool = false;
+                        rulesbool = true;
+                    }
                     break;
                 case KeyEvent.VK_DOWN:
-                    //
+                    if (playbool) {
+                        triPlayImage.setIcon(ir.getMainMenuImage(3));
+                        triRulesImage.setIcon(ir.getMainMenuImage(2));
+                        playbool = false;
+                        rulesbool = true;
+                    }
+                    else if (rulesbool) {
+                        triRulesImage.setIcon(ir.getMainMenuImage(3));
+                        triQuitImage.setIcon(ir.getMainMenuImage(2));
+                        rulesbool = false;
+                        quitbool = true;
+                    }
+                    else if (quitbool) {
+                        // do nothing
+                    }
                     break;
+                case KeyEvent.VK_ENTER:
+                    if (playbool) {
+                        menuSem = 1;
+                    }
+                    else if (rulesbool) {
+                        menuSem = 2;
+                    }
+                    else if (quitbool) {
+                        menuSem = 3;
+                    }
                 default:
                     break;
             }
         }
+    }
+
+    /**
+     * Get player dino choices from user input and initialize players array.
+     * @param dinoCards The array storing all possible dinosaurs the players
+     *                  have to choose from.
+     * @return An array storing all players, initialized with their chosen dinosaurs.
+     * @see Player
+     * @see Dinosaur
+     * @see java.util.Scanner
+     */
+    private Player[] initializePlayers(Dinosaur[] dinoCards) {
+        JOptionPane menuOptions = new JOptionPane();
+
+        // take in input for how many players
+        int playerCount = 0;
+        String playerCountStr = "";
+        while (playerCount < 1 || playerCount > 4) {
+            playerCount = 0;
+            playerCountStr = menuOptions.showInputDialog(
+                    this,
+                    "How many players are playing? (1-4)",
+                    "The Dinosaur Game",
+                    JOptionPane.PLAIN_MESSAGE);
+            try {
+                playerCount = Integer.valueOf(playerCountStr);
+            }
+            catch (NumberFormatException nfe) {}
+            if (playerCount == 0) {
+                System.exit(0);
+            }
+            if (playerCount < 1 || playerCount > 4) {
+                if (menuOptions.showOptionDialog(
+                        this,
+                        "Invalid player amount. Input the number of players. (1 - 4)",
+                        "The Dinosaur Game",
+                        JOptionPane.DEFAULT_OPTION,
+                        JOptionPane.ERROR_MESSAGE,
+                        null,
+                        null,
+                        null) == JOptionPane.CLOSED_OPTION) {
+                    System.exit(0);
+                }
+            }
+        }
+
+        // print all the dinosaurs the players can choose from
+        String dinoMsg = "The following are the Dinosaurs to choose from:\n";
+        for (int i = 0; i < dinoCards.length; i++) {
+            dinoMsg += (i + 1) + ". " + dinoCards[i].getName() + "\n";
+        }
+
+        Player[] players = new Player[playerCount];
+        int[] chosenDinos = new int[playerCount];
+        for (int i = 0; i < playerCount; i++) {
+            int num = 0;
+            String dinoChoice = "";
+            while (num < 1 || num > 16) {
+                num = 0;
+                dinoChoice = menuOptions.showInputDialog(
+                        this,
+                        "Player " + (i + 1) + " input the number for the dinosaur you want.\n" + dinoMsg,
+                        "The Dinosaur Game",
+                        JOptionPane.PLAIN_MESSAGE);
+                try {
+                    num = Integer.valueOf(dinoChoice);
+                }
+                catch (NumberFormatException nfe) {}
+                if (num == 0) {
+                    System.exit(0);
+                }
+                if (num < 1 || num > 16) {
+                    if (menuOptions.showOptionDialog(
+                            this,
+                            "Invalid dinosaur number. Input the number for the dinosaur you want (1 - 16).",
+                            "The Dinosaur Game",
+                            JOptionPane.DEFAULT_OPTION,
+                            JOptionPane.ERROR_MESSAGE,
+                            null,
+                            null,
+                            null) == JOptionPane.CLOSED_OPTION) {
+                        System.exit(0);
+                    }
+                }
+                int j = 0;
+                while (j < i) {
+                    if (chosenDinos[j] == num - 1) {
+                        if (menuOptions.showOptionDialog(
+                                this,
+                                "Chosen dinosaur already chosen by a previous player. Choose another dinosaur.",
+                                "The Dinosaur Game",
+                                JOptionPane.DEFAULT_OPTION,
+                                JOptionPane.ERROR_MESSAGE,
+                                null,
+                                null,
+                                null) == JOptionPane.CLOSED_OPTION) {
+                            System.exit(0);
+                        }
+                        num = 0;
+                    }
+                    else j++;
+                }
+            }
+            chosenDinos[i] = num - 1;
+            players[i] = new Player(dinoCards[num - 1], 3);
+        }
+
+        return players;
     }
 }

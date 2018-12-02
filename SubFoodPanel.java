@@ -49,7 +49,7 @@ public class SubFoodPanel extends JPanel {
         add(foodLabel, gbc);
 
         // border
-        setBorder(BorderFactory.createLineBorder(color, 2));
+        setBorder(BorderFactory.createLineBorder(color, 4));
     }
 
     public void updateFood() {

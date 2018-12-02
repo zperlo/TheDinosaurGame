@@ -39,21 +39,21 @@ public class Game_GUI {
         Deck<NaturalDisasterCard> ndDeck = createNaturalDisasterDeck();
         Deck<AttackCard> aDeck = createAttackDeck();
         Deck<ChallengeCard> cDeck = createChallengeDeck();
-        Player[] players = initializePlayers(dinoCards);
         Space[] board = createBoard();
 
         JOptionPane jop = new JOptionPane();
 
         JFrame frame = new JFrame("dinogame");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setPreferredSize(new Dimension(1500, 1000));
-        gp = new GamePanel(players);
+        double scale = (int) (Toolkit.getDefaultToolkit().getScreenSize().getHeight() * 0.90) / 1000.0;
+        frame.setPreferredSize(new Dimension((int) (1550 * scale), (int) (1050 * scale)));
+        gp = new GamePanel(dinoCards, scale);
         frame.getContentPane().add(gp);
         frame.setResizable(false);
         frame.pack();
         frame.setVisible(true);
 
-        gp.executeMenu();
+        Player[] players = gp.executeMenu();
 
         boolean gameEnd = false;
         while(!gameEnd) {
@@ -355,114 +355,6 @@ public class Game_GUI {
         board[109] = new Space("swamp", "finish");
 
         return board;
-    }
-
-    /**
-     * Get player dino choices from user input and initialize players array.
-     * @param dinoCards The array storing all possible dinosaurs the players
-     *                  have to choose from.
-     * @return An array storing all players, initialized with their chosen dinosaurs.
-     * @see Player
-     * @see Dinosaur
-     * @see java.util.Scanner
-     */
-    public static Player[] initializePlayers(Dinosaur[] dinoCards) {
-        JOptionPane menuOptions = new JOptionPane();
-
-        // take in input for how many players
-        int playerCount = 0;
-        String playerCountStr = "";
-        while (playerCount < 1 || playerCount > 4) {
-            playerCount = 0;
-            playerCountStr = menuOptions.showInputDialog(
-                    gp,
-                    "How many players are playing? (1-4)",
-                    "The Dinosaur Game",
-                    JOptionPane.PLAIN_MESSAGE);
-            try {
-                playerCount = Integer.valueOf(playerCountStr);
-            }
-            catch (NumberFormatException nfe) {}
-            if (playerCount == 0) {
-                System.exit(0);
-            }
-            if (playerCount < 1 || playerCount > 4) {
-                if (menuOptions.showOptionDialog(
-                        gp,
-                        "Invalid player amount. Input the number of players. (1 - 4)",
-                        "The Dinosaur Game",
-                        JOptionPane.DEFAULT_OPTION,
-                        JOptionPane.ERROR_MESSAGE,
-                        null,
-                        null,
-                        null) == JOptionPane.CLOSED_OPTION) {
-                    System.exit(0);
-                }
-            }
-        }
-
-        // print all the dinosaurs the players can choose from
-        String dinoMsg = "The following are the Dinosaurs to choose from:\n";
-        for (int i = 0; i < dinoCards.length; i++) {
-            dinoMsg += (i + 1) + ". " + dinoCards[i].getName() + "\n";
-        }
-
-        Player[] players = new Player[playerCount];
-        int[] chosenDinos = new int[playerCount];
-        for (int i = 0; i < playerCount; i++) {
-            int num = 0;
-            String dinoChoice = "";
-            while (num < 1 || num > 16) {
-                num = 0;
-                dinoChoice = menuOptions.showInputDialog(
-                        gp,
-                        "Player " + (i + 1) + " input the number for the dinosaur you want.\n" + dinoMsg,
-                        "The Dinosaur Game",
-                        JOptionPane.PLAIN_MESSAGE);
-                try {
-                    num = Integer.valueOf(dinoChoice);
-                }
-                catch (NumberFormatException nfe) {}
-                if (num == 0) {
-                    System.exit(0);
-                }
-                if (num < 1 || num > 16) {
-                    if (menuOptions.showOptionDialog(
-                            gp,
-                            "Invalid dinosaur number. Input the number for the dinosaur you want (1 - 16).",
-                            "The Dinosaur Game",
-                            JOptionPane.DEFAULT_OPTION,
-                            JOptionPane.ERROR_MESSAGE,
-                            null,
-                            null,
-                            null) == JOptionPane.CLOSED_OPTION) {
-                        System.exit(0);
-                    }
-                }
-                int j = 0;
-                while (j < i) {
-                    if (chosenDinos[j] == num - 1) {
-                        if (menuOptions.showOptionDialog(
-                                gp,
-                                "Chosen dinosaur already chosen by a previous player. Choose another dinosaur.",
-                                "The Dinosaur Game",
-                                JOptionPane.DEFAULT_OPTION,
-                                JOptionPane.ERROR_MESSAGE,
-                                null,
-                                null,
-                                null) == JOptionPane.CLOSED_OPTION) {
-                            System.exit(0);
-                        }
-                        num = 0;
-                    }
-                    else j++;
-                }
-            }
-            chosenDinos[i] = num - 1;
-            players[i] = new Player(dinoCards[num - 1], 3);
-        }
-
-        return players;
     }
 
     /**

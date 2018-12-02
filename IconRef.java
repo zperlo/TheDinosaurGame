@@ -13,7 +13,6 @@ public class IconRef {
     private HashMap<Integer, ImageIcon> mainMenuImages;
 
     // utility variables
-    final int BOARD_SIZE;
     final double SCALE_FACTOR;
     final String[] DINO_NAMES = {
             "Allosaurus",
@@ -34,9 +33,8 @@ public class IconRef {
             "Velociraptor"};
 
     // constructor
-    public IconRef() {
-        BOARD_SIZE = (int) (Toolkit.getDefaultToolkit().getScreenSize().getHeight() * 0.90);
-        SCALE_FACTOR = BOARD_SIZE / 1000.0;
+    public IconRef(double scale) {
+        SCALE_FACTOR = scale;
         compares = new HashMap<>();
         icons = new HashMap<>();
         mainMenuImages = new HashMap<>();
@@ -46,6 +44,7 @@ public class IconRef {
         mainMenuImages.put(0, makeMainMenuImages(0));
         mainMenuImages.put(1, makeMainMenuImages(1));
         mainMenuImages.put(2, makeMainMenuImages(2));
+        mainMenuImages.put(3, makeMainMenuImages(3));
 
         String s;
         for (int i = 0; i < DINO_NAMES.length; i++) {
@@ -58,7 +57,7 @@ public class IconRef {
     private Image makeBoard() {
         try {
             board = ImageIO.read(getClass().getResource("/resources/Other/Board.jpeg"));
-            board = board.getScaledInstance(BOARD_SIZE, BOARD_SIZE, Image.SCALE_SMOOTH);
+            board = board.getScaledInstance((int) (1000 * SCALE_FACTOR), (int) (1000 * SCALE_FACTOR), Image.SCALE_SMOOTH);
             return board;
         } catch (IOException e) {
             e.printStackTrace();

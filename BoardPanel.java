@@ -37,7 +37,7 @@ public class BoardPanel extends JLayeredPane{
         setLayout(new GridBagLayout());
         GridBagConstraints gbc;
 
-        // create scaled image of board
+        // get scaled image of board
         final Image board = ir.getBoard();
 
         // board label
@@ -81,7 +81,7 @@ public class BoardPanel extends JLayeredPane{
 
         // card
         card = new CardPanel();
-        card.setPreferredSize(CARD_DIM);
+        card.setMinimumSize(CARD_DIM);
         gbc = new GridBagConstraints();
         gbc.gridx = 1;
         gbc.gridy = 1;
