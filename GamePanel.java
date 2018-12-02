@@ -545,7 +545,7 @@ public class GamePanel extends JPanel {
                 }
             }
             chosenDinos[i] = num - 1;
-            players[i] = new Player(dinoCards[num - 1], 1);
+            players[i] = new Player(dinoCards[num - 1], 3);
         }
 
         return players;
