@@ -221,7 +221,6 @@ public class Game_GUI {
                                     p.getDino().getName() + " is an herbivore, so you do not get one food token!",
                                     "Carnivore Space!",
                                     JOptionPane.INFORMATION_MESSAGE);
-                            p.changeFood(1);
                         }
                         break;
                     case "challenge":
