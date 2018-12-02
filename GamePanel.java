@@ -452,10 +452,10 @@ public class GamePanel extends JPanel {
         JOptionPane menuOptions = new JOptionPane();
 
         // take in input for how many players
-        int playerCount = 0;
+        int playerCount = -1;
         String playerCountStr = "";
         while (playerCount < 1 || playerCount > 4) {
-            playerCount = 0;
+            playerCount = -1;
             playerCountStr = menuOptions.showInputDialog(
                     this,
                     "How many players are playing? (1-4)",
@@ -465,7 +465,7 @@ public class GamePanel extends JPanel {
                 playerCount = Integer.valueOf(playerCountStr);
             }
             catch (NumberFormatException nfe) {}
-            if (playerCount == 0) {
+            if (playerCount == -1) {
                 System.exit(0);
             }
             if (playerCount < 1 || playerCount > 4) {
@@ -492,10 +492,10 @@ public class GamePanel extends JPanel {
         Player[] players = new Player[playerCount];
         int[] chosenDinos = new int[playerCount];
         for (int i = 0; i < playerCount; i++) {
-            int num = 0;
+            int num = -1;
             String dinoChoice = "";
             while (num < 1 || num > 16) {
-                num = 0;
+                num = -1;
                 dinoChoice = menuOptions.showInputDialog(
                         this,
                         "Player " + (i + 1) + " input the number for the dinosaur you want.\n" + dinoMsg,
@@ -505,7 +505,7 @@ public class GamePanel extends JPanel {
                     num = Integer.valueOf(dinoChoice);
                 }
                 catch (NumberFormatException nfe) {}
-                if (num == 0) {
+                if (num == -1) {
                     System.exit(0);
                 }
                 if (num < 1 || num > 16) {
@@ -535,7 +535,7 @@ public class GamePanel extends JPanel {
                                 null) == JOptionPane.CLOSED_OPTION) {
                             System.exit(0);
                         }
-                        num = 0;
+                        num = -1;
                     }
                     else j++;
                 }
