@@ -63,6 +63,8 @@ public class Game_GUI {
                     jop.showMessageDialog(gp, "It is " + p.getDino().getName() + "'s turn", p.getDino().getName() + "'s turn!",
                             JOptionPane.INFORMATION_MESSAGE);
 
+                    //check if there are lost turns and skip turn if so
+
                     gp.takeTurn(p.getDino());
 
                     // roll to see how far to move, as if on a 6-sided die
@@ -164,6 +166,8 @@ public class Game_GUI {
         if (lostTurns > 0) {
             lostTurns--; // use up turn, do nothing
             p.setLostTurns(lostTurns);
+            jop.showMessageDialog(gp, p.getDino().getName() + " has " + lostTurns + " lost turns remaining",
+                    "Lost Turn!", JOptionPane.INFORMATION_MESSAGE);
         }
 
         // the player gets a turn otherwise
@@ -177,6 +181,8 @@ public class Game_GUI {
             for (Player x: players){
                 if(x.getLocation() == p.getLocation() && x != p && !x.isExtinct()){
                     playSpace = false;
+                    jop.showMessageDialog(gp, p.getDino().getName() + " is attacking " + x.getDino().getName() + "!",
+                            "Attack!", JOptionPane.INFORMATION_MESSAGE);
                     attack(p, x, aDeck, board, false);
                     gp.refreshTokens();
                     gp.refreshFood();
@@ -1304,42 +1310,42 @@ public class Game_GUI {
             case 22: // VOLCANO! go back 9 spaces
                 jop.showMessageDialog(gp,
                         "VOLCANO! go back 9 spaces",
-                        "dinogame",
+                        "Danger Zone!",
                         JOptionPane.WARNING_MESSAGE);
                 p.move(-9);
                 break;
             case 42: // FLOOD! go back 8 spaces
                 jop.showMessageDialog(gp,
                         "FLOOD! go back 8 spaces",
-                        "dinogame",
+                        "Danger Zone!",
                         JOptionPane.WARNING_MESSAGE);
                 p.move(-8);
                 break;
             case 64: // EARTHQUAKE! lose 3 food tokens
                 jop.showMessageDialog(gp,
                         "EARTHQUAKE! lose 3 food tokens",
-                        "dinogame",
+                        "Danger Zone!",
                         JOptionPane.WARNING_MESSAGE);
                 p.changeFood(-3);
                 break;
             case 73: // HOT! lose 4 food tokens
                 jop.showMessageDialog(gp,
                         "HOT! lose 4 food tokens",
-                        "dinogame",
+                        "Danger Zone!",
                         JOptionPane.WARNING_MESSAGE);
                 p.changeFood(-4);
                 break;
             case 88: // LIGHTNING! lose 3 food tokens
                 jop.showMessageDialog(gp,
                         "LIGHTNING! lose 3 food tokens",
-                        "dinogame",
+                        "Danger Zone!",
                         JOptionPane.WARNING_MESSAGE);
                 p.changeFood(-3);
                 break;
             case 107: // DISEASE! go back 8 spaces
                 jop.showMessageDialog(gp,
                         "DISEASE! go back 8 spaces",
-                        "dinogame",
+                        "Danger Zone!",
                         JOptionPane.WARNING_MESSAGE);
                 p.move(-8);
                 break;
