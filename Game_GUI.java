@@ -60,7 +60,8 @@ public class Game_GUI {
             for (Player p: players) {
                 if (!p.isExtinct()) {
 
-                    jop.showMessageDialog(gp, p.getDino().getName() + "'s turn");
+                    jop.showMessageDialog(gp, "It is " + p.getDino().getName() + "'s turn", p.getDino().getName() + "'s turn!",
+                            JOptionPane.INFORMATION_MESSAGE);
 
                     gp.takeTurn(p.getDino());
 
@@ -72,15 +73,20 @@ public class Game_GUI {
                     gp.refreshFood();
 
                     for (Player f : players) {
-                        if (f.getFoodTokens() <= 0) {
-                            System.out.println(f.getDino().getName() + " has run out of food tokens!");
+                        if (f.getFoodTokens() <= 0 && !f.isExtinct()) {
+                            jop.showMessageDialog(gp, f.getDino().getName() + " has run out of food tokens!",
+                                    "Out of Tokens!", JOptionPane.INFORMATION_MESSAGE);
                             if (f.getSecondChance()) {
                                 f.setSecondChance(false);
                                 f.move(-10);
                                 f.setFoodTokens(3);
-                                System.out.println(f.getDino().getName() + " got a second chance!");
+                                gp.refreshTokens();
+                                gp.refreshFood();
+                                jop.showMessageDialog(gp, f.getDino().getName() + " got a second chance!",
+                                        "Second Chance!", JOptionPane.INFORMATION_MESSAGE);
                             } else {
-                                System.out.println(f.getDino().getName() + " is extinct!");
+                                jop.showMessageDialog(gp, f.getDino().getName() + " is extinct!",
+                                        "Extinct!", JOptionPane.INFORMATION_MESSAGE);
                                 f.setExtinct(true);
                             }
                         }
@@ -96,10 +102,25 @@ public class Game_GUI {
                         if(!e.isExtinct()) {
                             if (board[e.getLocation()].getType().equals("finish")) {
                                 gameEnd = true; // this player won
-                                System.out.println(e.getDino().getName() + " wins!");
+                                jop.showMessageDialog(gp, e.getDino().getName() + " wins!", "Survival!",
+                                        JOptionPane.INFORMATION_MESSAGE);
                                 break;
                             }
                         }
+                    }
+
+                    //if every player is extinct, game is over
+                    boolean end = true;
+                    for (Player d : players) {
+                        if(!d.isExtinct()) {
+                            end = false;
+                            break;
+                        }
+                    }
+                    if(end) {
+                        gameEnd = true;
+                        jop.showMessageDialog(gp, "All players have gone extinct. Game over!", "Extinction!",
+                                JOptionPane.INFORMATION_MESSAGE);
                     }
 
                     // stop allowing players to take turns once someone wins
@@ -170,16 +191,29 @@ public class Game_GUI {
                         if (p.getDino().isHerbivore()) {
                             jop.showMessageDialog(gp,
                                     p.getDino().getName() + " is an herbivore, so you get one food token!",
-                                    "dinogame",
+                                    "Herbivore Space!",
                                     JOptionPane.INFORMATION_MESSAGE);
                             p.changeFood(1);
+                        }
+                        else{
+                            jop.showMessageDialog(gp,
+                                    p.getDino().getName() + " is a carnivore, so you do not get one food token!",
+                                    "Herbivore Space!",
+                                    JOptionPane.INFORMATION_MESSAGE);
                         }
                         break;
                     case "carnivore":
                         if (!p.getDino().isHerbivore()) {
                             jop.showMessageDialog(gp,
                                     p.getDino().getName() + " is a carnivore, so you get one food token!",
-                                    "dinogame",
+                                    "Carnivore Space!",
+                                    JOptionPane.INFORMATION_MESSAGE);
+                            p.changeFood(1);
+                        }
+                        else{
+                            jop.showMessageDialog(gp,
+                                    p.getDino().getName() + " is an herbivore, so you do not get one food token!",
+                                    "Carnivore Space!",
                                     JOptionPane.INFORMATION_MESSAGE);
                             p.changeFood(1);
                         }

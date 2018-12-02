@@ -85,6 +85,8 @@ public class Player {
      */
     public void changeFood(int numChange){
         foodTokens = foodTokens + numChange;
+        if (foodTokens < 0)
+            foodTokens = 0;
     }
 
     public void setEvolveCardSenInt(boolean set){

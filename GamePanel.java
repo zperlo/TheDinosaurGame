@@ -352,7 +352,7 @@ public class GamePanel extends JPanel {
         }
 
         JOptionPane rollConfirm = new JOptionPane();
-        rollConfirm.showMessageDialog(this, "you rolled a " + rollSem + "!", "dinogame", JOptionPane.PLAIN_MESSAGE);
+        rollConfirm.showMessageDialog(this, "You rolled a " + rollSem + "!", "Roll Result!", JOptionPane.PLAIN_MESSAGE);
 
         return rollSem;
     }
