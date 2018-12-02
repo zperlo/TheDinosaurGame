@@ -90,6 +90,7 @@ public class Game_GUI {
                                 jop.showMessageDialog(gp, f.getDino().getName() + " is extinct!",
                                         "Extinct!", JOptionPane.INFORMATION_MESSAGE);
                                 f.setExtinct(true);
+                                gp.assertExtinct(f);
                             }
                         }
                     }

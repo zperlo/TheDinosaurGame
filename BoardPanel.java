@@ -47,27 +47,28 @@ public class BoardPanel extends JLayeredPane{
                 super.paintComponent(g);
                 g.drawImage(board, 0, 0, null);
                 for (PlayerToken t : tokens) {
-                    boolean drawAwayFromCenter = false;
-                    for (Player p : players) {
-                        if (t.getPlayerLocation() == p.getLocation() && !t.getPlayer().equals(p)) {
-                            drawAwayFromCenter = true;
+                    if (!t.getPlayer().isExtinct()) {
+                        boolean drawAwayFromCenter = false;
+                        for (Player p : players) {
+                            if (t.getPlayerLocation() == p.getLocation() && !t.getPlayer().equals(p)) {
+                                drawAwayFromCenter = true;
+                            }
                         }
-                    }
-                    g.setColor(t.getColor());
-                    if (drawAwayFromCenter) {
-                        // randomly move the drawing so the tokens don't completely overlap
-                        int x = (int) (Math.random() * 10 + 11);
-                        if (Math.random() - 0.5 < 0) {
-                            x *= -1;
+                        g.setColor(t.getColor());
+                        if (drawAwayFromCenter) {
+                            // randomly move the drawing so the tokens don't completely overlap
+                            int x = (int) (Math.random() * 10 + 11);
+                            if (Math.random() - 0.5 < 0) {
+                                x *= -1;
+                            }
+                            int y = (int) (Math.random() * 10 + 11);
+                            if (Math.random() - 0.5 < 0) {
+                                y *= -1;
+                            }
+                            g.fillOval(t.getX() + x, t.getY() + y, t.DIAM, t.DIAM);
+                        } else {
+                            g.fillOval(t.getX(), t.getY(), t.DIAM, t.DIAM);
                         }
-                        int y = (int) (Math.random() * 10 + 11);
-                        if (Math.random() - 0.5 < 0) {
-                            y *= -1;
-                        }
-                        g.fillOval(t.getX() + x, t.getY() + y, t.DIAM, t.DIAM);
-                    }
-                    else {
-                        g.fillOval(t.getX(), t.getY(), t.DIAM, t.DIAM);
                     }
                 }
             }

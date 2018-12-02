@@ -10,6 +10,7 @@ public class IconRef {
     private Image board;
     private HashMap<String, ImageIcon> compares;
     private HashMap<String, ImageIcon> icons;
+    private HashMap<String, ImageIcon> iconsWithX;
     private HashMap<Integer, ImageIcon> mainMenuImages;
 
     // utility variables
@@ -37,6 +38,7 @@ public class IconRef {
         SCALE_FACTOR = scale;
         compares = new HashMap<>();
         icons = new HashMap<>();
+        iconsWithX = new HashMap<>();
         mainMenuImages = new HashMap<>();
 
         board = makeBoard();
@@ -51,6 +53,7 @@ public class IconRef {
             s = DINO_NAMES[i];
             compares.put(s, makeCompareToHuman(s));
             icons.put(s, makeIcon(s));
+            iconsWithX.put(s, makeIconWithX(s));
         }
     }
 
@@ -118,6 +121,18 @@ public class IconRef {
         }
     }
 
+    private ImageIcon makeIconWithX(String str) {
+        Image icon;
+        try {
+            icon = ImageIO.read(getClass().getResource("/resources/Dinosaurs/" + str + "/icon_x.jpg"));
+            icon = icon.getScaledInstance((int) (100 * SCALE_FACTOR), (int) (100 * SCALE_FACTOR), Image.SCALE_SMOOTH);
+            return new ImageIcon(icon);
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
     public Image getBoard() {
         return board;
     }
@@ -128,6 +143,10 @@ public class IconRef {
 
     public ImageIcon getIcon(Dinosaur d) {
         return icons.get(d.getName());
+    }
+
+    public ImageIcon getIconWithX(Dinosaur d) {
+        return iconsWithX.get(d.getName());
     }
 
     public ImageIcon getMainMenuImage(int i) {

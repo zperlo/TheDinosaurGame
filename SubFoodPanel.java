@@ -55,4 +55,8 @@ public class SubFoodPanel extends JPanel {
     public void updateFood() {
         foodLabel.setText(String.valueOf(player.getFoodTokens()));
     }
+
+    public void assertExtinct() {
+        iconLabel.setIcon(ir.getIconWithX(player.getDino()));
+    }
 }

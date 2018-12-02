@@ -45,4 +45,13 @@ public class FoodPanel extends JPanel {
             s.updateFood();
         }
     }
+
+    public void assertExtinct(Player p) {
+        for (int i = 0; i < players.length; i++) {
+            if (players[i].equals(p)) {
+                subPanels[i].assertExtinct();
+                break;
+            }
+        }
+    }
 }

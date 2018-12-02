@@ -301,6 +301,10 @@ public class GamePanel extends JPanel {
         return gameplayPanel;
     }
 
+    public void assertExtinct(Player p) {
+        food.assertExtinct(p);
+    }
+
     private class RollListener implements ActionListener {
         public void actionPerformed(ActionEvent event) {
             rollSem = (int) (Math.random() * 6 + 1);
@@ -541,7 +545,7 @@ public class GamePanel extends JPanel {
                 }
             }
             chosenDinos[i] = num - 1;
-            players[i] = new Player(dinoCards[num - 1], 3);
+            players[i] = new Player(dinoCards[num - 1], 1);
         }
 
         return players;
