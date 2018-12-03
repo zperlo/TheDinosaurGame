@@ -57,21 +57,24 @@ public class GamePanel extends JPanel {
         add(splash(), "splash");
     }
 
-    public Player[] executeMenu() {
-        ir = new IconRef(scale);
-        add(mainMenu(), "main");
-        //add(dinoSelect(), "dinoSelect");
-        continueLabel.setForeground(Color.BLACK);
-        splashSem = 0;
-        while (splashSem == 0) {
-            try {
-                Thread.sleep(1);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
+    public Player[] executeMenu(boolean firstTime) {
+        if (firstTime) {
+            ir = new IconRef(scale);
+            continueLabel.setForeground(Color.BLACK);
+            splashSem = 0;
+            while (splashSem == 0) {
+                try {
+                    Thread.sleep(1);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
             }
         }
 
-        cl.next(this);
+        add(mainMenu(), "main");
+        //add(dinoSelect(), "dinoSelect");
+
+        cl.show(this, "main");
         mainMenuPanel.requestFocus();
         menuSem = 0;
         while (menuSem == 0) {
@@ -96,10 +99,16 @@ public class GamePanel extends JPanel {
         }
         add(gameplay(), "gameplay");
 
-        cl.next(this);
+        cl.show(this, "gameplay");
         gameplayPanel.requestFocus();
 
         return players;
+    }
+
+    public void setPlayers(Player[] players) {
+        this.players = players;
+        add(gameplay(), "gameplay");
+        cl.show(this, "gameplay");
     }
 
     private JPanel splash() {

@@ -53,24 +53,25 @@ public class Game_GUI {
         frame.pack();
         frame.setVisible(true);
 
-        Player[] players = gp.executeMenu();
+        Player[] players = gp.executeMenu(true);
 
         boolean gameEnd = false;
         while(!gameEnd) {
-            for (Player p: players) {
-                if (!p.isExtinct()) {
+            for (int turnLoopControl = 0; turnLoopControl < players.length; turnLoopControl++) {
+                Player activePlayer = players[turnLoopControl];
+                if (!activePlayer.isExtinct()) {
 
-                    jop.showMessageDialog(gp, "It is " + p.getDino().getName() + "'s turn", p.getDino().getName() + "'s turn!",
+                    jop.showMessageDialog(gp, "It is " + activePlayer.getDino().getName() + "'s turn", activePlayer.getDino().getName() + "'s turn!",
                             JOptionPane.INFORMATION_MESSAGE);
 
                     //check if there are lost turns and skip turn if so
 
-                    gp.takeTurn(p.getDino());
+                    gp.takeTurn(activePlayer.getDino());
 
                     // roll to see how far to move, as if on a 6-sided die
                     int roll = gp.getRoll();
 
-                    turn(p, roll, board, players, cDeck, aDeck, ndDeck);
+                    turn(activePlayer, roll, board, players, cDeck, aDeck, ndDeck);
                     gp.refreshTokens();
                     gp.refreshFood();
 
@@ -120,10 +121,38 @@ public class Game_GUI {
                         jop.showMessageDialog(gp, "All players have gone extinct. Game over!", "Extinction!",
                                 JOptionPane.INFORMATION_MESSAGE);
                     }
-
+gameEnd = true;
                     // stop allowing players to take turns once someone wins
                     if (gameEnd) {
-                        break;
+                        String[] options = {"Play Again", "Main Menu", "Quit"};
+                        int option = jop.showOptionDialog(gp,
+                                "Thanks for playing!",
+                                "The Dinosaur Game",
+                                JOptionPane.YES_NO_CANCEL_OPTION,
+                                JOptionPane.PLAIN_MESSAGE,
+                                null,
+                                options,
+                                null);
+                        switch(option) {
+                            case 0:
+                                gameEnd = false;
+                                turnLoopControl = -1;
+                                for (int j = 0; j < players.length; j++) {
+                                    players[j] = new Player(players[j].getDino(), 3, board);
+                                }
+                                gp.setPlayers(players);
+                                gp.refreshTokens();
+                                gp.refreshFood();
+                                break;
+                            case 1:
+                                gameEnd = false;
+                                turnLoopControl = -1;
+                                players = gp.executeMenu(false);
+                                break;
+                            case 2: default:
+                                System.exit(0);
+                                break;
+                        }
                     }
                 }
             }
