@@ -23,14 +23,14 @@ public class TestGame {
      */
 
     final int foodForTesting = 50;
+    final Space[] BOARD = Game.createBoard();
 
     @Test public void testTurn(){
         Player p1 = new Player(new Dinosaur("TestDino1", true, "Forest",1,1,
-                1, 1,1,1,1,1), foodForTesting);
+                1, 1,1,1,1,1), foodForTesting, BOARD);
         Player p2 = new Player(new Dinosaur("TestDino2", false, "Desert",-1,-1,
-                -1, -1,-1,-1,-1,-1), foodForTesting);
+                -1, -1,-1,-1,-1,-1), foodForTesting, BOARD);
         Player[] players = {p1, p2};
-        Space[] board = Game.createBoard();
 
         //Create specific ChallengeDeck
         ChallengeCard cCard0 = new ChallengeCard("CONGRATULATIONS!",
@@ -67,12 +67,12 @@ public class TestGame {
 
         int p1Food = p1.getFoodTokens();
         //Take p1's turn moving one space foward to space 1, the first herbivore space, p1 is a herbivore
-        Game.turn(p1, 1, board, players, cDeck, aDeck, ndDeck);
+        Game.turn(p1, 1, BOARD, players, cDeck, aDeck, ndDeck);
         assertEquals(p1Food + 1, p1.getFoodTokens());
         p1Food = p1.getFoodTokens();
 
         //Take another turn for p1 moving one space forward to space 2, to the first carnivore space, p1 is a herbivore
-        Game.turn(p1, 1, board, players, cDeck, aDeck, ndDeck);
+        Game.turn(p1, 1, BOARD, players, cDeck, aDeck, ndDeck);
         assertEquals(p1Food, p1.getFoodTokens());
 
         //Take another turn for p1 moving ten spaces forward to space 12, the first challenge space
@@ -80,36 +80,36 @@ public class TestGame {
         //Any player can only roll a number from 1 to 6, but I am inputting 10 as the roll instead
         //Of calling the move function of player, then passing in a smaller roll
 
-        Game.turn(p1, 10, board, players, cDeck, aDeck, ndDeck);
+        Game.turn(p1, 10, BOARD, players, cDeck, aDeck, ndDeck);
         //p1.move(10);
         assertEquals(true, p1.isEvolveCardSpdSiz());
 
         //Take another turn for p1 moving one space forward to space 13, the first natural disaster space
         //The NaturalDisasterCard should not make p1 lost any food tokens, as p1's Dino's intelligence is 1
-        Game.turn(p1, 1, board, players, cDeck, aDeck, ndDeck);
+        Game.turn(p1, 1, BOARD, players, cDeck, aDeck, ndDeck);
         assertEquals(p1Food, p1.getFoodTokens());
 
         //Take another turn for p1 moving nine spaces forward to space 22, the first danger zone space
         //This DangerZone space should make p1 move back 9 spaces to space 13
-        Game.turn(p1, 9, board, players, cDeck, aDeck, ndDeck);
+        Game.turn(p1, 9, BOARD, players, cDeck, aDeck, ndDeck);
         assertEquals(13, p1.getLocation());
 
         //Tests fpr p2
         //herbivore space does not give a food token
         //carnivore space does give a food token
-        //attack situation resuts in a loss for p2
+        //attack situation results in a loss for p2
         int p2Food = p2.getFoodTokens();
-        Game.turn(p2, 1, board, players, cDeck, aDeck, ndDeck);
+        Game.turn(p2, 1, BOARD, players, cDeck, aDeck, ndDeck);
         assertEquals(p2Food, p2.getFoodTokens());
 
 
-        Game.turn(p2, 1, board, players, cDeck, aDeck, ndDeck);
+        Game.turn(p2, 1, BOARD, players, cDeck, aDeck, ndDeck);
         assertEquals(p2Food + 1, p2.getFoodTokens());
 
 
         int p1Place = p1.getLocation();
         int p2Place = p2.getLocation() + 11;
-        Game.turn(p2, 11, board, players, cDeck, aDeck, ndDeck);
+        Game.turn(p2, 11, BOARD, players, cDeck, aDeck, ndDeck);
         assertEquals(p1Place, p1.getLocation());
         assertEquals(p2Place - 3, p2.getLocation());
     }
@@ -123,8 +123,8 @@ public class TestGame {
          */
         InputStream in0 = new ByteArrayInputStream(input.getBytes());
         System.setIn(in0);
-        Player[] players = Game.initializePlayers(dinos);
-        Player testPlayer0 = new Player(dinos[5], 3);
+        Player[] players = Game.initializePlayers(dinos, BOARD);
+        Player testPlayer0 = new Player(dinos[5], 3, BOARD);
         assertEquals(testPlayer0.getDino(), players[0].getDino());
         assertEquals(testPlayer0.getFoodTokens(), players[0].getFoodTokens());
 
@@ -136,9 +136,9 @@ public class TestGame {
          */
         InputStream in1 = new ByteArrayInputStream(input.getBytes());
         System.setIn(in1);
-        players = Game.initializePlayers(dinos);
-        Player testPlayer1 = new Player(dinos[0], 3);
-        Player testPlayer2 = new Player(dinos[1], 3);
+        players = Game.initializePlayers(dinos, BOARD);
+        Player testPlayer1 = new Player(dinos[0], 3, BOARD);
+        Player testPlayer2 = new Player(dinos[1], 3, BOARD);
         assertEquals(testPlayer1.getDino(), players[0].getDino());
         assertEquals(testPlayer1.getFoodTokens(), players[0].getFoodTokens());
         assertEquals(testPlayer2.getDino(), players[1].getDino());
@@ -147,11 +147,10 @@ public class TestGame {
 
     @Test public void testChallengeByID(){
         Player p1 = new Player(new Dinosaur("TestDino1", true, "Forest",1,1,
-                1, 1,1,1,1,1), foodForTesting);
+                1, 1,1,1,1,1), foodForTesting, BOARD);
         Player p2 = new Player(new Dinosaur("TestDino2", false, "Desert",-1,-1,
-                -1, -1,-1,-1,-1,-1), foodForTesting);
+                -1, -1,-1,-1,-1,-1), foodForTesting, BOARD);
         Player[] players = new Player[2];
-        Space[] board = Game.createBoard();
 
         AttackCard aCard0 = new AttackCard("para1","para2", "ror","food", 1,
                 0);
@@ -196,11 +195,11 @@ public class TestGame {
                         p1.move(6);
 
                         prevL1 = p1.getLocation();
-                        Game.challengeByID(p1, id, 1, players, board, aDeck, cDeck, ndDeck);
+                        Game.challengeByID(p1, id, 1, players, BOARD, aDeck, cDeck, ndDeck);
                         assertEquals(prevL1 + 5, p1.getLocation());
 
                         prevF1 = p1.getFoodTokens();
-                        Game.challengeByID(p1, id, 2, players, board, aDeck, cDeck, ndDeck);
+                        Game.challengeByID(p1, id, 2, players, BOARD, aDeck, cDeck, ndDeck);
                         assertEquals(prevF1 + 1, p1.getFoodTokens());
                         break;
                     case 1:
@@ -212,7 +211,7 @@ public class TestGame {
                         for (int i = 0; i < players.length; i++) {
                             if (players[i] == p1 && i != (players.length - 1) && !players[i + 1].isExtinct()) {
                                 int prevT = players[i + 1].getFoodTokens();
-                                Game.challengeByID(p1, id, 1, players, board, aDeck, cDeck, ndDeck);
+                                Game.challengeByID(p1, id, 1, players, BOARD, aDeck, cDeck, ndDeck);
                                 assertEquals(prevT + 1, players[i + 1].getFoodTokens());
                                 found = true;
                                 break;
@@ -221,7 +220,7 @@ public class TestGame {
                         if (!found)
                             if (!players[0].isExtinct() && players[0] != p1) {
                                 int prev0 = players[0].getFoodTokens();
-                                Game.challengeByID(p1, id, 1, players, board, aDeck, cDeck, ndDeck);
+                                Game.challengeByID(p1, id, 1, players, BOARD, aDeck, cDeck, ndDeck);
                                 assertEquals(prev0 + 1, players[0].getFoodTokens());
                             }
                         break;
@@ -231,7 +230,7 @@ public class TestGame {
                         p1.move(-1 * p1.getLocation());
                         p1.move(6);
 
-                        Game.challengeByID(p1, id, 1, players, board, aDeck, cDeck, ndDeck);
+                        Game.challengeByID(p1, id, 1, players, BOARD, aDeck, cDeck, ndDeck);
                         assertTrue(p1.isEvolveCardSpdSiz());
                         break;
                     case 3:
@@ -240,7 +239,7 @@ public class TestGame {
                         p1.move(-1 * p1.getLocation());
                         p1.move(6);
 
-                        Game.challengeByID(p1, id, 1, players, board, aDeck, cDeck, ndDeck);
+                        Game.challengeByID(p1, id, 1, players, BOARD, aDeck, cDeck, ndDeck);
                         assertTrue(p1.isEvolveCardSenInt());
                         break;
                     case 4:
@@ -249,11 +248,11 @@ public class TestGame {
                         p1.move(-1 * p1.getLocation());
                         p1.move(6);
                         prevF1 = p1.getFoodTokens();
-                        Game.challengeByID(p1, id, 1, players, board, aDeck, cDeck, ndDeck);
+                        Game.challengeByID(p1, id, 1, players, BOARD, aDeck, cDeck, ndDeck);
                         assertEquals(prevF1 + 1, p1.getFoodTokens());
 
                         prevF1 = p1.getFoodTokens();
-                        Game.challengeByID(p1, id, 2, players, board, aDeck, cDeck, ndDeck);
+                        Game.challengeByID(p1, id, 2, players, BOARD, aDeck, cDeck, ndDeck);
                         assertEquals(prevF1 - 1, p1.getFoodTokens());
                         break;
                     case 5:
@@ -263,14 +262,14 @@ public class TestGame {
                         p1.move(6);
 
                         prevF1 = p1.getFoodTokens();
-                        Game.challengeByID(p1, id, 1, players, board, aDeck, cDeck, ndDeck);
+                        Game.challengeByID(p1, id, 1, players, BOARD, aDeck, cDeck, ndDeck);
                         assertEquals(prevF1 - 1, p1.getFoodTokens());
 
                         p1.move(-1 * p1.getLocation());
                         p1.move(6);
 
                         prevL1 = p1.getLocation();
-                        Game.challengeByID(p1, id, 2, players, board, aDeck, cDeck, ndDeck);
+                        Game.challengeByID(p1, id, 2, players, BOARD, aDeck, cDeck, ndDeck);
                         assertEquals(prevL1 - 4, p1.getLocation());
                         break;
                     case 6:
@@ -279,10 +278,10 @@ public class TestGame {
                         p1.move(-1 * p1.getLocation());
                         p1.move(3);
                         prevF1 = p1.getFoodTokens();
-                        Game.challengeByID(p1, id, 1, players, board, aDeck, cDeck, ndDeck);
+                        Game.challengeByID(p1, id, 1, players, BOARD, aDeck, cDeck, ndDeck);
                         assertEquals(prevF1 + 1, p1.getFoodTokens());
 
-                        Game.challengeByID(p1, id, 2, players, board, aDeck, cDeck, ndDeck);
+                        Game.challengeByID(p1, id, 2, players, BOARD, aDeck, cDeck, ndDeck);
                         assertEquals(1, p1.getLostTurns());
                         break;
                     case 7:
@@ -291,10 +290,10 @@ public class TestGame {
                         p1.move(-1 * p1.getLocation());
                         p1.move(3);
                         prevF1 = p1.getFoodTokens();
-                        Game.challengeByID(p1, id, 1, players, board, aDeck, cDeck, ndDeck);
+                        Game.challengeByID(p1, id, 1, players, BOARD, aDeck, cDeck, ndDeck);
                         assertEquals(prevF1 + 1, p1.getFoodTokens());
 
-                        Game.challengeByID(p1, id, 2, players, board, aDeck, cDeck, ndDeck);
+                        Game.challengeByID(p1, id, 2, players, BOARD, aDeck, cDeck, ndDeck);
                         assertEquals(1, p1.getLostTurns());
                         break;
                     case 8:
@@ -306,7 +305,7 @@ public class TestGame {
                         for (int i = 0; i < players.length; i++) {
                             if (players[i] == p1 && i != (players.length - 1) && !players[i + 1].isExtinct()) {
                                 prevF2 = players[i + 1].getFoodTokens();
-                                Game.challengeByID(p1, id, 1, players, board, aDeck, cDeck, ndDeck);
+                                Game.challengeByID(p1, id, 1, players, BOARD, aDeck, cDeck, ndDeck);
                                 assertEquals(prevF2 - aCard0.getPenaltyAmount(), players[i + 1].getFoodTokens());
                                 found1 = true;
                                 break;
@@ -315,19 +314,19 @@ public class TestGame {
                         if (!found1)
                             if (!players[0].isExtinct() && players[0] != p1) {
                                 prevF2 = players[0].getFoodTokens();
-                                Game.challengeByID(p1, id, 1, players, board, aDeck, cDeck, ndDeck);
+                                Game.challengeByID(p1, id, 1, players, BOARD, aDeck, cDeck, ndDeck);
                                 assertEquals(prevF2 - aCard0.getPenaltyAmount(), players[0].getFoodTokens());
                             }
 
                         prevF1 = p1.getFoodTokens();
-                        Game.challengeByID(p1, id, 2, players, board, aDeck, cDeck, ndDeck);
+                        Game.challengeByID(p1, id, 2, players, BOARD, aDeck, cDeck, ndDeck);
                         assertEquals(prevF1 - 3, p1.getFoodTokens());
                         break;
                     case 9:
                         System.out.println("Testing case #" + id + " iteration " + k);
                         p1.setLostTurns(0);
                         prevF1 = p1.getFoodTokens();
-                        Game.challengeByID(p1, id, 1, players, board, aDeck, cDeck, ndDeck);
+                        Game.challengeByID(p1, id, 1, players, BOARD, aDeck, cDeck, ndDeck);
                         assertEquals(prevF1 - 2, p1.getFoodTokens());
                         break;
                     case 10:
@@ -337,31 +336,31 @@ public class TestGame {
                         p1.move(6);
 
                         prevL1 = p1.getLocation();
-                        Game.challengeByID(p1, id, 1, players, board, aDeck, cDeck, ndDeck);
+                        Game.challengeByID(p1, id, 1, players, BOARD, aDeck, cDeck, ndDeck);
                         assertEquals(prevL1 - 3, p1.getLocation());
 
                         prevF1 = p1.getFoodTokens();
-                        Game.challengeByID(p1, id, 2, players, board, aDeck, cDeck, ndDeck);
+                        Game.challengeByID(p1, id, 2, players, BOARD, aDeck, cDeck, ndDeck);
                         assertEquals(prevF1 - 1, p1.getFoodTokens());
                         break;
                     case 11:
                         System.out.println("Testing case #" + id + " iteration " + k);
                         p1.setLostTurns(0);
                         prevF1 = p1.getFoodTokens();
-                        Game.challengeByID(p1, id, 1, players, board, aDeck, cDeck, ndDeck);
+                        Game.challengeByID(p1, id, 1, players, BOARD, aDeck, cDeck, ndDeck);
                         assertEquals(prevF1 + 1, p1.getFoodTokens());
 
                         //reduce the possible spaces to land on to ones without a challenge card
                         p1.move(-1 * p1.getLocation());
                         p1.move(23);
                         prevF1 = p1.getFoodTokens();
-                        Game.challengeByID(p1, id, 2, players, board, aDeck, cDeck, ndDeck);
+                        Game.challengeByID(p1, id, 2, players, BOARD, aDeck, cDeck, ndDeck);
 
-                        if (board[p1.getLocation()].getType().equals("herbivore"))
+                        if (BOARD[p1.getLocation()].getType().equals("herbivore"))
                             assertEquals(prevF1 + 1, p1.getFoodTokens());
-                        else if (board[p1.getLocation()].getType().equals("carnivore"))
+                        else if (BOARD[p1.getLocation()].getType().equals("carnivore"))
                             assertEquals(prevF1, p1.getFoodTokens());
-                        else if (board[p1.getLocation()].getType().equals("natural disaster"))
+                        else if (BOARD[p1.getLocation()].getType().equals("natural disaster"))
                             assertEquals(prevF1, p1.getFoodTokens());
 
                         break;
@@ -373,7 +372,7 @@ public class TestGame {
                             if (players[i] == p1 && i != (players.length - 1) && !players[i + 1].isExtinct()) {
                                 int prevT = players[i + 1].getFoodTokens();
                                 prevF1 = p1.getFoodTokens();
-                                Game.challengeByID(p1, id, 1, players, board, aDeck, cDeck, ndDeck);
+                                Game.challengeByID(p1, id, 1, players, BOARD, aDeck, cDeck, ndDeck);
                                 assertEquals(prevF1 + 1, p1.getFoodTokens());
                                 assertEquals(prevT - 1, players[i + 1].getFoodTokens());
                                 found2 = true;
@@ -384,69 +383,69 @@ public class TestGame {
                             if (!players[0].isExtinct() && players[0] != p1) {
                                 int prevT = players[0].getFoodTokens();
                                 prevF1 = p1.getFoodTokens();
-                                Game.challengeByID(p1, id, 1, players, board, aDeck, cDeck, ndDeck);
+                                Game.challengeByID(p1, id, 1, players, BOARD, aDeck, cDeck, ndDeck);
                                 assertEquals(prevF1 + 1, p1.getFoodTokens());
                                 assertEquals(prevT - 1, players[0].getFoodTokens());
                             }
 
                         prevF1 = p1.getFoodTokens();
-                        Game.challengeByID(p1, id, 2, players, board, aDeck, cDeck, ndDeck);
+                        Game.challengeByID(p1, id, 2, players, BOARD, aDeck, cDeck, ndDeck);
                         assertEquals(prevF1 + 2, p1.getFoodTokens());
                         break;
                     case 13:
                         System.out.println("Testing case #" + id + " iteration " + k);
                         p1.setLostTurns(0);
                         prevL1 = p1.getLocation();
-                        Game.challengeByID(p1, id, 1, players, board, aDeck, cDeck, ndDeck);
+                        Game.challengeByID(p1, id, 1, players, BOARD, aDeck, cDeck, ndDeck);
                         //return to previous habitat
                         int count = 0;
                         if (prevL1 > 13) {
-                            String currentHab = board[prevL1].getHabitat();
-                            for (int i = prevL1; board[i].getHabitat().equalsIgnoreCase(currentHab); i--) {
+                            String currentHab = BOARD[prevL1].getHabitat();
+                            for (int i = prevL1; BOARD[i].getHabitat().equalsIgnoreCase(currentHab); i--) {
                                 count--;
                             }
                         }
                         assertEquals(prevL1 + count, p1.getLocation());
 
                         prevF1 = p1.getFoodTokens();
-                        Game.challengeByID(p1, id, 2, players, board, aDeck, cDeck, ndDeck);
+                        Game.challengeByID(p1, id, 2, players, BOARD, aDeck, cDeck, ndDeck);
                         assertEquals(prevF1 - 2, p1.getFoodTokens());
                         break;
                     case 14:
                         System.out.println("Testing case #" + id + " iteration " + k);
                         p1.setLostTurns(0);
                         prevL1 = p1.getLocation();
-                        Game.challengeByID(p1, id, 1, players, board, aDeck, cDeck, ndDeck);
+                        Game.challengeByID(p1, id, 1, players, BOARD, aDeck, cDeck, ndDeck);
                         //move to next habitat
                         int count2 = 0;
                         if (prevL1 < 92) {
-                            String currentHab = board[prevL1].getHabitat();
-                            for (int i = prevL1; board[i].getHabitat().equalsIgnoreCase(currentHab); i++) {
+                            String currentHab = BOARD[prevL1].getHabitat();
+                            for (int i = prevL1; BOARD[i].getHabitat().equalsIgnoreCase(currentHab); i++) {
                                 count2++;
                             }
                         }
                         assertEquals(prevL1 + count2, p1.getLocation());
 
                         prevF1 = p1.getFoodTokens();
-                        Game.challengeByID(p1, id, 2, players, board, aDeck, cDeck, ndDeck);
+                        Game.challengeByID(p1, id, 2, players, BOARD, aDeck, cDeck, ndDeck);
                         assertEquals(prevF1 + 1, p1.getFoodTokens());
                         break;
                     case 15:
                         System.out.println("Testing case #" + id + " iteration " + k);
                         p1.setLostTurns(0);
                         prevL1 = p1.getLocation();
-                        Game.challengeByID(p1, id, 1, players, board, aDeck, cDeck, ndDeck);
+                        Game.challengeByID(p1, id, 1, players, BOARD, aDeck, cDeck, ndDeck);
                         assertEquals(prevL1 + 3, p1.getLocation());
 
                         prevF1 = p1.getFoodTokens();
-                        Game.challengeByID(p1, id, 2, players, board, aDeck, cDeck, ndDeck);
+                        Game.challengeByID(p1, id, 2, players, BOARD, aDeck, cDeck, ndDeck);
                         assertEquals(prevF1 + 1, p1.getFoodTokens());
                         break;
                     case 16:
                         System.out.println("Testing case #" + id + " iteration " + k);
                         p1.setLostTurns(0);
                         prevL1 = p1.getLocation();
-                        Game.challengeByID(p1, id, 1, players, board, aDeck, cDeck, ndDeck);
+                        Game.challengeByID(p1, id, 1, players, BOARD, aDeck, cDeck, ndDeck);
                         //move to your next food square
                         int count3 = 0;
                         boolean isHerb = p1.getDino().isHerbivore();
@@ -457,7 +456,7 @@ public class TestGame {
                             diet = "carnivore";
                         }
                         if (!(diet.equalsIgnoreCase("carnivore") && prevL1 > 100)) {
-                            for (int i = prevL1; !board[i].getType().equalsIgnoreCase(diet); i++) {
+                            for (int i = prevL1; !BOARD[i].getType().equalsIgnoreCase(diet); i++) {
                                 count3++;
                             }
                         }
@@ -467,13 +466,13 @@ public class TestGame {
                         p1.move(-1 * p1.getLocation());
                         p1.move(23);
                         prevF1 = p1.getFoodTokens();
-                        Game.challengeByID(p1, id, 2, players, board, aDeck, cDeck, ndDeck);
+                        Game.challengeByID(p1, id, 2, players, BOARD, aDeck, cDeck, ndDeck);
 
-                        if (board[p1.getLocation()].getType().equals("herbivore"))
+                        if (BOARD[p1.getLocation()].getType().equals("herbivore"))
                             assertEquals(prevF1 + 1, p1.getFoodTokens());
-                        else if (board[p1.getLocation()].getType().equals("carnivore"))
+                        else if (BOARD[p1.getLocation()].getType().equals("carnivore"))
                             assertEquals(prevF1, p1.getFoodTokens());
-                        else if (board[p1.getLocation()].getType().equals("natural disaster"))
+                        else if (BOARD[p1.getLocation()].getType().equals("natural disaster"))
                             assertEquals(prevF1, p1.getFoodTokens());
 
                         break;
@@ -485,7 +484,7 @@ public class TestGame {
                             if (players[i] == p1 && i != (players.length - 1) && !players[i + 1].isExtinct()) {
                                 int prevT2 = players[i + 1].getFoodTokens();
                                 prevF1 = p1.getFoodTokens();
-                                Game.challengeByID(p1, id, 1, players, board, aDeck, cDeck, ndDeck);
+                                Game.challengeByID(p1, id, 1, players, BOARD, aDeck, cDeck, ndDeck);
                                 assertEquals(prevF1 - 1, p1.getFoodTokens());
                                 assertEquals(prevT2 + 1, players[i + 1].getFoodTokens());
                                 found3 = true;
@@ -496,13 +495,13 @@ public class TestGame {
                             if (!players[0].isExtinct() && players[0] != p1) {
                                 int prevT2 = players[0].getFoodTokens();
                                 prevF1 = p1.getFoodTokens();
-                                Game.challengeByID(p1, id, 1, players, board, aDeck, cDeck, ndDeck);
+                                Game.challengeByID(p1, id, 1, players, BOARD, aDeck, cDeck, ndDeck);
                                 assertEquals(prevF1 - 1, p1.getFoodTokens());
                                 assertEquals(prevT2 + 1, players[0].getFoodTokens());
                             }
 
                         prevF1 = p1.getFoodTokens();
-                        Game.challengeByID(p1, id, 2, players, board, aDeck, cDeck, ndDeck);
+                        Game.challengeByID(p1, id, 2, players, BOARD, aDeck, cDeck, ndDeck);
                         assertEquals(prevF1 - 2, p1.getFoodTokens());
                         break;
                     case 18:
@@ -510,11 +509,11 @@ public class TestGame {
                         p1.setLostTurns(0);
                         prevL1 = p1.getLocation();
                         prevF1 = p1.getFoodTokens();
-                        Game.challengeByID(p1, id, 1, players, board, aDeck, cDeck, ndDeck);
+                        Game.challengeByID(p1, id, 1, players, BOARD, aDeck, cDeck, ndDeck);
                         //go back to previous natural disaster square and play it
                         int count4 = 0;
                         if (prevL1 > 13) {
-                            for (int i = prevL1; !board[i].getType().equals("natural disaster"); i--) {
+                            for (int i = prevL1; !BOARD[i].getType().equals("natural disaster"); i--) {
                                 count4--;
                             }
                         }
@@ -522,17 +521,17 @@ public class TestGame {
                         assertEquals(prevL1 + count4, p1.getLocation());
 
                         prevF1 = p1.getFoodTokens();
-                        Game.challengeByID(p1, id, 2, players, board, aDeck, cDeck, ndDeck);
+                        Game.challengeByID(p1, id, 2, players, BOARD, aDeck, cDeck, ndDeck);
                         assertEquals(prevF1 - 2, p1.getFoodTokens());
                         break;
                     case 19:
                         System.out.println("Testing case #" + id + " iteration " + k);
                         p1.setLostTurns(0);
                         prevF1 = p1.getFoodTokens();
-                        Game.challengeByID(p1, id, 1, players, board, aDeck, cDeck, ndDeck);
+                        Game.challengeByID(p1, id, 1, players, BOARD, aDeck, cDeck, ndDeck);
                         assertEquals(prevF1 - 1, p1.getFoodTokens());
 
-                        Game.challengeByID(p1, id, 2, players, board, aDeck, cDeck, ndDeck);
+                        Game.challengeByID(p1, id, 2, players, BOARD, aDeck, cDeck, ndDeck);
                         assertEquals(1, p1.getLostTurns());
                         break;
                 }
@@ -544,14 +543,13 @@ public class TestGame {
     }
 
     @Test public void testAttack(){
-        Space[] board = Game.createBoard();
         Player p1 = new Player(new Dinosaur("TestDino1", true, "Swamp",1,1,
-                1, 1,1,1,1,1), foodForTesting);
+                1, 1,1,1,1,1), foodForTesting, BOARD);
         //one player to pass all tests, one to fail all attacks one to tie
         Player p2 = new Player(new Dinosaur("TestDino2", true, "Forest",-1,-1,
-                -1, -1,-1,-1,-1,-1), foodForTesting);
+                -1, -1,-1,-1,-1,-1), foodForTesting, BOARD);
         Player p3 = new Player(new Dinosaur("TestDino3", true, "Desert",-1,-1,
-                -1, -1,-1,-1,-1,-1), foodForTesting);
+                -1, -1,-1,-1,-1,-1), foodForTesting, BOARD);
 
         p3.setEvolveCardSpdSiz(true);
         p3.setEvolveCardSenInt(true);
@@ -755,12 +753,12 @@ public class TestGame {
                         }
                         break;
                     case "habitat":
-                        if (board[p.getLocation()].getHabitat().equalsIgnoreCase(p.getDino().getHabitat()) &&
-                                !board[q.getLocation()].getHabitat().equalsIgnoreCase(q.getDino().getHabitat())) {
+                        if (BOARD[p.getLocation()].getHabitat().equalsIgnoreCase(p.getDino().getHabitat()) &&
+                                !BOARD[q.getLocation()].getHabitat().equalsIgnoreCase(q.getDino().getHabitat())) {
                             winner = p;
                             loser = q;
-                        } else if (!board[p.getLocation()].getHabitat().equalsIgnoreCase(p.getDino().getHabitat()) &&
-                                board[q.getLocation()].getHabitat().equalsIgnoreCase(q.getDino().getHabitat())) {
+                        } else if (!BOARD[p.getLocation()].getHabitat().equalsIgnoreCase(p.getDino().getHabitat()) &&
+                                BOARD[q.getLocation()].getHabitat().equalsIgnoreCase(q.getDino().getHabitat())) {
                             winner = q;
                             loser = p;
                         } else {
@@ -771,13 +769,13 @@ public class TestGame {
 
 
                 if(tie){
-                    if (board[p.getLocation()].getHabitat().equalsIgnoreCase(p.getDino().getHabitat()) &&
-                            !board[q.getLocation()].getHabitat().equalsIgnoreCase(q.getDino().getHabitat())) {
+                    if (BOARD[p.getLocation()].getHabitat().equalsIgnoreCase(p.getDino().getHabitat()) &&
+                            !BOARD[q.getLocation()].getHabitat().equalsIgnoreCase(q.getDino().getHabitat())) {
                         winner = p;
                         loser = q;
                         tie = false;
-                    } else if (!board[p.getLocation()].getHabitat().equalsIgnoreCase(p.getDino().getHabitat()) &&
-                            board[q.getLocation()].getHabitat().equalsIgnoreCase(q.getDino().getHabitat())) {
+                    } else if (!BOARD[p.getLocation()].getHabitat().equalsIgnoreCase(p.getDino().getHabitat()) &&
+                            BOARD[q.getLocation()].getHabitat().equalsIgnoreCase(q.getDino().getHabitat())) {
                         winner = q;
                         loser = p;
                         tie = false;
@@ -789,7 +787,7 @@ public class TestGame {
                     int wLoc = winner.getLocation();
                     int lFood = loser.getFoodTokens();
                     int lLoc = loser.getLocation();
-                    Game.attack(p, q, aDeck, board, prev);
+                    Game.attack(p, q, aDeck, BOARD, prev);
                     if (aCard.getPenalty().equals("food")) {
                         assertEquals(wFood + 1, winner.getFoodTokens());
                         assertEquals(lFood - 1, loser.getFoodTokens());
@@ -817,7 +815,7 @@ public class TestGame {
                     int wLoc = winner.getLocation();
                     int lFood = loser.getFoodTokens();
                     int lLoc = loser.getLocation();
-                    Game.attack(p, q, aDeck, board, true);
+                    Game.attack(p, q, aDeck, BOARD, true);
                     assertEquals(wFood, winner.getFoodTokens());
                     assertEquals(wLoc, winner.getLocation());
                     assertEquals(lFood, loser.getFoodTokens());
@@ -837,10 +835,10 @@ public class TestGame {
     
     @Test public void testDeterminePenalty(){
         Player p1 = new Player(new Dinosaur("TestDino1", true, "Forest",1,1,
-                1, 1,1,1,1,1), 5);
+                1, 1,1,1,1,1), 5, BOARD);
         //one player to pass all tests, one to fail all attacks
         Player p2 = new Player(new Dinosaur("TestDino2", true, "Desert",-1,-1,
-                -1, -1,-1,-1,-1,-1), 5);
+                -1, -1,-1,-1,-1,-1), 5, BOARD);
         //move them to space 50 so adequate testing space
         p1.move(50);
         p2.move(50);
@@ -876,16 +874,15 @@ public class TestGame {
 
     @Test public void testNaturalDisaster(){
         Player p1 = new Player(new Dinosaur("TestDino1", true, "Forest",1,1,
-                1, 1,1,1,1,1), foodForTesting);
+                1, 1,1,1,1,1), foodForTesting, BOARD);
         //one player to pass all tests, one to fail all tests
         Player p2 = new Player(new Dinosaur("TestDino2", true, "Desert",-1,-1,
-                -1, -1,-1,-1,-1,-1), foodForTesting);
+                -1, -1,-1,-1,-1,-1), foodForTesting, BOARD);
         Player p3 = new Player(new Dinosaur("TestDino2", true, "Swamp",-1,-1,
-                -1, -1,-1,-1,-1,-1), foodForTesting);
+                -1, -1,-1,-1,-1,-1), foodForTesting, BOARD);
         p3.setEvolveCardSenInt(true);
         p3.setEvolveCardSpdSiz(true);
         final int lostTurns = 2;
-        Space[] board = Game.createBoard();
         Deck<NaturalDisasterCard> ndDeck = Game.createNaturalDisasterDeck();
 
         NaturalDisasterCard card0 = ndDeck.draw();
@@ -942,11 +939,11 @@ public class TestGame {
                 Player p = players[j];
                 int pFood = p.getFoodTokens();
                 int pTurns = p.getLostTurns();
-                Game.naturalDisaster(p, ndeck, board);
+                Game.naturalDisaster(p, ndeck, BOARD);
                 boolean safe = false;
                 boolean none = false;
                 if (ncard.getHabitatSafe()) {
-                    if (board[p.getLocation()].getHabitat().equalsIgnoreCase(p.getDino().getHabitat())) {
+                    if (BOARD[p.getLocation()].getHabitat().equalsIgnoreCase(p.getDino().getHabitat())) {
                         safe = true;
                     }
                 }
@@ -1036,7 +1033,7 @@ public class TestGame {
 
     @Test public void testDangerZone(){
         Player p = new Player(new Dinosaur("Styracosaurus", true, "Forest",0,-1,
-                1, -1,-1,1,0,0), 5);
+                1, -1,-1,1,0,0), 5, BOARD);
         p.move(22);
         int prevLocation = p.getLocation();
         Game.dangerZone(p);

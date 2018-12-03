@@ -2,10 +2,11 @@ import org.junit.Test;
 import static org.junit.Assert.assertEquals;
 
 public class TestPlayer {
+    final Space[] BOARD = Game.createBoard();
     private Dinosaur exampleDino = new Dinosaur("Velociraptor", false, "Desert", 1,-1,
             1,0,1,0,0,-1);
     private Player examplePlayer = new Player(new Dinosaur("Styracosaurus", true, "Forest",0,-1,
-            1, -1,-1,1,0,0), 5);
+            1, -1,-1,1,0,0), 5, BOARD);
 
     @Test public void testMove(){
         for(int i = 0; i < 30; i++){

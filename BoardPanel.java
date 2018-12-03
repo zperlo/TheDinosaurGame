@@ -98,9 +98,9 @@ public class BoardPanel extends JLayeredPane{
         moveToBack(card);
     }
 
-    public int showChallenge(ChallengeCard c) {
+    public int showChallenge(ChallengeCard c, Player p) {
         moveToFront(card);
-        int r = card.showChallenge((c));
+        int r = card.showChallenge(c, p);
         moveToBack(card);
         return r;
     }

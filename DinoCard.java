@@ -310,46 +310,61 @@ public class DinoCard extends JPanel {
         }
     }
 
-    public JLabel getLabel(String stat, boolean isValue) {
+    public JLabel getLabel(String stat, boolean wantsValue) {
         JLabel valueLabel = null;
         JLabel statLabel = null;
         switch (stat.toUpperCase()) {
             case "SPEED":
-                valueLabel = dinoSpe;
-                statLabel = labelSpe;
+                valueLabel = new JLabel();
+                statLabel = new JLabel();
+                valueLabel.setText(dinoSpe.getText());
+                statLabel.setText(labelSpe.getText());
                 break;
             case "SIZE":
-                valueLabel = dinoSiz;
-                statLabel = labelSiz;
+                valueLabel = new JLabel();
+                statLabel = new JLabel();
+                valueLabel.setText(dinoSiz.getText());
+                statLabel.setText(labelSiz.getText());
                 break;
             case "INTELLIGENCE":
-                valueLabel = dinoInt;
-                statLabel = labelInt;
+                valueLabel = new JLabel();
+                statLabel = new JLabel();
+                valueLabel.setText(dinoInt.getText());
+                statLabel.setText(labelInt.getText());
                 break;
             case "DEFENSES":
-                valueLabel = dinoDef;
-                statLabel = labelDef;
+                valueLabel = new JLabel();
+                statLabel = new JLabel();
+                valueLabel.setText(dinoDef.getText());
+                statLabel.setText(labelDef.getText());
                 break;
             case "WEAPONS":
-                valueLabel = dinoWep;
-                statLabel = labelWep;
+                valueLabel = new JLabel();
+                statLabel = new JLabel();
+                valueLabel.setText(dinoWep.getText());
+                statLabel.setText(labelWep.getText());
                 break;
             case "SENSES":
-                valueLabel = dinoSen;
-                statLabel = labelSen;
+                valueLabel = new JLabel();
+                statLabel = new JLabel();
+                valueLabel.setText(dinoSen.getText());
+                statLabel.setText(labelSen.getText());
                 break;
             case "ROR":
-                valueLabel = dinoROR;
-                statLabel = labelROR;
+                valueLabel = new JLabel();
+                statLabel = new JLabel();
+                valueLabel.setText(dinoROR.getText());
+                statLabel.setText(labelROR.getText());
                 break;
             case "ATA":
-                valueLabel = dinoATA;
-                statLabel = labelATA;
+                valueLabel = new JLabel();
+                statLabel = new JLabel();
+                valueLabel.setText(dinoATA.getText());
+                statLabel.setText(labelATA.getText());
                 break;
             default:
                 break;
         }
-        //statLabel.setText(statLabel.getText() + ":");
-        return isValue ? valueLabel : statLabel;
+        return wantsValue ? valueLabel : statLabel;
     }
 }

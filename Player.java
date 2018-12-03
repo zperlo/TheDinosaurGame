@@ -8,7 +8,9 @@
 public class Player {
     private Dinosaur myDino;
     private int foodTokens;
+    private Space[] board;
     private int location = 0;
+    private Space space = null;
     private boolean evolveCardSenInt = false;
     private boolean evolveCardSpdSiz = false;
     private int lostTurns = 0;
@@ -21,9 +23,10 @@ public class Player {
      * @param foodTokens This is the number of food tokens the player starts with.
      * @see Dinosaur
      */
-    public Player(Dinosaur myDino, int foodTokens) {
+    public Player(Dinosaur myDino, int foodTokens, Space[] board) {
         this.myDino = myDino;
         this.foodTokens = foodTokens;
+        this.board = board;
     }
 
     public Dinosaur getDino(){
@@ -36,6 +39,10 @@ public class Player {
 
     public int getLocation(){
         return location;
+    }
+
+    public Space getSpace() {
+        return space;
     }
 
     public boolean isEvolveCardSenInt(){
@@ -72,10 +79,13 @@ public class Player {
         // allow player to move so long as they don't go past the finish space
         else if (location + numSpaces <= 109) {
             location = location + numSpaces;
+
         }
 
         // if they were to move past the finish, don't let them move at all.
         // They get a chance to make it to the finish next turn if they roll the correct number
+
+        space = board[location];
     }
 
     /**
@@ -111,5 +121,9 @@ public class Player {
 
     public void setExtinct(boolean extinct) {
         isExtinct = extinct;
+    }
+
+    public boolean isInHabitat() {
+        return getDino().getHabitat().equalsIgnoreCase(getSpace().getHabitat());
     }
 }

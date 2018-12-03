@@ -42,14 +42,16 @@ public class GamePanel extends JPanel {
     private IconRef ir;
     private Player[] players;
     private Dinosaur[] dinosaurs;
+    private Space[] spaces;
     private int rollSem;
     private int splashSem;
     private final double scale;
 
     // constructor
-    public GamePanel(Dinosaur[] dinosaurs, double scale) {
+    public GamePanel(Dinosaur[] dinosaurs, double scale, Space[] spaces) {
         this.dinosaurs = dinosaurs;
         this.scale = scale;
+        this.spaces = spaces;
         cl = new CardLayout();
         setLayout(cl);
         add(splash(), "splash");
@@ -329,8 +331,8 @@ public class GamePanel extends JPanel {
         board.showAttack(c);
     }
 
-    public int showChallenge(ChallengeCard c) {
-        return board.showChallenge(c);
+    public int showChallenge(ChallengeCard c, Player p) {
+        return board.showChallenge(c, p);
     }
 
     public void showNaturalDisaster(NaturalDisasterCard c) {
@@ -549,7 +551,7 @@ public class GamePanel extends JPanel {
                 }
             }
             chosenDinos[i] = num - 1;
-            players[i] = new Player(dinoCards[num - 1], 3);
+            players[i] = new Player(dinoCards[num - 1], 3, spaces);
         }
 
         return players;

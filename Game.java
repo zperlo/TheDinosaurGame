@@ -36,8 +36,8 @@ public class Game {
         Deck<NaturalDisasterCard> ndDeck = createNaturalDisasterDeck();
         Deck<AttackCard> aDeck = createAttackDeck();
         Deck<ChallengeCard> cDeck = createChallengeDeck();
-        Player[] players = initializePlayers(dinoCards);
         Space[] board = createBoard();
+        Player[] players = initializePlayers(dinoCards, board);
 
         boolean gameEnd = false;
 
@@ -356,7 +356,7 @@ public class Game {
      * @see Dinosaur
      * @see java.util.Scanner
      */
-    public static Player[] initializePlayers(Dinosaur[] dinoCards) {
+    public static Player[] initializePlayers(Dinosaur[] dinoCards, Space[] board) {
 
         // take in input for how many players
         Scanner input = new Scanner(System.in);
@@ -403,7 +403,7 @@ public class Game {
                 else j++;
             }
 
-            players[i] = new Player(dinoCards[num], 3);
+            players[i] = new Player(dinoCards[num], 3, board);
         }
 
         return players;

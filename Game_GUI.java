@@ -47,7 +47,7 @@ public class Game_GUI {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         double scale = (int) (Toolkit.getDefaultToolkit().getScreenSize().getHeight() * 0.90) / 1000.0;
         frame.setPreferredSize(new Dimension((int) (1550 * scale), (int) (1050 * scale)));
-        gp = new GamePanel(dinoCards, scale);
+        gp = new GamePanel(dinoCards, scale, board);
         frame.getContentPane().add(gp);
         frame.setResizable(false);
         frame.pack();
@@ -221,7 +221,7 @@ public class Game_GUI {
                     case "challenge":
                         ChallengeCard cCard = cDeck.draw();
                         int id = cCard.getId();
-                        int choice = gp.showChallenge(cCard);
+                        int choice = gp.showChallenge(cCard, p);
                         challengeByID(p, id, choice, players, board, aDeck, cDeck, ndDeck);
                         break;
                     case "natural disaster":
@@ -663,7 +663,7 @@ public class Game_GUI {
         ChallengeCard cCard4 = new ChallengeCard("If you are NOT in YOUR HABITAT: move back 5 spaces and play that square",
                 "OR", "Lose 1 food token.", 4, 1);
 
-        ChallengeCard cCard5 = new ChallengeCard("If you have 6 or more tokens: lose 1 food token.",
+        ChallengeCard cCard5 = new ChallengeCard("If you have 6 or more food tokens: lose 1 food token.",
                 "OR", "Go back 4 spaces.", 5, 1);
 
         ChallengeCard cCard6 = new ChallengeCard("Move back 2 spaces and play that square.",

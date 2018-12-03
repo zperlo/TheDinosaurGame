@@ -80,7 +80,7 @@ public class CardPanel extends JPanel {
         }
     }
 
-    public int showChallenge(ChallengeCard c) {
+    public int showChallenge(ChallengeCard c, Player p) {
         setBackground(Color.CYAN);
         labelTop.setText(c.getChoice1());
         labelMid.setText(c.getMiddlePara());
@@ -88,7 +88,7 @@ public class CardPanel extends JPanel {
         labelHab.setText(null);
 
         int r = -1;
-        if (c.getType() == 0 || c.getType() == 1) {
+        if (c.getType() == 0) {
             LabelListener top = (LabelListener) labelTop.getMouseListeners()[0];
             top.activate();
             LabelListener bot = (LabelListener) labelBot.getMouseListeners()[0];
@@ -107,6 +107,45 @@ public class CardPanel extends JPanel {
             top.assertMouseExited(labelTop);
             bot.assertMouseExited(labelBot);
             top.deactivate();
+            bot.deactivate();
+        } else if (c.getType() == 1) {
+            boolean conditionMet = false;
+            switch (c.getId()) {
+                case 0:
+                    conditionMet = p.isInHabitat();
+                    break;
+                case 4:
+                    conditionMet = !p.isInHabitat();
+                    break;
+                case 5:
+                    conditionMet = p.getFoodTokens() >= 6;
+                    break;
+                default:
+                    break;
+            }
+
+            LabelListener top = (LabelListener) labelTop.getMouseListeners()[0];
+            LabelListener bot = (LabelListener) labelBot.getMouseListeners()[0];
+            bot.activate();
+            if (conditionMet) {
+                top.activate();
+            }
+
+            labelClickSem = 0;
+            while (labelClickSem == 0) {
+                try {
+                    Thread.sleep(1);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+            r = labelClickSem;
+
+            if (conditionMet) {
+                top.assertMouseExited(labelTop);
+                top.deactivate();
+            }
+            bot.assertMouseExited(labelBot);
             bot.deactivate();
         } else if (c.getType() == 2 || c.getType() == 3) {
             panelClickSem = 0;
