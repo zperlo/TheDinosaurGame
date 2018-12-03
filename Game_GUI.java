@@ -95,12 +95,6 @@ public class Game_GUI {
                         }
                     }
 
-                    for (Player c : players) {
-                        if(!c.isExtinct()) {
-                            System.out.println(c.getDino().getName() + " is at position " + c.getLocation() + " with food tokens " + c.getFoodTokens());
-                        }
-                    }
-
                     for (Player e : players) {
                         if(!e.isExtinct()) {
                             if (board[e.getLocation()].getType().equals("finish")) {
@@ -789,9 +783,11 @@ public class Game_GUI {
                 break;
             case 2:
                 player.setEvolveCardSpdSiz(true);
+                gp.evolve(player, id);
                 break;
             case 3:
                 player.setEvolveCardSenInt(true);
+                gp.evolve(player, id);
                 break;
             case 4:
                 if(choice == 1){
@@ -1214,9 +1210,6 @@ public class Game_GUI {
     public static void naturalDisaster(Player p, Deck<NaturalDisasterCard> ndDeck, Space[] board){
         NaturalDisasterCard ndCard = ndDeck.draw();
         gp.showNaturalDisaster(ndCard);
-        System.out.println(ndCard.getPara1());
-        System.out.println(ndCard.getPara2());
-        System.out.println(ndCard.getPara3());
         boolean safe = false;
         boolean none = false;
         if(ndCard.getHabitatSafe()){

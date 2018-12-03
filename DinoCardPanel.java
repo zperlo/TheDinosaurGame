@@ -3,50 +3,10 @@ import javax.swing.*;
 import javax.swing.border.BevelBorder;
 import java.awt.*;
 import java.io.IOException;
+import java.util.HashMap;
 
 public class DinoCardPanel extends JPanel {
-    // static card level components
 
-    // title label
-    private JLabel title;
-
-    // info labels
-    private JLabel labelName;
-    private JLabel labelDiet;
-    private JLabel labelHabitat;
-
-    // stat labels
-    private JLabel labelSpe;
-    private JLabel labelSiz;
-    private JLabel labelInt;
-    private JLabel labelDef;
-    private JLabel labelWep;
-    private JLabel labelSen;
-    private JLabel labelROR;
-    private JLabel labelATA;
-
-    // dynamic card level components
-
-    // info labels
-    private JLabel dinoName;
-    private JLabel dinoDiet;
-    private JLabel dinoHabitat;
-
-    // stat header
-    private JLabel labelStatHeader;
-
-    // stat value labels
-    private JLabel dinoSpe;
-    private JLabel dinoSiz;
-    private JLabel dinoInt;
-    private JLabel dinoDef;
-    private JLabel dinoWep;
-    private JLabel dinoSen;
-    private JLabel dinoROR;
-    private JLabel dinoATA;
-
-    // image label
-    private JLabel imageLabel;
 
     // half card components
     private JLabel vsLabel;
@@ -54,12 +14,15 @@ public class DinoCardPanel extends JPanel {
     private JLabel hLabelName;
     private JLabel hLabelStat;
     private JLabel hLabelValue;
+    private JLabel hLabelHab;
+    private JLabel hLabelHabValue;
 
     // utility variables
     private final String compareCardName = "compare";
     private CardLayout cl;
     private JPanel compareCard;
     private Player[] players;
+    private HashMap<Player, DinoCard> dinoCards;
     private IconRef ir;
     private Color bg;
 
@@ -79,8 +42,11 @@ public class DinoCardPanel extends JPanel {
         setLayout(cl);
 
         // add a card for each dino
+        dinoCards = new HashMap<>();
         for (int i = 0; i < players.length; i++) {
-            add(createCard(players[i]), players[i].getDino().getName());
+            DinoCard card = createCard(players[i]);
+            dinoCards.put(players[i], card);
+            add(card, players[i].getDino().getName());
         }
 
         compareCard = createCompareCard(players[0], players[0], "speed");
@@ -130,6 +96,7 @@ public class DinoCardPanel extends JPanel {
 
     private JPanel createHalfCard(Player p, String stat) {
         Dinosaur d = p.getDino();
+        DinoCard statCard = dinoCards.get(p);
 
         // create return value and layout tools
         JPanel halfCard = new JPanel(new GridBagLayout());
@@ -138,10 +105,12 @@ public class DinoCardPanel extends JPanel {
 
         // icon label
         hLabelImage = new JLabel(ir.getIcon(p.getDino()));
+        hLabelImage.setBorder(BorderFactory.createBevelBorder(BevelBorder.LOWERED));
+        hLabelImage.setBackground(bg);
         gbc = new GridBagConstraints();
         gbc.gridx = 0;
         gbc.gridy = 0;
-        gbc.gridheight = 2;
+        gbc.gridheight = 3;
         gbc.insets = new Insets(7, 7, 7, 7);
         halfCard.add(hLabelImage, gbc);
 
@@ -155,301 +124,48 @@ public class DinoCardPanel extends JPanel {
         halfCard.add(hLabelName, gbc);
 
         // stat
-        hLabelStat = new JLabel(stat.toUpperCase() + ": ");
-        gbc = new GridBagConstraints();
-        gbc.gridx = 1;
-        gbc.gridy = 1;
-        gbc.insets = new Insets(7, 7, 7, 7);
-        halfCard.add(hLabelStat, gbc);
+        hLabelStat = statCard.getLabel(stat, false);
+        if (hLabelStat != null) {
+            gbc = new GridBagConstraints();
+            gbc.gridx = 1;
+            gbc.gridy = 1;
+            gbc.insets = new Insets(7, 7, 7, 7);
+            halfCard.add(hLabelStat, gbc);
+        }
 
         // value
-        String str;
-        switch (stat.toUpperCase()) {
-            case "SPEED":
-                str = getMinusZeroPlus(d.getSpeed());
-                break;
-            case "SIZE":
-                str = getMinusZeroPlus(d.getSize());
-                break;
-            case "INTELLIGENCE":
-                str = getMinusZeroPlus(d.getIntelligence());
-                break;
-            case "DEFENSES":
-                str = getMinusZeroPlus(d.getDefenses());
-                break;
-            case "WEAPONS":
-                str = getMinusZeroPlus(d.getWeapons());
-                break;
-            case "SENSES":
-                str = getMinusZeroPlus(d.getSenses());
-                break;
-            case "ROR":
-                str = getMinusZeroPlus(d.getRor());
-                break;
-            case "ATA":
-                str = getMinusZeroPlus(d.getAta());;
-                break;
-            case "HABITAT":
-                str = d.getHabitat();
-                break;
-            default:
-                str = "X";
-                break;
+        hLabelValue = statCard.getLabel(stat, true);
+        if (hLabelValue != null) {
+            gbc = new GridBagConstraints();
+            gbc.gridx = 2;
+            gbc.gridy = 1;
+            gbc.insets = new Insets(7, 7, 7, 7);
+            halfCard.add(hLabelValue, gbc);
         }
-        hLabelValue = new JLabel(str);
+
+        hLabelHab = new JLabel("HABITAT");
+        gbc = new GridBagConstraints();
+        gbc.gridx = 1;
+        gbc.gridy = 2;
+        gbc.insets = new Insets(7, 7, 7, 7);
+        halfCard.add(hLabelHab, gbc);
+
+        hLabelHabValue = new JLabel(d.getHabitat());
         gbc = new GridBagConstraints();
         gbc.gridx = 2;
-        gbc.gridy = 1;
+        gbc.gridy = 2;
         gbc.insets = new Insets(7, 7, 7, 7);
-        halfCard.add(hLabelValue, gbc);
+        halfCard.add(hLabelHabValue, gbc);
 
         return halfCard;
     }
 
-    private JPanel createCard(Player p) {
-        Dinosaur d = p.getDino();
-
-        // create return value and layout tools
-        JPanel card = new JPanel(new GridBagLayout());
-        card.setBackground(bg);
-        GridBagConstraints gbc;
-
-        // static label configuration
-
-        // title label
-        title = new JLabel("DINOSAUR DATA CARD");
-        gbc = new GridBagConstraints();
-        gbc.gridx = 0;
-        gbc.gridy = 0;
-        gbc.gridwidth = 3;
-        gbc.insets = new Insets(7, 7, 7, 7);
-        card.add(title, gbc);
-        // info labels
-        // labelName
-        labelName = new JLabel("Name:");
-        gbc = gbc = new GridBagConstraints();
-        gbc.gridx = 0;
-        gbc.gridy = 1;
-        gbc.gridwidth = 2;
-        gbc.insets = new Insets(7, 7, 7, 7);
-        gbc.anchor = GridBagConstraints.WEST;
-        card.add(labelName, gbc);
-        // labelDiet
-        labelDiet = new JLabel("Diet:");
-        gbc = gbc = new GridBagConstraints();
-        gbc.gridx = 0;
-        gbc.gridy = 2;
-        gbc.gridwidth = 2;
-        gbc.anchor = GridBagConstraints.WEST;
-        gbc.insets = new Insets(7, 7, 7, 7);
-        card.add(labelDiet, gbc);
-        // labelHabitat
-        labelHabitat = new JLabel("Habitat:");
-        gbc = gbc = new GridBagConstraints();
-        gbc.gridx = 0;
-        gbc.gridy = 3;
-        gbc.gridwidth = 2;
-        gbc.anchor = GridBagConstraints.WEST;
-        gbc.insets = new Insets(7, 7, 7, 7);
-        card.add(labelHabitat, gbc);
-        // stat labels
-        // labelSpe
-        labelSpe = new JLabel("SPEED");
-        gbc = gbc = new GridBagConstraints();
-        gbc.gridx = 1;
-        gbc.gridy = 5;
-        gbc.gridwidth = 2;
-        gbc.anchor = GridBagConstraints.WEST;
-        gbc.insets = new Insets(7, 7, 7, 7);
-        card.add(labelSpe, gbc);
-        // labelSiz
-        labelSiz = new JLabel("SIZE");
-        gbc = gbc = new GridBagConstraints();
-        gbc.gridx = 1;
-        gbc.gridy = 6;
-        gbc.gridwidth = 2;
-        gbc.anchor = GridBagConstraints.WEST;
-        gbc.insets = new Insets(7, 7, 7, 7);
-        card.add(labelSiz, gbc);
-        // labelInt
-        labelInt = new JLabel("INTELLIGENCE");
-        gbc = new GridBagConstraints();
-        gbc.gridx = 1;
-        gbc.gridy = 7;
-        gbc.gridwidth = 2;
-        gbc.anchor = GridBagConstraints.WEST;
-        gbc.insets = new Insets(7, 7, 7, 7);
-        card.add(labelInt, gbc);
-        // labelDef
-        labelDef = new JLabel("DEFENSES");
-        gbc = new GridBagConstraints();
-        gbc.gridx = 1;
-        gbc.gridy = 8;
-        gbc.gridwidth = 2;
-        gbc.anchor = GridBagConstraints.WEST;
-        gbc.insets = new Insets(7, 7, 7, 7);
-        card.add(labelDef, gbc);
-        // labelWep
-        labelWep = new JLabel("WEAPONS");
-        gbc = new GridBagConstraints();
-        gbc.gridx = 1;
-        gbc.gridy = 9;
-        gbc.gridwidth = 2;
-        gbc.anchor = GridBagConstraints.WEST;
-        gbc.insets = new Insets(7, 7, 7, 7);
-        card.add(labelWep, gbc);
-        // labelSen
-        labelSen = new JLabel("SENSES");
-        gbc = gbc = new GridBagConstraints();
-        gbc.gridx = 1;
-        gbc.gridy = 10;
-        gbc.gridwidth = 2;
-        gbc.anchor = GridBagConstraints.WEST;
-        gbc.insets = new Insets(7, 7, 7, 7);
-        card.add(labelSen, gbc);
-        // labelROR
-        labelROR = new JLabel("RATE OF REPRODUCTION");
-        gbc = gbc = new GridBagConstraints();
-        gbc.gridx = 1;
-        gbc.gridy = 11;
-        gbc.gridwidth = 2;
-        gbc.anchor = GridBagConstraints.WEST;
-        gbc.insets = new Insets(7, 7, 7, 7);
-        card.add(labelROR, gbc);
-        // labelATA
-        labelATA = new JLabel("ABILITY TO ADAPT");
-        gbc = gbc = new GridBagConstraints();
-        gbc.gridx = 1;
-        gbc.gridy = 12;
-        gbc.gridwidth = 2;
-        gbc.anchor = GridBagConstraints.WEST;
-        gbc.insets = new Insets(7, 7, 7, 7);
-        card.add(labelATA, gbc);
-
-        // dynamic label configuration
-
-        // info labels
-        // dinoName
-        dinoName = new JLabel(d.getName());
-        gbc = gbc = new GridBagConstraints();
-        gbc.gridx = 2;
-        gbc.gridy = 1;
-        gbc.gridwidth = 2;
-        gbc.anchor = GridBagConstraints.WEST;
-        gbc.insets = new Insets(7, 7, 7, 7);
-        card.add(dinoName, gbc);
-        // dinoDiet
-        dinoDiet = new JLabel((d.isHerbivore()) ? "Herbivore" : "Carnivore");
-        gbc = gbc = new GridBagConstraints();
-        gbc.gridx = 2;
-        gbc.gridy = 2;
-        gbc.gridwidth = 2;
-        gbc.anchor = GridBagConstraints.WEST;
-        gbc.insets = new Insets(7, 7, 7, 7);
-        card.add(dinoDiet, gbc);
-        // dinoHabitat
-        dinoHabitat = new JLabel(d.getHabitat());
-        gbc = gbc = new GridBagConstraints();
-        gbc.gridx = 2;
-        gbc.gridy = 3;
-        gbc.gridwidth = 2;
-        gbc.anchor = GridBagConstraints.WEST;
-        gbc.insets = new Insets(7, 7, 7, 7);
-        card.add(dinoHabitat, gbc);
-        // stat header
-        labelStatHeader = new JLabel(d.getName() + " Statistics:");
-        gbc = new GridBagConstraints();
-        gbc.gridx = 0;
-        gbc.gridy = 4;
-        gbc.gridwidth = 3;
-        gbc.anchor = GridBagConstraints.WEST;
-        gbc.insets = new Insets(7, 7, 7, 7);
-        card.add(labelStatHeader, gbc);
-        // stat labels
-        // dinoSpe
-        dinoSpe = new JLabel(getMinusZeroPlus(d.getSpeed()));
-        gbc = new GridBagConstraints();
-        gbc.gridx = 0;
-        gbc.gridy = 5;
-        gbc.anchor = GridBagConstraints.WEST;
-        gbc.insets = new Insets(7, 7, 7, 7);
-        card.add(dinoSpe, gbc);
-        // dinoSiz
-        dinoSiz = new JLabel(getMinusZeroPlus(d.getSize()));
-        gbc = new GridBagConstraints();
-        gbc.gridx = 0;
-        gbc.gridy = 6;
-        gbc.anchor = GridBagConstraints.WEST;
-        gbc.insets = new Insets(7, 7, 7, 7);
-        card.add(dinoSiz, gbc);
-        // dinoInt
-        dinoInt = new JLabel(getMinusZeroPlus(d.getIntelligence()));
-        gbc = new GridBagConstraints();
-        gbc.gridx = 0;
-        gbc.gridy = 7;
-        gbc.anchor = GridBagConstraints.WEST;
-        gbc.insets = new Insets(7, 7, 7, 7);
-        card.add(dinoInt, gbc);
-        // dinoDef
-        dinoDef = new JLabel(getMinusZeroPlus(d.getDefenses()));
-        gbc = new GridBagConstraints();
-        gbc.gridx = 0;
-        gbc.gridy = 8;
-        gbc.anchor = GridBagConstraints.WEST;
-        gbc.insets = new Insets(7, 7, 7, 7);
-        card.add(dinoDef, gbc);
-        // dinoWep
-        dinoWep = new JLabel(getMinusZeroPlus(d.getWeapons()));
-        gbc = new GridBagConstraints();
-        gbc.gridx = 0;
-        gbc.gridy = 9;
-        gbc.anchor = GridBagConstraints.WEST;
-        gbc.insets = new Insets(7, 7, 7, 7);
-        card.add(dinoWep, gbc);
-        // dinoSen
-        dinoSen = new JLabel(getMinusZeroPlus(d.getSenses()));
-        gbc = new GridBagConstraints();
-        gbc.gridx = 0;
-        gbc.gridy = 10;
-        gbc.anchor = GridBagConstraints.WEST;
-        gbc.insets = new Insets(7, 7, 7, 7);
-        card.add(dinoSen, gbc);
-        // dinoROR
-        dinoROR = new JLabel(getMinusZeroPlus(d.getRor()));
-        gbc = new GridBagConstraints();
-        gbc.gridx = 0;
-        gbc.gridy = 11;
-        gbc.anchor = GridBagConstraints.WEST;
-        gbc.insets = new Insets(7, 7, 7, 7);
-        card.add(dinoROR, gbc);
-        // dinoATA
-        dinoATA = new JLabel(getMinusZeroPlus(d.getAta()));
-        gbc = new GridBagConstraints();
-        gbc.gridx = 0;
-        gbc.gridy = 12;
-        gbc.anchor = GridBagConstraints.WEST;
-        gbc.insets = new Insets(7, 7, 7, 7);
-        card.add(dinoATA, gbc);
-        // image label
-        imageLabel = new JLabel(ir.getCompareToHuman(d));
-        imageLabel.setBorder(BorderFactory.createBevelBorder(BevelBorder.LOWERED));
-        imageLabel.setBackground(bg);
-        gbc = new GridBagConstraints();
-        gbc.gridx = 0;
-        gbc.gridy = 13;
-        gbc.gridwidth = 3;
-        gbc.insets = new Insets(7, 7, 7, 7);
-        card.add(imageLabel, gbc);
-
+    private DinoCard createCard(Player p) {
+        DinoCard card = new DinoCard(p, ir, bg);
         return card;
     }
 
-    private String getMinusZeroPlus(int statValue) {
-        switch(statValue) {
-            case -1: return "-";
-            case 0: return "0";
-            case 1: return "+";
-        }
-        return "X";
+    public void evolve(Player p, int i) {
+        dinoCards.get(p).evolve(i);
     }
 }

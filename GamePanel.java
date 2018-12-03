@@ -305,6 +305,10 @@ public class GamePanel extends JPanel {
         food.assertExtinct(p);
     }
 
+    public void evolve(Player p, int i) {
+        dinoCards.evolve(p, i);
+    }
+
     private class RollListener implements ActionListener {
         public void actionPerformed(ActionEvent event) {
             rollSem = (int) (Math.random() * 6 + 1);
