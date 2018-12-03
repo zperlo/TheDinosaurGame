@@ -777,7 +777,7 @@ public class Game {
         switch(id){
             case 0:
                 if(choice == 1){
-                    player.move(5);
+                    turn(player, 5, board, players, cDeck, aDeck, ndDeck);
                 }
                 else{
                     player.changeFood(1);
@@ -952,6 +952,7 @@ public class Game {
                             count++;
                         }
                         player.move(count);
+                        player.changeFood(1);
                     }
                 }
                 else {

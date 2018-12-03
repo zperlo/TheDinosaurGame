@@ -124,10 +124,11 @@ public class CardPanel extends JPanel {
                     break;
             }
 
-            LabelListener top = (LabelListener) labelTop.getMouseListeners()[0];
+            LabelListener top = new LabelListener();
             LabelListener bot = (LabelListener) labelBot.getMouseListeners()[0];
             bot.activate();
             if (conditionMet) {
+                top = (LabelListener) labelTop.getMouseListeners()[0];
                 top.activate();
             }
 

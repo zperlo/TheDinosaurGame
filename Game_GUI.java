@@ -91,6 +91,7 @@ public class Game_GUI {
                                         "Extinct!", JOptionPane.INFORMATION_MESSAGE);
                                 f.setExtinct(true);
                                 gp.assertExtinct(f);
+                                gp.refreshTokens();
                             }
                         }
                     }
@@ -513,8 +514,8 @@ public class Game_GUI {
                 "It is hot enough to fry your eggs. Can you reproduce fast enough to escape " +
                 "extinction?", "If your RATE OF REPRODUCTION is average (0) or below average (-) " +
                 "lose 3 food tokens.", false, "ror", new int[] {1}, 3);
-        NaturalDisasterCard card17 = new NaturalDisasterCard("CRACK!", "LIGHTENING: Are you small" +
-                " enough to avoid being struck by lightening?", "If your SIZE is above average " +
+        NaturalDisasterCard card17 = new NaturalDisasterCard("CRACK!", "LIGHTNING: Are you small" +
+                " enough to avoid being struck by lightning?", "If your SIZE is above average " +
                 "(+) or average (0) lose 1 food token.",
                 false, "size", new int[] {-1}, 1);
         NaturalDisasterCard card18 = new NaturalDisasterCard("ITCH! ITCH!", "DISEASE! Pesky insects" +
@@ -560,7 +561,7 @@ public class Game_GUI {
      * @see AttackDeck
      */
     public static Deck<AttackCard> createAttackDeck() {
-        AttackCard aCard0 = new AttackCard("<html>The dinosaur with the <span style=\"font-family:Showcard Gothic;font-size:13px;\">LEAST WEAPONS</span> loses.<html>",
+        AttackCard aCard0 = new AttackCard("<html><style=plain>The dinosaur with the <style=bold>LEAST WEAPONS</style> loses.<html>",
                 "The loser moves back 3 spaces.", "weapons", "move", 3, 0);
         AttackCard aCard1 = new AttackCard("<html>The dinosaur with the <span style=\"font-family:Showcard Gothic;font-size:13px;\">BEST ABILITY TO ADAPT</span> survives.<html>",
                 "The survivor receives 1 food token from the loser.", "ata",
@@ -761,7 +762,7 @@ public class Game_GUI {
         switch(id){
             case 0:
                 if(choice == 1){
-                    player.move(5);
+                    turn(player, 5, board, players, cDeck, aDeck, ndDeck);
                 }
                 else{
                     player.changeFood(1);
@@ -938,6 +939,7 @@ public class Game_GUI {
                             count++;
                         }
                         player.move(count);
+                        player.changeFood(1);
                     }
                 }
                 else {
