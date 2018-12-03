@@ -121,8 +121,8 @@ public class Game_GUI {
                         jop.showMessageDialog(gp, "All players have gone extinct. Game over!", "Extinction!",
                                 JOptionPane.INFORMATION_MESSAGE);
                     }
-gameEnd = true;
-                    // stop allowing players to take turns once someone wins
+
+                    // stop allowing players to take turns or restart the game once someone wins
                     if (gameEnd) {
                         String[] options = {"Play Again", "Main Menu", "Quit"};
                         int option = jop.showOptionDialog(gp,
