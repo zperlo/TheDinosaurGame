@@ -68,6 +68,16 @@ public class Game_GUI {
 
                     gp.takeTurn(activePlayer.getDino());
 
+                    // see if the player currently is on a lost turn
+                    int lostTurns = activePlayer.getLostTurns();
+                    if (lostTurns > 0) {
+                        lostTurns--; // use up turn, do nothing
+                        activePlayer.setLostTurns(lostTurns);
+                        jop.showMessageDialog(gp, activePlayer.getDino().getName() + " has " + lostTurns + " lost turns remaining",
+                                "Lost Turn!", JOptionPane.INFORMATION_MESSAGE);
+                        continue;
+                    }
+
                     // roll to see how far to move, as if on a 6-sided die
                     int roll = gp.getRoll();
 
@@ -186,81 +196,69 @@ public class Game_GUI {
         String dinoName = p.getDino().getName();
         JOptionPane jop = new JOptionPane();
 
-        // see if the player currently is on a lost turn
-        int lostTurns = p.getLostTurns();
-        if (lostTurns > 0) {
-            lostTurns--; // use up turn, do nothing
-            p.setLostTurns(lostTurns);
-            jop.showMessageDialog(gp, p.getDino().getName() + " has " + lostTurns + " lost turns remaining",
-                    "Lost Turn!", JOptionPane.INFORMATION_MESSAGE);
+        // have player move on board
+        p.move(roll);
+        gp.refreshTokens();
+
+        // check for attack event
+        boolean playSpace = true;
+        for (Player x: players){
+            if(x.getLocation() == p.getLocation() && x != p && !x.isExtinct()){
+                playSpace = false;
+                jop.showMessageDialog(gp, p.getDino().getName() + " is attacking " + x.getDino().getName() + "!",
+                        "Attack!", JOptionPane.INFORMATION_MESSAGE);
+                attack(p, x, aDeck, board, false);
+                gp.refreshTokens();
+                gp.refreshFood();
+                break;
+            }
         }
 
-        // the player gets a turn otherwise
-        else {
-            // have player move on board
-            p.move(roll);
-            gp.refreshTokens();
-
-            // check for attack event
-            boolean playSpace = true;
-            for (Player x: players){
-                if(x.getLocation() == p.getLocation() && x != p && !x.isExtinct()){
-                    playSpace = false;
-                    jop.showMessageDialog(gp, p.getDino().getName() + " is attacking " + x.getDino().getName() + "!",
-                            "Attack!", JOptionPane.INFORMATION_MESSAGE);
-                    attack(p, x, aDeck, board, false);
-                    gp.refreshTokens();
-                    gp.refreshFood();
+        // play the space if there was no attack event
+        if(playSpace) {
+            switch (board[p.getLocation()].getType()) {
+                case "herbivore":
+                    if (p.getDino().isHerbivore()) {
+                        jop.showMessageDialog(gp,
+                                p.getDino().getName() + " is an herbivore, so you get one food token!",
+                                "Herbivore Space!",
+                                JOptionPane.INFORMATION_MESSAGE);
+                        p.changeFood(1);
+                    }
+                    else{
+                        jop.showMessageDialog(gp,
+                                p.getDino().getName() + " is a carnivore, so you do not get one food token!",
+                                "Herbivore Space!",
+                                JOptionPane.INFORMATION_MESSAGE);
+                    }
                     break;
-                }
-            }
-
-            // play the space if there was no attack event
-            if(playSpace) {
-                switch (board[p.getLocation()].getType()) {
-                    case "herbivore":
-                        if (p.getDino().isHerbivore()) {
-                            jop.showMessageDialog(gp,
-                                    p.getDino().getName() + " is an herbivore, so you get one food token!",
-                                    "Herbivore Space!",
-                                    JOptionPane.INFORMATION_MESSAGE);
-                            p.changeFood(1);
-                        }
-                        else{
-                            jop.showMessageDialog(gp,
-                                    p.getDino().getName() + " is a carnivore, so you do not get one food token!",
-                                    "Herbivore Space!",
-                                    JOptionPane.INFORMATION_MESSAGE);
-                        }
-                        break;
-                    case "carnivore":
-                        if (!p.getDino().isHerbivore()) {
-                            jop.showMessageDialog(gp,
-                                    p.getDino().getName() + " is a carnivore, so you get one food token!",
-                                    "Carnivore Space!",
-                                    JOptionPane.INFORMATION_MESSAGE);
-                            p.changeFood(1);
-                        }
-                        else{
-                            jop.showMessageDialog(gp,
-                                    p.getDino().getName() + " is an herbivore, so you do not get one food token!",
-                                    "Carnivore Space!",
-                                    JOptionPane.INFORMATION_MESSAGE);
-                        }
-                        break;
-                    case "challenge":
-                        ChallengeCard cCard = cDeck.draw();
-                        int id = cCard.getId();
-                        int choice = gp.showChallenge(cCard, p);
-                        challengeByID(p, id, choice, players, board, aDeck, cDeck, ndDeck);
-                        break;
-                    case "natural disaster":
-                        naturalDisaster(p, ndDeck, board);
-                        break;
-                    case "danger zone":
-                        dangerZone(p);
-                        break;
-                }
+                case "carnivore":
+                    if (!p.getDino().isHerbivore()) {
+                        jop.showMessageDialog(gp,
+                                p.getDino().getName() + " is a carnivore, so you get one food token!",
+                                "Carnivore Space!",
+                                JOptionPane.INFORMATION_MESSAGE);
+                        p.changeFood(1);
+                    }
+                    else{
+                        jop.showMessageDialog(gp,
+                                p.getDino().getName() + " is an herbivore, so you do not get one food token!",
+                                "Carnivore Space!",
+                                JOptionPane.INFORMATION_MESSAGE);
+                    }
+                    break;
+                case "challenge":
+                    ChallengeCard cCard = cDeck.draw();
+                    int id = cCard.getId();
+                    int choice = gp.showChallenge(cCard, p);
+                    challengeByID(p, id, choice, players, board, aDeck, cDeck, ndDeck);
+                    break;
+                case "natural disaster":
+                    naturalDisaster(p, ndDeck, board);
+                    break;
+                case "danger zone":
+                    dangerZone(p);
+                    break;
             }
         }
 
