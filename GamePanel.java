@@ -360,7 +360,6 @@ public class GamePanel extends JPanel {
         gbc.gridy = 0;
         gbc.weightx = 1.0;
         gbc.weighty = 1.0;
-        gbc.fill = GridBagConstraints.BOTH;
         dinoCards.setBorder(BorderFactory.createBevelBorder(BevelBorder.LOWERED));
         gameplayPanel.add(dinoCards, gbc);
 
@@ -385,6 +384,7 @@ public class GamePanel extends JPanel {
         gbc.gridy = 1;
         gbc.weightx = 1.0;
         gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.insets = new Insets(7, 7, 7, 7);
         buttonRoll.addActionListener(new RollListener());
         gameplayPanel.add(buttonRoll, gbc);
 
@@ -398,6 +398,7 @@ public class GamePanel extends JPanel {
         gbc.gridy = 1;
         gbc.weightx = 1.0;
         gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.insets = new Insets(7, 7, 7, 7);
         buttonHelp.addActionListener(new HelpListener());
         gameplayPanel.add(buttonHelp, gbc);
 

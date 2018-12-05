@@ -47,6 +47,8 @@ public class DinoCard extends JPanel {
     // image label
     private JLabel imageLabel;
 
+    private Font statFont;
+
     public DinoCard(Player player, IconRef ir, Color bg) {
         Dinosaur d = player.getDino();
 
@@ -280,6 +282,11 @@ public class DinoCard extends JPanel {
         gbc.gridwidth = 3;
         gbc.insets = new Insets(7, 7, 7, 7);
         add(imageLabel, gbc);
+
+        statFont = new Font(title.getFont().getName(), Font.BOLD, (int) (title.getFont().getSize() * 1.5));
+        for (Component c : this.getComponents()) {
+            c.setFont(statFont);
+        }
     }
 
     private String getMinusZeroPlus(int statValue) {
