@@ -46,7 +46,7 @@ public class Game_GUI {
         JFrame frame = new JFrame("dinogame");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         double scale = (int) (Toolkit.getDefaultToolkit().getScreenSize().getHeight() * 0.90) / 1000.0;
-        frame.setPreferredSize(new Dimension((int) (1550 * scale), (int) (1050 * scale)));
+        frame.setPreferredSize(new Dimension((int) (1700 * scale), (int) (1050 * scale)));
         gp = new GamePanel(dinoCards, scale, board);
         frame.getContentPane().add(gp);
         frame.setResizable(false);
@@ -79,7 +79,7 @@ public class Game_GUI {
                     }
 
                     // roll to see how far to move, as if on a 6-sided die
-                    int roll = gp.getRoll();
+                    int roll = gp.getRollorRules();
 
                     turn(activePlayer, roll, board, players, cDeck, aDeck, ndDeck);
                     gp.refreshTokens();
@@ -148,7 +148,7 @@ public class Game_GUI {
                                 gameEnd = false;
                                 turnLoopControl = -1;
                                 for (int j = 0; j < players.length; j++) {
-                                    players[j] = new Player(players[j].getDino(), 3, board);
+                                    players[j] = new Player(players[j].getDino(), 5, board);
                                 }
                                 gp.setPlayers(players);
                                 gp.refreshTokens();
@@ -884,7 +884,7 @@ public class Game_GUI {
                     player.changeFood(1);
                 }
                 else {
-                    int roll = gp.getRoll();
+                    int roll = gp.getRollorRules();
                     turn(player, roll, board, players, cDeck, aDeck, ndDeck);
                 }
                 break;
@@ -970,7 +970,7 @@ public class Game_GUI {
                     }
                 }
                 else {
-                    int roll = gp.getRoll();
+                    int roll = gp.getRollorRules();
                     turn(player, roll, board, players, cDeck, aDeck, ndDeck);
                 }
                 break;

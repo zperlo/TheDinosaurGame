@@ -27,7 +27,12 @@ public class GamePanel extends JPanel {
     private boolean quitbool;
     private int menuSem = 0;
 
-    private JPanel dinoSelect;
+    private JPanel rulesPanel;
+    private JTextArea rulesText;
+    private JScrollPane scroll;
+    private JLabel rulesLabel;
+    private JButton back;
+    private int backSem;
 
     // top level gameplay components
     private JPanel gameplayPanel;
@@ -46,6 +51,7 @@ public class GamePanel extends JPanel {
     private int rollSem;
     private int splashSem;
     private final double scale;
+    private int btnSem;
 
     // constructor
     public GamePanel(Dinosaur[] dinosaurs, double scale, Space[] spaces) {
@@ -54,7 +60,7 @@ public class GamePanel extends JPanel {
         this.spaces = spaces;
         cl = new CardLayout();
         setLayout(cl);
-        add(splash(), "splash");
+        add(makeSplash(), "splash");
     }
 
     public Player[] executeMenu(boolean firstTime) {
@@ -71,9 +77,20 @@ public class GamePanel extends JPanel {
             }
         }
 
-        add(mainMenu(), "main");
-        //add(dinoSelect(), "dinoSelect");
+        add(makeMainMenu(), "main");
+        add(makeRules(), "rules");
 
+        waitAtMenu();
+
+        add(makeGameplay(), "gameplay");
+
+        cl.show(this, "gameplay");
+        gameplayPanel.requestFocus();
+
+        return players;
+    }
+
+    private void waitAtMenu() {
         cl.show(this, "main");
         mainMenuPanel.requestFocus();
         menuSem = 0;
@@ -87,9 +104,13 @@ public class GamePanel extends JPanel {
         switch (menuSem) {
             case 1:
                 players = initializePlayers(dinosaurs);
+                if (players == null) {
+                    waitAtMenu();
+                }
                 break;
             case 2:
-                players = initializePlayers(dinosaurs);
+                showRules("main");
+                mainMenuPanel.requestFocus();
                 break;
             case 3:
                 System.exit(0);
@@ -97,28 +118,21 @@ public class GamePanel extends JPanel {
             default:
                 break;
         }
-        add(gameplay(), "gameplay");
-
-        cl.show(this, "gameplay");
-        gameplayPanel.requestFocus();
-
-        return players;
     }
 
     public void setPlayers(Player[] players) {
         this.players = players;
-        add(gameplay(), "gameplay");
+        add(makeGameplay(), "gameplay");
         cl.show(this, "gameplay");
     }
 
-    private JPanel splash() {
+    private JPanel makeSplash() {
         splash = new JPanel();
+        splash.setBackground(backColor);
 
         // layout tools
         splash.setLayout(new GridBagLayout());
         GridBagConstraints gbc;
-
-        splash.setBackground(backColor);
 
         try {
             splashImage = new JLabel(new ImageIcon(ImageIO.read(getClass().getResource("/resources/Other/splash_image.png")).getScaledInstance((int) (1350 * scale), (int) (900 * scale), Image.SCALE_SMOOTH)));
@@ -137,7 +151,7 @@ public class GamePanel extends JPanel {
 
         continueLabel = new JLabel("<html><center>PRESS ANY KEY<br>TO CONTINUE</html>");
         continueLabel.setFont(new Font("Showcard Gothic", Font.PLAIN, 60));
-        continueLabel.setForeground(new Color(115, 82, 69));
+        continueLabel.setForeground(backColor.darker());
         gbc = new GridBagConstraints();
         gbc.gridx = 1;
         gbc.gridy = 0;
@@ -153,7 +167,7 @@ public class GamePanel extends JPanel {
         return splash;
     }
 
-    private JPanel mainMenu() {
+    private JPanel makeMainMenu() {
         mainMenuPanel = new JPanel();
         mainMenuPanel.setBackground(backColor);
 
@@ -242,12 +256,81 @@ public class GamePanel extends JPanel {
         return mainMenuPanel;
     }
 
-    private JPanel dinoSelect() {
-        dinoSelect = new JPanel();
-        return dinoSelect;
+    private JPanel makeRules() {
+        rulesPanel = new JPanel();
+        rulesPanel.setBackground(backColor);
+
+        rulesPanel.setLayout(new GridBagLayout());
+        GridBagConstraints gbc;
+
+        rulesLabel = new JLabel("RULES");
+        rulesLabel.setFont(new Font("Showcard Gothic", Font.PLAIN, (int) (75 * scale)));
+        gbc = new GridBagConstraints();
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        gbc.weightx = 1.0;
+        gbc.weighty = 0.25;
+        rulesPanel.add(rulesLabel, gbc);
+
+        rulesText = new JTextArea("Overview\n" +
+                "Millions of years ago dinosaurs ruled the earth. They constantly searched for food, struggling to survive. In this game you become one of those dinosaurs! As a dinosaur player you will face many dangers including: running out of food tokens, attacks from other dinosaur players and natural disasters that may cause you to become extinct. Pay close attention to improve your chances for survival.\n" +
+                "\nObjective\n" +
+                "To be the first dinosaur player to reach the FINISH square with at least 1 food token.\n" +
+                "\nStarting Out\n" +
+                "At the start, each player chooses a dinosaur to represent them in the game. Each dinosaur has a name, habitat, and characteristics, which are used to compare dinosaurs to one another. Many parts of the game will refer to your characteristics.\n" +
+                "\nFood Squares\n" +
+                "Dinosaur players need to collect food to survive! You get food tokens at the start of the game and when you land on food squares that match your dinosaur’s diet – brown bones for carnivores (meat-eaters) and green leaves for herbivores (plant-eaters).\n" +
+                "\nNATURAL DISASTER! Squares\n" +
+                "Dinosaurs encountered many natural disasters. When you land on a reddish-brown NATURAL DISASTER! square, you will be shown a NATURAL DISASTER! card. Instructions on the card will tell you what happens to your dinosaur, or if you can avoid the disaster. Some of the cards say HABITAT SAFE. If you draw one of these cards while in your own habitat, nothing will happen!\n" +
+                "\nDANGER ZONE Squares\n" +
+                "There are six yellow DANGER ZONES on the board. When you land on these your dinosaur will take a large penalty, so be careful.\n" +
+                "\nCHALLENGE! Squares\n" +
+                "When you land on a blue CHALLENGE! square, you will be shown a CHALLENGE! card. You may have to make a choice, or you may take a penalty. Your dinosaur might even evolve!\n" +
+                "\nATTACK! Situations\n" +
+                "Watch out for attacking dinosaurs! Any time you land on a square occupied by one or more players, an ATTACK! situation occurs. In an attack situation you ignore what would normally happen on that square, and instead see an ATTACK! card. The two involved dinosaurs will be pitted against each other, and one of their characteristics will be compared.\n" +
+                "In the event that there is a tie, the player in their own habitat wins. If neither or both of the players are in their own habitat, a new ATTACK! card is shown. If there is still a tie, the ATTACK! situation ends, and the next player takes their turn.\n" +
+                "\nHabitats\n" +
+                "The four different habitats on the board are SWAMP, DESERT, PLAINS, and FOREST. When you are in your own habitat, you may have an advantage in certain NATURAL DISASTER! and ATTACK! situations.\n" +
+                "\nRunning Out of Food\n" +
+                "If you run out of food tokens, you get once chance to try again. The first time you run out you will receive 3 food tokens from the bank and be moved back 10 spaces. The second time, your dinosaur goes extinct and you are out of the game.\n" +
+                "\nWinning the Game\n" +
+                "The first dinosaur player who reaches the END space with at least 1 food token wins! To reach this space you must land on it exactly.\n");
+        rulesText.setFont(new Font(rulesText.getFont().getName(), Font.PLAIN, rulesText.getFont().getSize() * 2));
+        rulesText.setBackground(backColor.brighter());
+        rulesText.setLineWrap(true);
+        rulesText.setWrapStyleWord(true);
+        rulesText.setEditable(false);
+
+        scroll = new JScrollPane(rulesText);
+        scroll.setBackground(backColor.brighter());
+        scroll.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
+        gbc = new GridBagConstraints();
+        gbc.gridx = 0;
+        gbc.gridy = 1;
+        gbc.weightx = 1.0;
+        gbc.weighty = 1.0;
+        gbc.insets = new Insets(0, 100, 0, 100);
+        gbc.fill = GridBagConstraints.BOTH;
+        rulesPanel.add(scroll, gbc);
+
+        back = new JButton("BACK");
+        back.setFont(new Font("Showcard Gothic", Font.PLAIN, (int) (50 * scale)));
+        back.setBackground(backColor.darker());
+        back.setFocusable(false);
+        back.addActionListener(new BackListener());
+        gbc = new GridBagConstraints();
+        gbc.gridx = 0;
+        gbc.gridy = 2;
+        gbc.weightx = 1.0;
+        gbc.weighty = 0.1;
+        gbc.insets = new Insets(0, 0, 20, 120);
+        gbc.anchor = GridBagConstraints.SOUTHEAST;
+        rulesPanel.add(back, gbc);
+
+        return rulesPanel;
     }
 
-    private JPanel gameplay() {
+    private JPanel makeGameplay() {
         gameplayPanel = new JPanel();
         gameplayPanel.setBackground(backColor);
 
@@ -262,7 +345,7 @@ public class GamePanel extends JPanel {
         gbc.gridx = 0;
         gbc.gridy = 0;
         gbc.gridheight = 2;
-        gbc.weightx = 1.0;
+        gbc.weightx = 0.0;
         gbc.weighty = 1.0;
         gbc.fill = GridBagConstraints.BOTH;
         gameplayPanel.add(board, gbc);
@@ -290,7 +373,10 @@ public class GamePanel extends JPanel {
 
         // configure buttons
         buttonRoll = new JButton();
-        buttonRoll.setText("Roll!");
+        buttonRoll.setText("ROLL!");
+        buttonRoll.setFont(new Font("Showcard Gothic", Font.PLAIN, (int) (50 * scale)));
+        buttonRoll.setBackground(backColor.darker());
+        buttonRoll.setFocusable(false);
         gbc = new GridBagConstraints();
         gbc.gridx = 1;
         gbc.gridy = 1;
@@ -300,7 +386,10 @@ public class GamePanel extends JPanel {
         gameplayPanel.add(buttonRoll, gbc);
 
         buttonHelp = new JButton();
-        buttonHelp.setText(/*"Help"*/"Quit");
+        buttonHelp.setText("HELP");
+        buttonHelp.setFont(new Font("Showcard Gothic", Font.PLAIN, (int) (50 * scale)));
+        buttonHelp.setBackground(backColor.darker());
+        buttonHelp.setFocusable(false);
         gbc = new GridBagConstraints();
         gbc.gridx = 2;
         gbc.gridy = 1;
@@ -322,14 +411,36 @@ public class GamePanel extends JPanel {
 
     private class RollListener implements ActionListener {
         public void actionPerformed(ActionEvent event) {
+            btnSem = 1;
             rollSem = (int) (Math.random() * 6 + 1);
         }
     }
 
     private class HelpListener implements ActionListener {
         public void actionPerformed(ActionEvent event) {
-            System.exit(0);
+            btnSem = 2;
         }
+    }
+
+    private class BackListener implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            backSem = 1;
+        }
+    }
+
+    private void showRules(String returnTo) {
+        cl.show(this, "rules");
+        System.out.println("waiting for rules");
+        backSem = 0;
+        while (backSem == 0) {
+            try {
+                Thread.sleep(1);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+        cl.show(this, returnTo);
     }
 
     public void takeTurn(Dinosaur d) {
@@ -360,19 +471,23 @@ public class GamePanel extends JPanel {
         food.updateFood();
     }
 
-    public int getRoll() {
-        rollSem = 0;
-        while (rollSem == 0) {
+    public int getRollorRules() {
+        btnSem = 0;
+        while (btnSem == 0) {
             try {
                 Thread.sleep(1);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
         }
-
-        JOptionPane rollConfirm = new JOptionPane();
-        rollConfirm.showMessageDialog(this, "You rolled a " + rollSem + "!", "Roll Result!", JOptionPane.PLAIN_MESSAGE);
-
+        if (btnSem == 1) {
+            JOptionPane rollConfirm = new JOptionPane();
+            rollConfirm.showMessageDialog(this, "You rolled a " + rollSem + "!", "Roll Result!", JOptionPane.PLAIN_MESSAGE);
+        } else if (btnSem == 2) {
+            showRules("gameplay");
+            gameplayPanel.requestFocus();
+            return getRollorRules();
+        }
         return rollSem;
     }
 
@@ -472,7 +587,7 @@ public class GamePanel extends JPanel {
 
         // take in input for how many players
         int playerCount = -1;
-        String playerCountStr = "";
+        String playerCountStr;
         while (playerCount < 1 || playerCount > 4) {
             playerCount = -1;
             playerCountStr = menuOptions.showInputDialog(
@@ -480,13 +595,13 @@ public class GamePanel extends JPanel {
                     "How many players are playing? (1-4)",
                     "The Dinosaur Game",
                     JOptionPane.PLAIN_MESSAGE);
+            if (playerCountStr == null) {
+                return null;
+            }
             try {
                 playerCount = Integer.valueOf(playerCountStr);
             }
             catch (NumberFormatException nfe) {}
-            if (playerCount == -1) {
-                System.exit(0);
-            }
             if (playerCount < 1 || playerCount > 4) {
                 if (menuOptions.showOptionDialog(
                         this,
@@ -497,7 +612,7 @@ public class GamePanel extends JPanel {
                         null,
                         null,
                         null) == JOptionPane.CLOSED_OPTION) {
-                    System.exit(0);
+                    return null;
                 }
             }
         }
@@ -512,7 +627,7 @@ public class GamePanel extends JPanel {
         int[] chosenDinos = new int[playerCount];
         for (int i = 0; i < playerCount; i++) {
             int num = -1;
-            String dinoChoice = "";
+            String dinoChoice;
             while (num < 1 || num > 16) {
                 num = -1;
                 dinoChoice = menuOptions.showInputDialog(
@@ -520,13 +635,13 @@ public class GamePanel extends JPanel {
                         "Player " + (i + 1) + " input the number for the dinosaur you want.\n" + dinoMsg,
                         "The Dinosaur Game",
                         JOptionPane.PLAIN_MESSAGE);
+                if (dinoChoice == null) {
+                    return null;
+                }
                 try {
                     num = Integer.valueOf(dinoChoice);
                 }
                 catch (NumberFormatException nfe) {}
-                if (num == -1) {
-                    System.exit(0);
-                }
                 if (num < 1 || num > 16) {
                     if (menuOptions.showOptionDialog(
                             this,
@@ -552,7 +667,7 @@ public class GamePanel extends JPanel {
                                 null,
                                 null,
                                 null) == JOptionPane.CLOSED_OPTION) {
-                            System.exit(0);
+                            return null;
                         }
                         num = -1;
                     }
@@ -560,7 +675,7 @@ public class GamePanel extends JPanel {
                 }
             }
             chosenDinos[i] = num - 1;
-            players[i] = new Player(dinoCards[num - 1], 3, spaces);
+            players[i] = new Player(dinoCards[num - 1], 5, spaces);
         }
 
         return players;
