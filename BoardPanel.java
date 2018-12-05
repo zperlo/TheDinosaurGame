@@ -10,7 +10,7 @@ public class BoardPanel extends JLayeredPane{
     // utility variables
     private final int BOARD_HEIGHT = (int) (Toolkit.getDefaultToolkit().getScreenSize().getHeight() * 0.90);
     private final double SCALE_FACTOR = BOARD_HEIGHT / 1000.0;
-    private final Dimension CARD_DIM = new Dimension((int) (500 * SCALE_FACTOR), (int) (300 * SCALE_FACTOR));
+    private final Dimension CARD_DIM = new Dimension((int) (550 * SCALE_FACTOR), (int) (330 * SCALE_FACTOR));
     private Dinosaur[] dinos;
     private Player[] players;
     private Color[] colors = {new Color(230, 59, 46), new Color(67, 124, 144), new Color(143, 206, 41), new Color (255, 119, 51)};

@@ -297,6 +297,7 @@ public class GamePanel extends JPanel {
                 "The first dinosaur player who reaches the END space with at least 1 food token wins! To reach this space you must land on it exactly.\n");
         rulesText.setFont(new Font(rulesText.getFont().getName(), Font.PLAIN, rulesText.getFont().getSize() * 2));
         rulesText.setBackground(backColor.brighter());
+        rulesText.setBorder(BorderFactory.createBevelBorder(BevelBorder.LOWERED));
         rulesText.setLineWrap(true);
         rulesText.setWrapStyleWord(true);
         rulesText.setEditable(false);
@@ -309,6 +310,8 @@ public class GamePanel extends JPanel {
         gbc.gridy = 1;
         gbc.weightx = 1.0;
         gbc.weighty = 1.0;
+        gbc.ipadx = 7;
+        gbc.ipady = 7;
         gbc.insets = new Insets(0, 100, 0, 100);
         gbc.fill = GridBagConstraints.BOTH;
         rulesPanel.add(scroll, gbc);

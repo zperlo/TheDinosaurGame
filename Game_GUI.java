@@ -43,7 +43,7 @@ public class Game_GUI {
 
         JOptionPane jop = new JOptionPane();
 
-        JFrame frame = new JFrame("dinogame");
+        JFrame frame = new JFrame("The Dinosaur Game: Survival or Extinction");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         double scale = (int) (Toolkit.getDefaultToolkit().getScreenSize().getHeight() * 0.90) / 1000.0;
         frame.setPreferredSize(new Dimension((int) (1700 * scale), (int) (1050 * scale)));
@@ -193,7 +193,6 @@ public class Game_GUI {
     public static void turn(Player p, int roll, Space[] board, Player[] players, Deck<ChallengeCard> cDeck,
                             Deck<AttackCard> aDeck, Deck<NaturalDisasterCard> ndDeck) {
 
-        String dinoName = p.getDino().getName();
         JOptionPane jop = new JOptionPane();
 
         // have player move on board
@@ -220,31 +219,19 @@ public class Game_GUI {
                 case "herbivore":
                     if (p.getDino().isHerbivore()) {
                         jop.showMessageDialog(gp,
-                                p.getDino().getName() + " is an herbivore, so you get one food token!",
+                                p.getDino().getName() + " is an herbivore, so you get a food token!",
                                 "Herbivore Space!",
                                 JOptionPane.INFORMATION_MESSAGE);
                         p.changeFood(1);
-                    }
-                    else{
-                        jop.showMessageDialog(gp,
-                                p.getDino().getName() + " is a carnivore, so you do not get one food token!",
-                                "Herbivore Space!",
-                                JOptionPane.INFORMATION_MESSAGE);
                     }
                     break;
                 case "carnivore":
                     if (!p.getDino().isHerbivore()) {
                         jop.showMessageDialog(gp,
-                                p.getDino().getName() + " is a carnivore, so you get one food token!",
+                                p.getDino().getName() + " is a carnivore, so you get a food token!",
                                 "Carnivore Space!",
                                 JOptionPane.INFORMATION_MESSAGE);
                         p.changeFood(1);
-                    }
-                    else{
-                        jop.showMessageDialog(gp,
-                                p.getDino().getName() + " is an herbivore, so you do not get one food token!",
-                                "Carnivore Space!",
-                                JOptionPane.INFORMATION_MESSAGE);
                     }
                     break;
                 case "challenge":
@@ -473,85 +460,85 @@ public class Game_GUI {
      */
     public static Deck<NaturalDisasterCard> createNaturalDisasterDeck() {
         NaturalDisasterCard card0 = new NaturalDisasterCard("SLIM PICKINGS!",
-                "<html>FAMINE: Food is getting hard to find. Are your senses sharp enough to find food?<html>",
-                "<html>If your SENSES are average (0) or below average (-) lose 2 food tokens.<html>",
+                "<html><center>FAMINE: Food is getting hard to find. Are<br>your senses sharp enough to find food?</html>",
+                "<html><center>If your SENSES are average (0) or below<br>average (-) lose 2 food tokens.</html>",
                 true, "senses", new int[] {1}, 2);
         NaturalDisasterCard card1 = new NaturalDisasterCard("YUCK!",
-                "<html>POISONOUS PLANTS: Are your senses keen enough to tell which plants are good to eat" +
-                        " and which are poisonous?<html>", "<html>If your SENSES are average (0) or below average " +
-                "(-) lose 2 food tokens.<html>", true, "senses", new int[] {1}, 2);
-        NaturalDisasterCard card2 = new NaturalDisasterCard("SPLASH!", "<html>FLOOD: Water is rising " +
-                "everywhere. Are you smart enough to reach higher ground?<html>", "<html>If your INTELLIGENCE" +
-                " is average (0) or below average (-) lose 4 food tokens.<html>",
+                "<html><center>POISONOUS PLANTS: Are your senses<br>keen enough to tell which plants are good<br>to eat" +
+                        " and which are poisonous?</html>", "<html><center>If your SENSES are average (0) or below<br>average " +
+                "(-) lose 2 food tokens.</html>", true, "senses", new int[] {1}, 2);
+        NaturalDisasterCard card2 = new NaturalDisasterCard("SPLASH!", "<html><center>FLOOD: Water is rising " +
+                "everywhere.<br>Are you smart enough to reach<br>higher ground?</html>", "<html><center>If your INTELLIGENCE" +
+                " is average (0)<br>or below average (-) lose 4 food tokens.</html>",
                 true, "intelligence", new int[] {1}, 4);
         NaturalDisasterCard card3 = new NaturalDisasterCard("OUCH! SAND FELL INTO MY EYES!",
-                "<html>SAND STORM: A sand storm will hurt anyone out in the open. Are you smart " +
-                        "enough to find shelter?<html>", "<html>If your INTELLIGENCE is average (0) or below " +
-                "average (-) lose 1 food token.<html>", true,
+                "<html><center>SAND STORM: A sand storm will hurt<br>anyone out in the open. Are you smart<br>" +
+                        "enough to find shelter?</html>", "<html><center>If your INTELLIGENCE is average (0) or<br>below " +
+                "average (-) lose 1 food token.</html>", true,
                 "intelligence", new int[] {1}, 1);
-        NaturalDisasterCard card4 = new NaturalDisasterCard("STOP THIEF!", "<html>TINY MAMMALS: Those " +
-                "tiny mammals are after your eggs. Are you able to protect your eggs?<html>", "<html>If your " +
-                "DEFENSES are average (0) or below average (-) lose 2 food tokens.<html>", true,
+        NaturalDisasterCard card4 = new NaturalDisasterCard("STOP THIEF!", "<html><center>TINY MAMMALS: Those " +
+                "tiny mammals<br>are after your eggs. Are you able to<br>protect your eggs?</html>", "<html><center>If your " +
+                "DEFENSES are average (0) or below<br>average (-) lose 2 food tokens.</html>", true,
                 "defenses", new int[] {1}, 2);
-        NaturalDisasterCard card5 = new NaturalDisasterCard("BRRR!", "<html>CLIMATE CHANGE: It is getting " +
-                "very cold. Are you able to adapt to this colder climate?<html>", "<html>If your ABILITY TO ADAPT" +
-                " is average (0) or below average (-) lose 3 food tokens.<html>",
+        NaturalDisasterCard card5 = new NaturalDisasterCard("BRRR!", "<html><center>CLIMATE CHANGE: It is getting<br>" +
+                "very cold. Are you able to adapt to<br>this colder climate?</html>", "<html><center>If your ABILITY TO ADAPT" +
+                " is average<br>(0) or below average (-) lose 3 food tokens.</html>",
                 true, "ata", new int[] {1}, 3);
-        NaturalDisasterCard card6 = new NaturalDisasterCard("WATCH OUT!", "<html>VOLCANO erupting! Are you " +
-                "fast enough to run away from the hot lava?<html>", "<html>If your SPEED is average (0) or below " +
-                "average (-) lose 1 food token.<html>", false, "speed", new int[] {1}, 1);
-        NaturalDisasterCard card7 = new NaturalDisasterCard("SHAKE IT UP BABY!", "<html>EARTHQUAKE: Are " +
-                "your senses keen enough to warn you of this disaster?<html>", "<html>If your SENSES are average" +
-                " (0) or below average (-) lose 1 food token.<html>",
+        NaturalDisasterCard card6 = new NaturalDisasterCard("WATCH OUT!", "<html><center>VOLCANO erupting! Are you " +
+                "fast enough<br>to run away from the hot lava?</html>", "<html><center>If your SPEED is average (0) or below<br>" +
+                "average (-) lose 1 food token.</html>", false, "speed", new int[] {1}, 1);
+        NaturalDisasterCard card7 = new NaturalDisasterCard("SHAKE IT UP BABY!", "<html><center>EARTHQUAKE: Are " +
+                "your senses keen<br>enough to warn you of this disaster?</html>", "<html><center>If your SENSES are average" +
+                " (0) or below<br>average (-) lose 1 food token.</html>",
                 false, "senses", new int[] {1}, 1);
-        NaturalDisasterCard card8 = new NaturalDisasterCard("BONK!", "<html>ROCK SLIDE: Are you fast " +
-                "enough to run away from disaster?<html>", "<html>If your SPEED is average (0) or below average" +
-                " (-) lose 1 food token.<html>", false, "speed", new int[] {1}, 1);
-        NaturalDisasterCard card9 = new NaturalDisasterCard("DO YOU SMELL SMOKE?", "<html>FOREST FIRE: " +
-                "A forest fire is blazing toward you. Can you smell the smoke in time to run away?<html>",
-                "<html>If your SENSES are average (0) or below average (-) lose 3 food tokens.<html>", false,
+        NaturalDisasterCard card8 = new NaturalDisasterCard("BONK!", "<html><center>ROCK SLIDE: Are you fast " +
+                "enough to<br>run away from disaster?</html>", "<html><center>If your SPEED is average (0) or below<br>average" +
+                " (-) lose 1 food token.</html>", false, "speed", new int[] {1}, 1);
+        NaturalDisasterCard card9 = new NaturalDisasterCard("DO YOU SMELL SMOKE?", "<html><center>FOREST FIRE: " +
+                "A forest fire is blazing<br>toward you. Can you smell the smoke in<br>time to run away?</html>",
+                "<html><center>If your SENSES are average (0) or below<br>average (-) lose 3 food tokens.</html>", false,
                 "senses", new int[] {1}, 3);
-        NaturalDisasterCard card10 = new NaturalDisasterCard("GET OUT OF MY WAY!", "<html>OVER POPULATION:" +
-                " The food supply is scarce because of overcrowding. Are you tough enough to fight" +
-                " for your food?<html>", "<html>If your WEAPONS are average (0) or below average (-) lose 2 food " +
-                "tokens.<html>", true, "weapons", new int[] {1}, 2);
-        NaturalDisasterCard card11 = new NaturalDisasterCard("SIZZLE!", "<html>RADIATION: Radiation from " +
-                "the sun is damaging the Earth's ozone layer. Can you protect yourself from sun " +
-                "damage?<html>", "<html>If your DEFENSES are average (0) or below average (-) lose 1 food token.<html>",
+        NaturalDisasterCard card10 = new NaturalDisasterCard("GET OUT OF MY WAY!", "<html><center>OVER POPULATION:" +
+                " The food supply is<br>scarce because of overcrowding. Are you<br>tough enough to fight" +
+                " for your food?</html>", "<html><center>If your WEAPONS are average (0) or<br>below average (-) lose 2 food " +
+                "tokens.</html>", true, "weapons", new int[] {1}, 2);
+        NaturalDisasterCard card11 = new NaturalDisasterCard("SIZZLE!", "<html><center>RADIATION: Radiation from " +
+                "the<br>sun is damaging the Earth's ozone<br>layer. Can you protect yourself from<br>sun " +
+                "damage?</html>", "<html><center>If your DEFENSES are average (0) or<br>below average (-) lose 1 food token.</html>",
                 false, "defenses", new int[] {1}, 1);
         NaturalDisasterCard card12 = new NaturalDisasterCard("CREAK! CRACK! SHIFT!",
-                "<html>SHIFTING CONTINENTS:" +
-                        " The conditions in your habitat are changing. Are you able to adapt to these changes?<html>",
-                "<html>If your ABILITY TO ADAPT is below average (-) lose 3 food tokens.<html>", false,
+                "<html><center>SHIFTING CONTINENTS:" +
+                        " The<br>conditions in your habitat are changing.<br>Are you able to adapt to these changes?</html>",
+                "<html><center>If your ABILITY TO ADAPT is below<br>average (-) lose 3 food tokens.</html>", false,
                 "ata", new int[] {0, 1}, 3);
-        NaturalDisasterCard card13 = new NaturalDisasterCard("LOOK OUT!", "<html>MUD SLIDE: The mud will " +
-                "bury everything in its path. Are you fast enough to run to safety?<html>", "<html>If your SPEED" +
-                " is average (0) or below average (-) lose 2 food tokens.<html>",
+        NaturalDisasterCard card13 = new NaturalDisasterCard("LOOK OUT!", "<html><center>MUD SLIDE: The mud will " +
+                "bury<br>everything in its path. Are you fast<br>enough to run to safety?</html>", "<html><center>If your SPEED" +
+                " is average (0) or below<br>average (-) lose 2 food tokens.</html>",
                 false, "speed", new int[] {1}, 2);
-        NaturalDisasterCard card14 = new NaturalDisasterCard("WHAT A MESS!", "<html>POLLUTION! Radiation " +
-                "and dust from a super nova are polluting the Earth. Are you able to adapt to " +
-                "changes in your environment?<html>", "<html>If your ABILITY TO ADAPT is average (0) or below" +
-                " average (-) lose 3 food tokens.<html>", false, "ata", new int[] {1}, 3);
-        NaturalDisasterCard card15 = new NaturalDisasterCard("THE SKY IS FALLING!", "<html>METEORITE SHOWER:" +
-                " Meteorites are crashing to the Earth. Many dinosaurs die. Are you reproducing fast" +
-                " enough to survive this disaster?<html>", "<html>If your RATE OF REPRODUCTION is average (0) " +
-                "or below average (-) lose 3 food tokens.<html>",
+        NaturalDisasterCard card14 = new NaturalDisasterCard("WHAT A MESS!", "<html><center>POLLUTION! Radiation " +
+                "and dust from a<br>super nova are polluting the Earth. Are you able<br>to adapt to " +
+                "changes in your environment?</html>", "<html><center>If your ABILITY TO ADAPT is average (0)<br>or below" +
+                " average (-) lose 3 food tokens.</html>", false, "ata", new int[] {1}, 3);
+        NaturalDisasterCard card15 = new NaturalDisasterCard("THE SKY IS FALLING!", "<html><center>METEORITE SHOWER:" +
+                " Meteorites are<br>crashing to the Earth. Many dinosaurs die.<br>Are you reproducing fast" +
+                " enough to survive<br>this disaster?</html>", "<html><center>If your RATE OF REPRODUCTION is<br>average (0) " +
+                "or below average (-) lose 3<br>food tokens.</html>",
                 false, "ror", new int[] {1}, 3);
-        NaturalDisasterCard card16 = new NaturalDisasterCard("WOW, IT'S HOT!", "<html>CHANGE IN CLIMATE: " +
-                "It is hot enough to fry your eggs. Can you reproduce fast enough to escape " +
-                "extinction?<html>", "<html>If your RATE OF REPRODUCTION is average (0) or below average (-) " +
-                "lose 3 food tokens.<html>", false, "ror", new int[] {1}, 3);
-        NaturalDisasterCard card17 = new NaturalDisasterCard("CRACK!", "<html>LIGHTNING: Are you small" +
-                " enough to avoid being struck by lightning?<html>", "<html>If your SIZE is above average " +
-                "(+) or average (0) lose 1 food token.<html>",
+        NaturalDisasterCard card16 = new NaturalDisasterCard("WOW, IT'S HOT!", "<html><center>CHANGE IN CLIMATE: " +
+                "It is hot enough<br>to fry your eggs. Can you reproduce fast<br>enough to escape " +
+                "extinction?</html>", "<html><center>If your RATE OF REPRODUCTION is<br>average (0) or below average (-) " +
+                "lose 3 food tokens.</html>", false, "ror", new int[] {1}, 3);
+        NaturalDisasterCard card17 = new NaturalDisasterCard("CRACK!", "<html><center>LIGHTNING: Are you small" +
+                " enough<br>to avoid being struck by lightning?</html>", "<html><center>If your SIZE is above average " +
+                "(+) or<br>average (0) lose 1 food token.</html>",
                 false, "size", new int[] {-1}, 1);
-        NaturalDisasterCard card18 = new NaturalDisasterCard("ITCH! ITCH!", "<html>DISEASE! Pesky insects" +
-                " are spreading disease. Dinosaurs who defend themselves by traveling in herds " +
-                "are in danger of spreading disease faster.<html>", "<html>If your DEFENSES are above average " +
-                "(+) or average (0) lose 1 food token.<html>",
+        NaturalDisasterCard card18 = new NaturalDisasterCard("ITCH! ITCH!", "<html><center>DISEASE! Pesky insects" +
+                " are spreading<br>disease. Dinosaurs who defend themselves<br>by traveling in herds " +
+                "are in danger of<br>spreading disease faster.</html>", "<html><center>If your DEFENSES are above average " +
+                "(+)<br>or average (0) lose 1 food token.</html>",
                 false, "defenses", new int[] {-1}, 1);
-        NaturalDisasterCard card19 = new NaturalDisasterCard("OOPS!", "<html>QUICKSAND! You fell into " +
-                "quicksand.<html>", "<html>You are stuck for 2 turns.<html>", true, "none");
+        NaturalDisasterCard card19 = new NaturalDisasterCard("OOPS!", "<html><center>QUICKSAND! You fell into " +
+                "quicksand.</html>", "<html><center>You are stuck for 2 turns.</html>", true, "none");
 
         Deck<NaturalDisasterCard> ndDeck = new Deck<>();
 
@@ -588,57 +575,57 @@ public class Game_GUI {
      * @see AttackDeck
      */
     public static Deck<AttackCard> createAttackDeck() {
-        AttackCard aCard0 = new AttackCard("<html>The dinosaur with the LEAST WEAPONS loses.<html>",
-                "<html>The loser moves back 3 spaces.<html>", "weapons", "move", 3, 0);
-        AttackCard aCard1 = new AttackCard("<html>The dinosaur with the BEST ABILITY TO ADAPT survives.<html>",
-                "<html>The survivor receives 1 food token from the loser.<html>", "ata",
+        AttackCard aCard0 = new AttackCard("<html><center>The dinosaur with the<br>LEAST WEAPONS loses.</html>",
+                "<html><center>The loser moves<br>back 3 spaces.</html>", "weapons", "move", 3, 0);
+        AttackCard aCard1 = new AttackCard("<html><center>The dinosaur with the<br>BEST ABILITY<br>TO ADAPT survives.</html>",
+                "<html><center>The survivor receives<br>1 food token from the loser.</html>", "ata",
                 "food", 1, 0);
-        AttackCard aCard2 = new AttackCard("<html>The dinosaur with the LOWEST RATE OF REPRODUCTION loses.<html>",
-                "<html>The loser moves back 4 spaces.<html>", "ror", "move", 4, 0);
-        AttackCard aCard3 = new AttackCard("<html>The SLOWEST dinosaur loses.<html>",
-                "<html>The loser moves back 3 spaces.<html>", "speed", "move", 3, 0);
-        AttackCard aCard4 = new AttackCard("<html>Any dinosaur OUT OF ITS HABITAT loses.<html>",
-                "<html>The loser moves back 4 spaces.<html>", "habitat", "move", 4, 0);
-        AttackCard aCard5 = new AttackCard("<html>The SMALLEST dinosaur loses.<html>",
-                "<html>The loser moves back 2 spaces.<html>", "size", "move", 2, 0);
-        AttackCard aCard6 = new AttackCard("<html>The dinosaur with the LOWEST ABILITY TO ADAPT loses.<html>",
-                "<html>The loser moves back 3 spaces.<html>", "ata", "move", 3, 0);
-        AttackCard aCard7 = new AttackCard("<html>The dinosaur with the LEAST SENSES loses.<html>",
-                "<html>The loser moves back 2 spaces.<html>", "senses", "move", 2, 0);
-        AttackCard aCard8 = new AttackCard("<html>The LARGEST dinosaur survives.<html>",
-                "<html>The survivor moves ahead 4 spaces.<html>", "size", "move", 4, 1);
-        AttackCard aCard9 = new AttackCard("<html>The MOST INTELLIGENT dinosaur survives.<html>",
-                "<html>The survivor moves ahead 2 spaces.<html>", "intelligence",
+        AttackCard aCard2 = new AttackCard("<html><center>The dinosaur with the<br>LOWEST RATE OF<br>REPRODUCTION loses.</html>",
+                "<html><center>The loser moves back 4 spaces.</html>", "ror", "move", 4, 0);
+        AttackCard aCard3 = new AttackCard("<html><center>The SLOWEST dinosaur loses.</html>",
+                "<html><center>The loser moves<br>back 3 spaces.</html>", "speed", "move", 3, 0);
+        AttackCard aCard4 = new AttackCard("<html><center>Any dinosaur<br>OUT OF ITS HABITAT loses.</html>",
+                "<html><center>The loser moves<br>back 4 spaces.</html>", "habitat", "move", 4, 0);
+        AttackCard aCard5 = new AttackCard("<html><center>The SMALLEST dinosaur loses.</html>",
+                "<html><center>The loser moves<br>back 2 spaces.</html>", "size", "move", 2, 0);
+        AttackCard aCard6 = new AttackCard("<html><center>The dinosaur with the LOWEST<br>ABILITY TO ADAPT loses.</html>",
+                "<html><center>The loser moves<br>back 3 spaces.</html>", "ata", "move", 3, 0);
+        AttackCard aCard7 = new AttackCard("<html><center>The dinosaur with the<br>LEAST SENSES loses.</html>",
+                "<html><center>The loser moves<br>back 2 spaces.</html>", "senses", "move", 2, 0);
+        AttackCard aCard8 = new AttackCard("<html><center>The LARGEST<br>dinosaur survives.</html>",
+                "<html><center>The survivor moves<br>ahead 4 spaces.</html>", "size", "move", 4, 1);
+        AttackCard aCard9 = new AttackCard("<html><center>The MOST INTELLIGENT<br>dinosaur survives.</html>",
+                "<html><center>The survivor moves<br>ahead 2 spaces.</html>", "intelligence",
                 "move", 2, 1);
-        AttackCard aCard10 = new AttackCard("<html>The dinosaur with the BEST DEFENSES survives.<html>",
-                "<html>The survivor moves ahead 3 spaces.<html>", "defenses",
+        AttackCard aCard10 = new AttackCard("<html><center>The dinosaur with the<br>BEST DEFENSES survives.</html>",
+                "<html><center>The survivor moves<br>ahead 3 spaces.</html>", "defenses",
                 "move", 3, 1);
-        AttackCard aCard11 = new AttackCard("<html>The FASTEST dinosaur survives.<html>",
-                "<html>The survivor moves ahead 3 spaces.<html>", "speed",
+        AttackCard aCard11 = new AttackCard("<html><center>The FASTEST<br>dinosaur survives.</html>",
+                "<html><center>The survivor moves<br>ahead 3 spaces.</html>", "speed",
                 "move", 3, 1);
-        AttackCard aCard12 = new AttackCard("<html>The dinosaur with the HIGHEST RATE OF REPRODUCTION survives.<html>",
-                "<html>The survivor receives 1 food token from the loser.<html>", "ror",
+        AttackCard aCard12 = new AttackCard("<html><center>The dinosaur with the<br>HIGHEST RATE OF<br>REPRODUCTION survives.</html>",
+                "<html><center>The survivor receives 1 food<br>token from the loser.</html>", "ror",
                 "food", 1, 0);
-        AttackCard aCard13 = new AttackCard("<html>The MOST INTELLIGENT dinosaur survives.<html>",
-                "<html>The survivor receives 1 food token from the loser.<html>", "intelligence",
+        AttackCard aCard13 = new AttackCard("<html><center>The MOST INTELLIGENT<br>dinosaur survives.</html>",
+                "<html><center>The survivor receives<br>1 food token from the loser.</html>", "intelligence",
                 "food", 1, 0);
-        AttackCard aCard14 = new AttackCard("<html>The dinosaur with the BEST DEFENSES survives.<html>",
-                "<html>The survivor receives 1 food token from the loser.<html>", "defenses",
+        AttackCard aCard14 = new AttackCard("<html><center>The dinosaur with the<br>BEST DEFENSES survives.</html>",
+                "<html><center>The survivor receives<br>1 food token from the loser.</html>", "defenses",
                 "food", 1, 0);
-        AttackCard aCard15 = new AttackCard("<html>The FASTEST dinosaur survives.<html>",
-                "<html>The survivor receives 1 food token from the loser.<html>", "speed",
+        AttackCard aCard15 = new AttackCard("<html><center>The FASTEST<br>dinosaur survives.</html>",
+                "<html><center>The survivor receives<br>1 food token from the loser.</html>", "speed",
                 "food", 1, 0);
-        AttackCard aCard16 = new AttackCard("<html>The dinosaur with the BEST SENSES survives.<html>",
-                "<html>The survivor receives 1 food token from the loser.<html>", "senses",
+        AttackCard aCard16 = new AttackCard("<html><center>The dinosaur with the<br>BEST SENSES survives.</html>",
+                "<html><center>The survivor receives<br>1 food token from the loser.</html>", "senses",
                 "food", 1, 0);
-        AttackCard aCard17 = new AttackCard("<html>The dinosaur with the BEST WEAPONS survives.<html>",
-                "<html>The survivor receives 1 food token from the loser.<html>", "weapons",
+        AttackCard aCard17 = new AttackCard("<html><center>The dinosaur with the<br>BEST WEAPONS survives.</html>",
+                "<html><center>The survivor receives<br>1 food token from the loser.</html>", "weapons",
                 "food", 1, 0);
-        AttackCard aCard18 = new AttackCard("<html>The LARGEST dinosaur survives.<html>",
-                "<html>The survivor receives 1 food token from the loser.<html>", "size",
+        AttackCard aCard18 = new AttackCard("<html><center>The LARGEST<br>dinosaur survives.</html>",
+                "<html><center>The survivor receives<br>1 food token from the loser.</html>", "size",
                 "food", 1, 0);
-        AttackCard aCard19 = new AttackCard("<html>The dinosaur in ITS OWN HABITAT survives.<html>",
-                "<html>The survivor receives 1 food token from the loser.<html>", "habitat",
+        AttackCard aCard19 = new AttackCard("<html><center>The dinosaur in<br>ITS OWN HABITAT survives.</html>",
+                "<html><center>The survivor receives<br>1 food token from the loser.</html>", "habitat",
                 "food", 1, 0);
 
         Deck<AttackCard> aDeck = new Deck<>();
@@ -674,67 +661,67 @@ public class Game_GUI {
      * @see ChallengeDeck
      */
     public static Deck<ChallengeCard> createChallengeDeck(){
-        ChallengeCard cCard0 = new ChallengeCard("<html>If you are in YOUR HABITAT: move ahead 5 spaces and play that square.<html>",
-                "OR", "<html>Receive 1 food token<html>", 0, 1);
+        ChallengeCard cCard0 = new ChallengeCard("<html><center>If you are in YOUR HABITAT: move<br>ahead 5 spaces and<br>play that square.</html>",
+                "OR", "<html><center>Receive 1 food token</html>", 0, 1);
 
-        ChallengeCard cCard1 = new ChallengeCard("","<html>Give the next player a food token from the bank<html>",
+        ChallengeCard cCard1 = new ChallengeCard("","<html><center>Give the next player<br>a food token from the bank</html>",
                 "", 1, 2);
 
         ChallengeCard cCard2 = new ChallengeCard("CONGRATULATIONS!",
-                "<html>Your Dinosaur has evolved above average (+) SPEED" + " and SIZE.<html>",
-                "<html>Keep this card to use in any attack situation for the rest of the game.<html>", 2, 3);
+                "<html><center>Your Dinosaur has evolved.<br>You now have above average (+)<br>SPEED and SIZE.</html>",
+                "<html><center>Keep this card to use in any attack<br>situation for the rest of the game.</html>", 2, 3);
 
         ChallengeCard cCard3 = new ChallengeCard("CONGRATULATIONS!",
-                "<html>Your Dinosaur has evolved above average (+) SENSES and INTELLIGENCE.<html>",
-                "<html>Keep this card to use in any attack situation for the rest of the game.<html>", 3, 3);
+                "<html><center>Your Dinosaur has evolved.<br>You now have above average (+)<br>SENSES and INTELLIGENCE.</html>",
+                "<html><center>Keep this card to use in any attack<br>situation for the rest of the game.</html>", 3, 3);
 
-        ChallengeCard cCard4 = new ChallengeCard("<html>If you are NOT in YOUR HABITAT: move back 5 spaces and play that square<html>",
-                "OR", "<html>Lose 1 food token.<html>", 4, 1);
+        ChallengeCard cCard4 = new ChallengeCard("<html><center>If you are NOT in<br>YOUR HABITAT:<br>move back 5 spaces<br>and play that square</html>",
+                "OR", "<html><center>Lose 1 food token.</html>", 4, 1);
 
-        ChallengeCard cCard5 = new ChallengeCard("<html>If you have 6 or more food tokens: lose 1 food token.<html>",
-                "OR", "<html>Go back 4 spaces.<html>", 5, 1);
+        ChallengeCard cCard5 = new ChallengeCard("<html><center>If you have 6 or more<br>food tokens: lose 1 food token.</html>",
+                "OR", "<html><center>Go back 4 spaces.</html>", 5, 1);
 
-        ChallengeCard cCard6 = new ChallengeCard("<html>Move back 2 spaces and play that square.<html>",
-                "OR", "<html>Lose a turn.<html>", 6, 0);
+        ChallengeCard cCard6 = new ChallengeCard("<html><center>Move back 2 spaces<br>and play that square.</html>",
+                "OR", "<html><center>Lose a turn.</html>", 6, 0);
 
-        ChallengeCard cCard7 = new ChallengeCard("<html>Move ahead 2 spaces and play that square.<html>",
-                "OR", "<html>Lose a turn.<html>", 7, 0);
+        ChallengeCard cCard7 = new ChallengeCard("<html><center>Move ahead 2 spaces<br>and play that square.</html>",
+                "OR", "<html><center>Lose a turn.</html>", 7, 0);
 
-        ChallengeCard cCard8 = new ChallengeCard("<html>Attack the next player.<html>",
-                "OR", "<html>Lose 3 food tokens.<html>", 8, 0);
+        ChallengeCard cCard8 = new ChallengeCard("<html><center>Attack the next player.</html>",
+                "OR", "<html><center>Lose 3 food tokens.</html>", 8, 0);
 
-        ChallengeCard cCard9 = new ChallengeCard("", "<html>Lose 2 food tokens.<html>",
+        ChallengeCard cCard9 = new ChallengeCard("", "<html><center>Lose 2 food tokens.</html>",
                 "", 9, 2);
 
-        ChallengeCard cCard10 = new ChallengeCard("<html>Go back 3 spaces.<html>", "OR",
-                "<html>Lose 1 food token.<html>", 10, 0);
+        ChallengeCard cCard10 = new ChallengeCard("<html><center>Go back 3 spaces.</html>", "OR",
+                "<html><center>Lose 1 food token.</html>", 10, 0);
 
-        ChallengeCard cCard11 = new ChallengeCard("<html>Receive a food token.<html>", "OR",
-                "<html>Roll again.<html>", 11, 0);
+        ChallengeCard cCard11 = new ChallengeCard("<html><center>Receive a food token.</html>", "OR",
+                "<html><center>Roll again.</html>", 11, 0);
 
-        ChallengeCard cCard12 = new ChallengeCard("<html>Receive a food token from the next player.<html>",
-                "OR", "<html>Receive 2 food tokens form the bank.<html>", 12, 0);
+        ChallengeCard cCard12 = new ChallengeCard("<html><center>Receive a food token<br>from the next player.</html>",
+                "OR", "<html><center>Receive 2 food tokens<br>from the bank.</html>", 12, 0);
 
-        ChallengeCard cCard13 = new ChallengeCard("<html>Return to the previous habitat.<html>", "OR",
-                "<html>Lose 2 food tokens.<html>", 13, 0);
+        ChallengeCard cCard13 = new ChallengeCard("<html><center>Return to the previous habitat.</html>", "OR",
+                "<html><center>Lose 2 food tokens.</html>", 13, 0);
 
-        ChallengeCard cCard14 = new ChallengeCard("<html>Move to the first square of the next habitat and DO NOT play that square.<html>",
-                "OR", "<html>Receive 1 food token<html>", 14, 0);
+        ChallengeCard cCard14 = new ChallengeCard("<html><center>Move to the first square<br>of the next habitat and<br>DO NOT play that square.</html>",
+                "OR", "<html><center>Receive 1 food token</html>", 14, 0);
 
-        ChallengeCard cCard15 = new ChallengeCard("<html>Go ahead 3 spaces and DO NOT play that square.<html>",
-                "OR", "<html>Receive 1 food token.<html>", 15, 0);
+        ChallengeCard cCard15 = new ChallengeCard("<html><center>Go ahead 3 spaces and<br>DO NOT play that square.</html>",
+                "OR", "<html><center>Receive 1 food token.</html>", 15, 0);
 
-        ChallengeCard cCard16 = new ChallengeCard("<html>Move to your next food square and receive a food token.<html>",
-                "OR", "<html>Roll again.<html>", 16, 0);
+        ChallengeCard cCard16 = new ChallengeCard("<html><center>Move to your next food square<br>and receive a food token.</html>",
+                "OR", "<html><center>Roll again.</html>", 16, 0);
 
-        ChallengeCard cCard17 = new ChallengeCard("<html>Give the next player 1 food token.<html>",
-                "OR", "<html>Return 2 tokens to the bank.<html>", 17, 0);
+        ChallengeCard cCard17 = new ChallengeCard("<html><center>Give the next player<br>1 food token.</html>",
+                "OR", "<html><center>Return 2 tokens to the bank.</html>", 17, 0);
 
-        ChallengeCard cCard18 = new ChallengeCard("<html>Return to the previous Disaster Square and play the square.<html>",
-                "OR", "<html>Lose 2 food tokens.<html>", 18, 0);
+        ChallengeCard cCard18 = new ChallengeCard("<html><center>Return to the previous Disaster<br>Square and play the square.</html>",
+                "OR", "<html><center>Lose 2 food tokens.</html>", 18, 0);
 
-        ChallengeCard cCard19 = new ChallengeCard("<html>Lose 1 food token.<html>", "OR",
-                "<html>Lose a turn.<html>", 19, 0);
+        ChallengeCard cCard19 = new ChallengeCard("<html><center>Lose 1 food token.</html>", "OR",
+                "<html><center>Lose a turn.</html>", 19, 0);
 
         Deck<ChallengeCard> cDeck = new Deck<>();
 

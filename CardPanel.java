@@ -29,39 +29,51 @@ public class CardPanel extends JPanel {
 
         // labelTop
         labelTop = new JLabel();
+        labelTop.setHorizontalAlignment(JLabel.CENTER);
+        labelTop.setFont(new Font(labelTop.getFont().getName(), Font.PLAIN, labelTop.getFont().getSize() * 2));
         gbc = new GridBagConstraints();
         gbc.gridx = 0;
         gbc.gridy = 0;
         gbc.weightx = 1.0;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.insets = new Insets(7, 7, 7, 7);
         labelTop.addMouseListener(new LabelListener());
         add(labelTop, gbc);
 
         // labelMid
         labelMid = new JLabel();
+        labelMid.setHorizontalAlignment(JLabel.CENTER);
+        labelMid.setFont(new Font(labelMid.getFont().getName(), Font.PLAIN, labelMid.getFont().getSize() * 2));
         gbc = new GridBagConstraints();
         gbc.gridx = 0;
         gbc.gridy = 1;
         gbc.weightx = 1.0;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.insets = new Insets(7, 7, 7, 7);
         add(labelMid, gbc);
 
         // labelBot
         labelBot = new JLabel();
+        labelBot.setHorizontalAlignment(JLabel.CENTER);
+        labelBot.setFont(new Font(labelBot.getFont().getName(), Font.PLAIN, labelBot.getFont().getSize() * 2));
         gbc = new GridBagConstraints();
         gbc.gridx = 0;
         gbc.gridy = 2;
         gbc.weightx = 1.0;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.insets = new Insets(7, 7, 7, 7);
         labelBot.addMouseListener(new LabelListener());
         add(labelBot, gbc);
 
         // labelHab
         labelHab = new JLabel();
+        labelHab.setHorizontalAlignment(JLabel.CENTER);
+        labelHab.setFont(new Font(labelHab.getFont().getName(), Font.PLAIN, labelHab.getFont().getSize() * 2));
         gbc = new GridBagConstraints();
         gbc.gridx = 0;
         gbc.gridy = 3;
         gbc.weightx = 1.0;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.insets = new Insets(7, 7, 7, 7);
         add(labelHab, gbc);
 
