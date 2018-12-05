@@ -236,10 +236,10 @@ public class CardPanel extends JPanel {
         @Override
         public void mouseClicked(MouseEvent e) {
             panelClickSem = 1;
-            if (e.getComponent().equals(labelTop)) {
+            if (e.getComponent().equals(labelTop) && active) {
                 labelClickSem = 1;
             }
-            else if (e.getComponent().equals(labelBot)) {
+            else if (e.getComponent().equals(labelBot) && active) {
                 labelClickSem = 2;
             }
         }

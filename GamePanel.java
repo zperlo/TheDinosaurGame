@@ -111,6 +111,7 @@ public class GamePanel extends JPanel {
             case 2:
                 showRules("main");
                 mainMenuPanel.requestFocus();
+                waitAtMenu();
                 break;
             case 3:
                 System.exit(0);
