@@ -33,7 +33,7 @@ public class CardPanel extends JPanel {
         gbc.gridx = 0;
         gbc.gridy = 0;
         gbc.weightx = 1.0;
-        gbc.weighty = 1.0;
+        gbc.insets = new Insets(7, 7, 7, 7);
         labelTop.addMouseListener(new LabelListener());
         add(labelTop, gbc);
 
@@ -43,7 +43,7 @@ public class CardPanel extends JPanel {
         gbc.gridx = 0;
         gbc.gridy = 1;
         gbc.weightx = 1.0;
-        gbc.weighty = 1.0;
+        gbc.insets = new Insets(7, 7, 7, 7);
         add(labelMid, gbc);
 
         // labelBot
@@ -52,7 +52,7 @@ public class CardPanel extends JPanel {
         gbc.gridx = 0;
         gbc.gridy = 2;
         gbc.weightx = 1.0;
-        gbc.weighty = 1.0;
+        gbc.insets = new Insets(7, 7, 7, 7);
         labelBot.addMouseListener(new LabelListener());
         add(labelBot, gbc);
 
@@ -62,7 +62,7 @@ public class CardPanel extends JPanel {
         gbc.gridx = 0;
         gbc.gridy = 3;
         gbc.weightx = 1.0;
-        gbc.weighty = 1.0;
+        gbc.insets = new Insets(7, 7, 7, 7);
         add(labelHab, gbc);
 
         addMouseListener(new PanelListener());
@@ -116,7 +116,8 @@ public class CardPanel extends JPanel {
             bot.assertMouseExited(labelBot);
             top.deactivate();
             bot.deactivate();
-        } else if (c.getType() == 1) {
+        }
+        else if (c.getType() == 1) {
             boolean conditionMet = false;
             switch (c.getId()) {
                 case 0:
@@ -156,7 +157,8 @@ public class CardPanel extends JPanel {
             }
             bot.assertMouseExited(labelBot);
             bot.deactivate();
-        } else if (c.getType() == 2 || c.getType() == 3) {
+        }
+        else if (c.getType() == 2 || c.getType() == 3) {
             panelClickSem = 0;
             while (panelClickSem == 0) {
                 try {

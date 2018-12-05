@@ -73,7 +73,7 @@ public class Game_GUI {
                     if (lostTurns > 0) {
                         lostTurns--; // use up turn, do nothing
                         activePlayer.setLostTurns(lostTurns);
-                        jop.showMessageDialog(gp, activePlayer.getDino().getName() + " has " + lostTurns + " lost turns remaining",
+                        jop.showMessageDialog(gp, activePlayer.getDino().getName() + " has " + (lostTurns + 1) + " lost turns remaining",
                                 "Lost Turn!", JOptionPane.INFORMATION_MESSAGE);
                         continue;
                     }

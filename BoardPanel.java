@@ -79,35 +79,42 @@ public class BoardPanel extends JLayeredPane{
         gbc.gridwidth = 3;
         gbc.gridheight = 3;
         add(boardLabel, gbc, JLayeredPane.DEFAULT_LAYER);
+    }
 
-        // card
+    public void showAttack(AttackCard c) {
+        addCard();
+        moveToFront(card);
+        card.showAttack(c);
+        moveToBack(card);
+        remove(card);
+    }
+
+    public int showChallenge(ChallengeCard c, Player p) {
+        addCard();
+        moveToFront(card);
+        int r = card.showChallenge(c, p);
+        moveToBack(card);
+        remove(card);
+        return r;
+    }
+
+    public void showNaturalDisaster(NaturalDisasterCard c) {
+        addCard();
+        moveToFront(card);
+        card.showNaturalDisaster(c);
+        moveToBack(card);
+        remove(card);
+    }
+
+    private void addCard() {
         card = new CardPanel();
         card.setMinimumSize(CARD_DIM);
-        gbc = new GridBagConstraints();
+        GridBagConstraints gbc = new GridBagConstraints();
         gbc.gridx = 1;
         gbc.gridy = 1;
         gbc.weightx = 1.0;
         gbc.weighty = 1.0;
         gbc.anchor = GridBagConstraints.CENTER;
         add(card, gbc, JLayeredPane.DEFAULT_LAYER - 1);
-    }
-
-    public void showAttack(AttackCard c) {
-        moveToFront(card);
-        card.showAttack(c);
-        moveToBack(card);
-    }
-
-    public int showChallenge(ChallengeCard c, Player p) {
-        moveToFront(card);
-        int r = card.showChallenge(c, p);
-        moveToBack(card);
-        return r;
-    }
-
-    public void showNaturalDisaster(NaturalDisasterCard c) {
-        moveToFront(card);
-        card.showNaturalDisaster(c);
-        moveToBack(card);
     }
 }
