@@ -2,6 +2,8 @@ import java.util.Queue;
 import java.util.LinkedList;
 
 /**
+ * DEPRICATED. CLASS "Deck" IS USED INSTEAD
+ *
  * This is a class that represents a deck of challenge cards.
  * It stores all ChallengeCard objects in an array, and uses a
  * queue to store the order of the shuffled cards.

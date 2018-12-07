@@ -1,3 +1,6 @@
+/**
+ * UNUSED. USE "TestGame" FOR TESTING FUNCTIONALITY
+ */
 /*import org.junit.Test;
 import static org.junit.Assert.*;
 

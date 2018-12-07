@@ -13,7 +13,7 @@ public class TestRunner {
         for (Failure failure : gameResult.getFailures()) {
             System.out.println(failure.toString());
         }
-
+        System.out.println("\n\n");
         System.out.println("Testing Player returns: " + playerResult.wasSuccessful());
         System.out.println("Testing Game returns: " + gameResult.wasSuccessful());
     }
