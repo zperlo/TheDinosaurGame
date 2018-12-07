@@ -6,7 +6,7 @@ import java.util.Scanner;
  * the game until it is over and there is a winner.
  *
  * @author Dylan Briggs, Zach Perlo, Tyler Anderson
- * @version 1.13
+ * @version 1.14
  * @since 2018-11-1
  */
 public class Game {
@@ -403,7 +403,7 @@ public class Game {
                 else j++;
             }
 
-            players[i] = new Player(dinoCards[num], 3, board);
+            players[i] = new Player(dinoCards[num], 5, board);
         }
 
         return players;
@@ -457,7 +457,7 @@ public class Game {
     /**
      * Creating the Natural Disaster Card Deck, each card hardcoded in.
      * @return a NaturalDisasterDeck of all Natural Disaster cards.
-     * @see NaturalDisasterDeck
+     * @see Deck
      * @see NaturalDisasterCard
      */
     public static Deck<NaturalDisasterCard> createNaturalDisasterDeck() {
@@ -574,7 +574,7 @@ public class Game {
      * or the loser loses something.
      * @return The deck of all Attack cards.
      * @see AttackCard
-     * @see AttackDeck
+     * @see Deck
      */
     public static Deck<AttackCard> createAttackDeck() {
         AttackCard aCard0 = new AttackCard("The dinosaur with the LEAST WEAPONS loses.",
@@ -660,7 +660,7 @@ public class Game {
      * the unique ID of the player, and what type of card it is. This type is how the GUI represents each card.
      * @return The deck of challenge cards.
      * @see ChallengeCard
-     * @see ChallengeDeck
+     * @see Deck
      */
     public static Deck<ChallengeCard> createChallengeDeck(){
         ChallengeCard cCard0 = new ChallengeCard("If you are in YOUR HABITAT: move ahead 5 spaces and play that square.",

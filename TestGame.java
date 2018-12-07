@@ -11,18 +11,12 @@ import static org.junit.Assert.assertTrue;
  * TestGame is a class to test the methods of the Game class, not including methods that are hard coded to create card
  * decks or the board
  * @author Tyler Anderson
- * @version 1.0
+ * @version 1.1
  * @since 2018-10-24
  */
 public class TestGame {
 
-    /**
-     * This test method tests Game's turn method assuming the methods that turn calls execute correctly
-     * @see Game's method turn(Player p, int roll, Space[] board, Player[] players, ChallengeDeck cDeck,
-     * AttackDeck aDeck, NaturalDisasterDeck ndDeck)
-     */
-
-    final int foodForTesting = 50;
+    final int foodForTesting = 200;
     final Space[] BOARD = Game.createBoard();
 
     @Test public void testTurn(){
@@ -115,16 +109,17 @@ public class TestGame {
     }
 
     @Test public void testInitializePlayers(){
+        final int STARTING_FOOD = 5;
         Dinosaur[] dinos = Game.createDinoCards();
         String input = "5\n0\n1\n16\n-1\n5";
-        /**
-         * 5 and 0 are illegal values for # of players but 1 is a legal value
-         * 16 and -1 are illegal values for which dino, but 5 is a legal value
-         */
+
+         // 5 and 0 are illegal values for # of players but 1 is a legal value
+         // 16 and -1 are illegal values for which dino, but 5 is a legal value
+
         InputStream in0 = new ByteArrayInputStream(input.getBytes());
         System.setIn(in0);
         Player[] players = Game.initializePlayers(dinos, BOARD);
-        Player testPlayer0 = new Player(dinos[5], 3, BOARD);
+        Player testPlayer0 = new Player(dinos[5], STARTING_FOOD, BOARD);
         assertEquals(testPlayer0.getDino(), players[0].getDino());
         assertEquals(testPlayer0.getFoodTokens(), players[0].getFoodTokens());
 
@@ -137,8 +132,8 @@ public class TestGame {
         InputStream in1 = new ByteArrayInputStream(input.getBytes());
         System.setIn(in1);
         players = Game.initializePlayers(dinos, BOARD);
-        Player testPlayer1 = new Player(dinos[0], 3, BOARD);
-        Player testPlayer2 = new Player(dinos[1], 3, BOARD);
+        Player testPlayer1 = new Player(dinos[0], STARTING_FOOD, BOARD);
+        Player testPlayer2 = new Player(dinos[1], STARTING_FOOD, BOARD);
         assertEquals(testPlayer1.getDino(), players[0].getDino());
         assertEquals(testPlayer1.getFoodTokens(), players[0].getFoodTokens());
         assertEquals(testPlayer2.getDino(), players[1].getDino());
@@ -608,7 +603,9 @@ public class TestGame {
         
         for(int i = 0; i < 20; i++) {
             AttackCard aCard = carr[i];
-            Deck<AttackCard> aDeck = aTestHelper(carr[i]);
+            Deck<AttackCard> aDeck = new Deck<>();
+            for(int counter = 0; counter < 20; counter++)
+                aDeck.setDeck(counter, aCard);
 
             for (int j = 0; j < 3; j++) {
                 Player p = players[j];
@@ -825,13 +822,6 @@ public class TestGame {
             }
         }
     }
-
-    public Deck<AttackCard> aTestHelper(AttackCard card){
-        Deck<AttackCard> deck = new Deck<>();
-        for(int i = 0; i < 20; i++)
-            deck.setDeck(i, card);
-        return deck;
-    }
     
     @Test public void testDeterminePenalty(){
         Player p1 = new Player(new Dinosaur("TestDino1", true, "Forest",1,1,
@@ -933,7 +923,9 @@ public class TestGame {
 
         for(int i = 0; i <20; i++) {
             NaturalDisasterCard ncard = carr[i];
-            Deck<NaturalDisasterCard> ndeck = ndTestHelper(carr[i]);
+            Deck<NaturalDisasterCard> ndeck = new Deck<>();
+            for(int counter = 0; counter < 20; counter++)
+                ndeck.setDeck(counter, ncard);
 
             for (int j = 0; j < 3; j++) {
                 Player p = players[j];
@@ -1024,47 +1016,45 @@ public class TestGame {
 
     }
 
-    public Deck<NaturalDisasterCard> ndTestHelper(NaturalDisasterCard card){
-        Deck<NaturalDisasterCard> deck = new Deck<>();
-        for(int i = 0; i < 20; i++)
-            deck.setDeck(i, card);
-        return deck;
-    }
-
     @Test public void testDangerZone(){
         Player p = new Player(new Dinosaur("Styracosaurus", true, "Forest",0,-1,
-                1, -1,-1,1,0,0), 5, BOARD);
+                1, -1,-1,1,0,0), foodForTesting, BOARD);
         p.move(22);
         int prevLocation = p.getLocation();
         Game.dangerZone(p);
         int postLocation = p.getLocation();
         assertEquals(prevLocation - 9, postLocation);
 
-        p.move(29);
+        p.move(-108);
+        p.move(42);
         prevLocation = p.getLocation();
         Game.dangerZone(p);
         postLocation = p.getLocation();
         assertEquals(prevLocation - 8, postLocation);
 
-        p.move(30);
+        p.move(-108);
+        p.move(64);
         int prevFood = p.getFoodTokens();
         Game.dangerZone(p);
         int postFood = p.getFoodTokens();
         assertEquals(prevFood - 3, postFood);
 
-        p.move(9);
+        p.move(-108);
+        p.move(73);
         prevFood = p.getFoodTokens();
         Game.dangerZone(p);
         postFood = p.getFoodTokens();
         assertEquals(prevFood - 4, postFood);
 
-        p.move(15);
+        p.move(-108);
+        p.move(88);
         prevFood = p.getFoodTokens();
         Game.dangerZone(p);
         postFood = p.getFoodTokens();
         assertEquals(prevFood - 3, postFood);
 
-        p.move(19);
+        p.move(-108);
+        p.move(107);
         prevLocation = p.getLocation();
         Game.dangerZone(p);
         postLocation = p.getLocation();
