@@ -9,9 +9,9 @@ import java.io.IOException;
  * An instance of GamePanel represents the main GUI handler, displaying menus and game play and receiving input from
  * players.
  *
- * @author Jacob Rich
- * @verion 1.26
- * @since 2018-12-6
+ * @author Jacob Rich, Dylan Briggs
+ * @verion 1.27
+ * @since 2018-12-7
  */
 public class GamePanel extends JPanel {
     // layout tools

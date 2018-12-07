@@ -4,11 +4,12 @@ import java.awt.*;
 /**
  * This is the main, runnable class. It runs through all aspects of playing the game,
  * including the setup phase where players choose dinosaurs, and running each turn of
- * the game until it is over and there is a winner.
+ * the game until it is over and there is a winner. All relevant information is
+ * passed through the secondary controller and top level container GamePanel.
  *
- * @author Dylan Briggs, Zach Perlo, Tyler Anderson, C. Jacob Rich
- * @version 1.13
- * @since 2018-11-1
+ * @author Dylan Briggs, Zach Perlo, Tyler Anderson, Jacob Rich
+ * @version 1.35
+ * @since 2018-12-7
  */
 public class Game_GUI {
 
@@ -31,6 +32,10 @@ public class Game_GUI {
      * @see Player
      * @see Space
      * @see java.lang.Math
+     * @see javax.swing.JOptionPane
+     * @see javax.swing.JFrame
+     * @see GamePanel
+     * @see java.lang.System
      */
     public static void main(String[] args) {
 
@@ -188,6 +193,8 @@ public class Game_GUI {
      * @see AttackCard
      * @see Player
      * @see Space
+     * @see javax.swing.JOptionPane
+     * @see GamePanel
      */
     public static void turn(Player p, int roll, Space[] board, Player[] players, Deck<ChallengeCard> cDeck,
                             Deck<AttackCard> aDeck, Deck<NaturalDisasterCard> ndDeck) {
@@ -459,7 +466,7 @@ public class Game_GUI {
      * Creating the Natural Disaster Card Deck, each card hardcoded in.
      * Then a deck is initialized and populated with all the cards.
      * @return The NaturalDisasterDeck of all Natural Disaster cards.
-     * @see NaturalDisasterDeck
+     * @see Deck
      * @see NaturalDisasterCard
      */
     public static Deck<NaturalDisasterCard> createNaturalDisasterDeck() {
@@ -576,7 +583,7 @@ public class Game_GUI {
      * or the loser loses something.
      * @return The deck of all Attack cards.
      * @see AttackCard
-     * @see AttackDeck
+     * @see Deck
      */
     public static Deck<AttackCard> createAttackDeck() {
         AttackCard aCard0 = new AttackCard("<html><center>The dinosaur with the<br>LEAST WEAPONS loses.</html>",
@@ -662,7 +669,7 @@ public class Game_GUI {
      * the unique ID of the player, and what type of card it is. This type is how the GUI represents each card.
      * @return The deck of challenge cards.
      * @see ChallengeCard
-     * @see ChallengeDeck
+     * @see Deck
      */
     public static Deck<ChallengeCard> createChallengeDeck(){
         ChallengeCard cCard0 = new ChallengeCard("<html><center>If you are in YOUR HABITAT: move<br>ahead 5 spaces and<br>play that square.</html>",
@@ -774,6 +781,7 @@ public class Game_GUI {
      * @see AttackCard
      * @see Player
      * @see Space
+     * @see GamePanel
      */
     public static void challengeByID(Player player, int id, int choice, Player[] players, Space[] board,
                                      Deck<AttackCard> aDeck, Deck<ChallengeCard> cDeck, Deck<NaturalDisasterCard> ndDeck){
@@ -1024,8 +1032,9 @@ public class Game_GUI {
      * @param prev Whether there was a previous attack situation that just tied, requiring another card to be drawn.
      * @see Player
      * @see AttackCard
-     * @see AttackDeck
+     * @see Deck
      * @see Space
+     * @see GamePanel
      */
     public static void attack(Player p1, Player p2, Deck<AttackCard> aDeck, Space[] board, boolean prev){
         AttackCard aCard = aDeck.draw();
@@ -1225,7 +1234,8 @@ public class Game_GUI {
      * @see Player
      * @see Space
      * @see NaturalDisasterCard
-     * @see NaturalDisasterDeck
+     * @see Deck
+     * @see GamePanel
      */
     public static void naturalDisaster(Player p, Deck<NaturalDisasterCard> ndDeck, Space[] board){
         NaturalDisasterCard ndCard = ndDeck.draw();
@@ -1312,6 +1322,8 @@ public class Game_GUI {
      * simply looks at where the player is located to determine the effect. These effects are simple but
      * substantial - it sends the player back many spaces or takes away a lot of food tokens.
      * @param p The player that landed on the danger zone space, to receive some adverse effect.
+     * @see javax.swing.JOptionPane
+     * @see Player
      */
     public static void dangerZone(Player p) {
 
