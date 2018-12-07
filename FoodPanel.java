@@ -1,6 +1,13 @@
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * A JPanel container for the food token display
+ *
+ * @author Jacob Rich
+ * @version 1.10
+ * @since 2018-12-6
+ */
 public class FoodPanel extends JPanel {
     // lower level components
     private SubFoodPanel subPanel;
@@ -13,7 +20,13 @@ public class FoodPanel extends JPanel {
     private IconRef ir;
     private Color bg;
 
-    // constructor
+    /**
+     * Sets global variables and background color.
+     *
+     * @param players the players
+     * @param ir a preloaded IconRef
+     * @param bg the background color
+     */
     public FoodPanel(Player[] players, IconRef ir, Color bg) {
         this.players = players;
         this.ir = ir;
@@ -23,7 +36,15 @@ public class FoodPanel extends JPanel {
         setup();
     }
 
-    // initialize and set up top level component
+    /**
+     * Creates and adds all the components
+     *
+     * @see java.awt.GridBagLayout
+     * @see java.awt.GridBagConstraints
+     * @see javax.swing.JLabel
+     * @see java.awt.Font
+     * @see SubFoodPanel
+     */
     private void setup() {
         // layout tools
         setLayout(new GridBagLayout());
@@ -49,12 +70,23 @@ public class FoodPanel extends JPanel {
         }
     }
 
+    /**
+     * Update the food amounts in each display
+     *
+     * @see SubFoodPanel
+     */
     public void updateFood() {
         for (SubFoodPanel s : subPanels) {
             s.updateFood();
         }
     }
 
+    /**
+     * Pass an extinction request up the stack
+     *
+     * @param p the player to be set extinct
+     * @see SubFoodPanel
+     */
     public void assertExtinct(Player p) {
         for (int i = 0; i < players.length; i++) {
             if (players[i].equals(p)) {

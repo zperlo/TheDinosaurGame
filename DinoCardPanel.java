@@ -1,10 +1,15 @@
-import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.border.BevelBorder;
 import java.awt.*;
-import java.io.IOException;
 import java.util.HashMap;
 
+/**
+ * A JPanel container for DinoCards that uses CardLayout
+ *
+ * @author Jacob Rich
+ * @version 1.11
+ * @since 2018-21-6
+ */
 public class DinoCardPanel extends JPanel {
 
 
@@ -26,7 +31,13 @@ public class DinoCardPanel extends JPanel {
     private IconRef ir;
     private Color bg;
 
-    // constructor
+    /**
+     * Sets global variables and the background color
+     *
+     * @param players the players
+     * @param ir a preloaded IconRef
+     * @param bg the background color
+     */
     public DinoCardPanel(Player[] players, IconRef ir, Color bg) {
         this.players = players;
         this.ir = ir;
@@ -35,7 +46,14 @@ public class DinoCardPanel extends JPanel {
         setup();
     }
 
-    // initialize and set up top component
+    /**
+     * Creates and places all the components
+     *
+     * @see java.awt.CardLayout
+     * @see java.util.HashMap
+     * @see Player
+     * @see Dinosaur
+     */
     private void setup() {
         // use card layout
         cl = new CardLayout();
@@ -53,16 +71,41 @@ public class DinoCardPanel extends JPanel {
         add(compareCard, compareCardName);
     }
 
+    /**
+     * Shows a particular dinosaur's corresponding card
+     *
+     * @param d the dinosaur to be shown
+     * @see Dinosaur
+     */
     public void show(Dinosaur d) {
         cl.show(this, d.getName());
     }
 
+    /**
+     * Shows a comparison between two dinosaur's stats
+     *
+     * @param attacker the attacking player
+     * @param defender the defending player
+     * @param stat the relevant stat
+     * @see java.awt.CardLayout
+     */
     public void showComparison (Player attacker, Player defender, String stat) {
         compareCard = createCompareCard(attacker, defender, stat);
         add(compareCard, compareCardName);
         cl.show(this, compareCardName);
     }
 
+    /**
+     * Creates and places the components of the comparison card
+     *
+     * @param attacker the attacking player
+     * @param defender the defending player
+     * @param stat the relevant stat
+     * @return a JPanel containing the elements of the comparison card
+     * @see javax.swing.JPanel
+     * @see java.awt.GridBagLayout
+     * @see java.awt.GridBagConstraints
+     */
     private JPanel createCompareCard(Player attacker, Player defender, String stat) {
         // create return value and layout tools
         JPanel card = new JPanel(new GridBagLayout());
@@ -94,6 +137,20 @@ public class DinoCardPanel extends JPanel {
         return card;
     }
 
+    /**
+     * Creates and places the components of each half card of the comparison card.
+     *
+     * @param p the player to make the half card with
+     * @param stat the relevant stat
+     * @return A JPanel containing all thee elements of the half card
+     * @see Player
+     * @see java.util.HashMap
+     * @see javax.swing.JPanel
+     * @see java.awt.GridBagLayout
+     * @see java.awt.GridBagConstraints
+     * @see IconRef
+     * @see javax.swing.BorderFactory
+     */
     private JPanel createHalfCard(Player p, String stat) {
         Dinosaur d = p.getDino();
         DinoCard statCard = dinoCards.get(p);
@@ -160,11 +217,25 @@ public class DinoCardPanel extends JPanel {
         return halfCard;
     }
 
+    /**
+     * Creates a DinoCard.
+     *
+     * @param p the player to create the card from
+     * @return the completed DinoCard
+     * @see DinoCard
+     */
     private DinoCard createCard(Player p) {
         DinoCard card = new DinoCard(p, ir, bg);
         return card;
     }
 
+    /**
+     * Passes an evolution request up the stack
+     * @param p the player whose dino is to evolve
+     * @param i an int indicating the type of evolution
+     * @see java.util.HashMap
+     * @see DinoCard
+     */
     public void evolve(Player p, int i) {
         dinoCards.get(p).evolve(i);
     }

@@ -1,6 +1,13 @@
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * Displays the board and player tokens to the players
+ *
+ * @author Jacob Rich
+ * @version 1.18
+ * @since 2018-12-6
+ */
 public class BoardPanel extends JLayeredPane{
     // board items
     private JLabel boardLabel;
@@ -16,7 +23,14 @@ public class BoardPanel extends JLayeredPane{
     private Color[] colors = {new Color(230, 59, 46), new Color(67, 124, 144), new Color(143, 206, 41), new Color (255, 119, 51)};
     private IconRef ir;
 
-    // constructor
+    /**
+     * Creates arrays of the Dinosaurs and PlayerTokens needed per the players.
+     *
+     * @param players the Players of the game
+     * @param ir a preloaded IconRef
+     * @see Player
+     * @see PlayerToken
+     */
     public BoardPanel(Player[] players, IconRef ir) {
         this.players = players;
         this.ir = ir;
@@ -31,7 +45,18 @@ public class BoardPanel extends JLayeredPane{
         setup();
     }
 
-    // initialize components
+    /**
+     * Creates and places the components of the board
+     *
+     * @see java.awt.GridBagLayout
+     * @see java.awt.GridBagConstraints
+     * @see IconRef
+     * @see javax.swing.JLabel
+     * @see java.awt.Graphics
+     * @see PlayerToken
+     * @see Player
+     * @see java.lang.Math
+     */
     private void setup() {
         // layout tools
         setLayout(new GridBagLayout());
@@ -81,6 +106,12 @@ public class BoardPanel extends JLayeredPane{
         add(boardLabel, gbc, JLayeredPane.DEFAULT_LAYER);
     }
 
+    /**
+     * Shows an attack card.
+     *
+     * @param c the card to show
+     * @see CardPanel
+     */
     public void showAttack(AttackCard c) {
         addCard();
         moveToFront(card);
@@ -89,6 +120,14 @@ public class BoardPanel extends JLayeredPane{
         remove(card);
     }
 
+    /**
+     * Shows an attack card
+     *
+     * @param c the card to be shown
+     * @param p the player whom the card will affect
+     * @return an int representing the player's choice if one was required
+     * @see CardPanel
+     */
     public int showChallenge(ChallengeCard c, Player p) {
         addCard();
         moveToFront(card);
@@ -98,6 +137,12 @@ public class BoardPanel extends JLayeredPane{
         return r;
     }
 
+    /**
+     * Shows a natural disaster card
+     *
+     * @param c the card to be shown
+     * @see CardPanel
+     */
     public void showNaturalDisaster(NaturalDisasterCard c) {
         addCard();
         moveToFront(card);
@@ -106,6 +151,11 @@ public class BoardPanel extends JLayeredPane{
         remove(card);
     }
 
+    /**
+     * Adds the CardPanel used to display cards to the layout
+     *
+     * @see java.awt.GridBagConstraints
+     */
     private void addCard() {
         card = new CardPanel();
         card.setMinimumSize(CARD_DIM);

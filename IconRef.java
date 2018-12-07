@@ -1,10 +1,16 @@
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.HashMap;
 
+/**
+ * A loader for all images required by the game
+ *
+ * @author Jacob Rich
+ * @version 1.6
+ * @since 2018-12-6
+ */
 public class IconRef {
     // images
     private Image board;
@@ -33,7 +39,12 @@ public class IconRef {
             "Tyrannosaurus",
             "Velociraptor"};
 
-    // constructor
+    /**
+     * Set scale factor and load all images
+     *
+     * @param scale the scale at which to render images
+     * @see java.util.HashMap
+     */
     public IconRef(double scale) {
         SCALE_FACTOR = scale;
         compares = new HashMap<>();
@@ -57,6 +68,14 @@ public class IconRef {
         }
     }
 
+    /**
+     * Make the board image
+     *
+     * @return a scaled version of the image
+     * @see javax.imageio.ImageIO
+     * @see java.awt.Image
+     * @see java.io.IOException
+     */
     private Image makeBoard() {
         try {
             board = ImageIO.read(getClass().getResource("/resources/Other/Board.jpeg"));
@@ -68,6 +87,15 @@ public class IconRef {
         }
     }
 
+    /**
+     * Make the main menu images
+     *
+     * @param i the index of the image to generate
+     * @return a scaled version of the specified image
+     * @see javax.imageio.ImageIO
+     * @see java.awt.Image
+     * @see java.io.IOException
+     */
     private ImageIcon makeMainMenuImages(int i) {
         String imageName;
         switch (i) {
@@ -97,6 +125,15 @@ public class IconRef {
         }
     }
 
+    /**
+     * Make the size comparison images
+     *
+     * @param str the name of the dinosaur whose image is to be created
+     * @return a scaled version of the specified image
+     * @see javax.imageio.ImageIO
+     * @see java.awt.Image
+     * @see java.io.IOException
+     */
     private ImageIcon makeCompareToHuman(String str) {
         try {
             Image compare = ImageIO.read(getClass().getResource("/resources/Dinosaurs/" + str + "/compare.jpg"));
@@ -109,6 +146,15 @@ public class IconRef {
         }
     }
 
+    /**
+     * Make the dino icons
+     *
+     * @param str the name of the dino whose icon is to be made
+     * @return a scaled version of the specified image
+     * @see javax.imageio.ImageIO
+     * @see java.awt.Image
+     * @see java.io.IOException
+     */
     private ImageIcon makeIcon(String str) {
         Image icon;
         try {
@@ -121,6 +167,15 @@ public class IconRef {
         }
     }
 
+    /**
+     * Make the extinct icons
+     *
+     * @param str the name of the dino whose icon is to be made
+     * @return a scaled version of the image
+     * @see javax.imageio.ImageIO
+     * @see java.awt.Image
+     * @see java.io.IOException
+     */
     private ImageIcon makeIconWithX(String str) {
         Image icon;
         try {
@@ -133,22 +188,55 @@ public class IconRef {
         }
     }
 
+    /**
+     * Get the board image
+     *
+     * @return the board image
+     */
     public Image getBoard() {
         return board;
     }
 
+    /**
+     * Get the specified size comparison image
+     *
+     * @param d the dinosaur whose image is needed
+     * @return the specified image
+     * @see java.util.HashMap
+     */
     public ImageIcon getCompareToHuman(Dinosaur d) {
         return compares.get(d.getName());
     }
 
+    /**
+     * Get the specified dinosaur icon
+     *
+     * @param d the dinosaur whose image is needed
+     * @return the specified image
+     * @see java.util.HashMap
+     */
     public ImageIcon getIcon(Dinosaur d) {
         return icons.get(d.getName());
     }
 
+    /**
+     * Get the specified extinct icon
+     *
+     * @param d the dinosaur whose image is needed
+     * @return the specified image
+     * @see java.util.HashMap
+     */
     public ImageIcon getIconWithX(Dinosaur d) {
         return iconsWithX.get(d.getName());
     }
 
+    /**
+     * Get the specified main menu image
+     *
+     * @param i the main menu image needed
+     * @return the specified image
+     * @see java.util.HashMap
+     */
     public ImageIcon getMainMenuImage(int i) {
         return mainMenuImages.get(i);
     }

@@ -30,7 +30,6 @@ public class Game_GUI {
      * @see AttackCard
      * @see Player
      * @see Space
-     * @see java.util.Scanner
      * @see java.lang.Math
      */
     public static void main(String[] args) {
@@ -195,21 +194,26 @@ public class Game_GUI {
 
         JOptionPane jop = new JOptionPane();
 
+        // check for attack event
+        boolean playSpace = true;
+        int currPos = p.getLocation();
         // have player move on board
         p.move(roll);
         gp.refreshTokens();
-
-        // check for attack event
-        boolean playSpace = true;
-        for (Player x: players){
-            if(x.getLocation() == p.getLocation() && x != p && !x.isExtinct()){
-                playSpace = false;
-                jop.showMessageDialog(gp, p.getDino().getName() + " is attacking " + x.getDino().getName() + "!",
-                        "Attack!", JOptionPane.INFORMATION_MESSAGE);
-                attack(p, x, aDeck, board, false);
-                gp.refreshTokens();
-                gp.refreshFood();
-                break;
+        if (currPos == p.getLocation()){
+            playSpace = false;
+        }
+        else {
+            for (Player x: players){
+                if(x.getLocation() == p.getLocation() && x != p && !x.isExtinct()){
+                    playSpace = false;
+                    jop.showMessageDialog(gp, p.getDino().getName() + " is attacking " + x.getDino().getName() + "!",
+                            "Attack!", JOptionPane.INFORMATION_MESSAGE);
+                    attack(p, x, aDeck, board, false);
+                    gp.refreshTokens();
+                    gp.refreshFood();
+                    break;
+                }
             }
         }
 

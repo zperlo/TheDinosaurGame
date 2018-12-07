@@ -3,6 +3,13 @@ import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
+/**
+ * A custom JPanel to display the situation cards (challenge/natural disaster/attack).
+ *
+ * @author Jacob Rich
+ * @version 1.18
+ * @since 2018-12-6
+ */
 public class CardPanel extends JPanel {
     // card components
     private JLabel labelTop;
@@ -16,12 +23,23 @@ public class CardPanel extends JPanel {
     private Font defaultFont;
     private Font hoverFont;
 
-    // constructor
+    /**
+     * Calls the setup method.
+     */
     public CardPanel() {
         setup();
     }
 
-    // initialize components
+    /**
+     * Creates and places the components of the card.
+     *
+     * @see java.awt.GridBagLayout
+     * @see java.awt.GridBagConstraints
+     * @see javax.swing.JLabel
+     * @see java.awt.Font
+     * @see LabelListener
+     * @see PanelListener
+     */
     private void setup() {
         // layout tools
         setLayout(new GridBagLayout());
@@ -30,7 +48,7 @@ public class CardPanel extends JPanel {
         // labelTop
         labelTop = new JLabel();
         labelTop.setHorizontalAlignment(JLabel.CENTER);
-        labelTop.setFont(new Font(labelTop.getFont().getName(), Font.PLAIN, labelTop.getFont().getSize() * 2));
+        labelTop.setFont(new Font(labelTop.getFont().getName(), Font.PLAIN, (int) (labelTop.getFont().getSize() * 1.5)));
         gbc = new GridBagConstraints();
         gbc.gridx = 0;
         gbc.gridy = 0;
@@ -43,7 +61,7 @@ public class CardPanel extends JPanel {
         // labelMid
         labelMid = new JLabel();
         labelMid.setHorizontalAlignment(JLabel.CENTER);
-        labelMid.setFont(new Font(labelMid.getFont().getName(), Font.PLAIN, labelMid.getFont().getSize() * 2));
+        labelMid.setFont(new Font(labelMid.getFont().getName(), Font.PLAIN, (int) (labelMid.getFont().getSize() * 1.5)));
         gbc = new GridBagConstraints();
         gbc.gridx = 0;
         gbc.gridy = 1;
@@ -55,7 +73,7 @@ public class CardPanel extends JPanel {
         // labelBot
         labelBot = new JLabel();
         labelBot.setHorizontalAlignment(JLabel.CENTER);
-        labelBot.setFont(new Font(labelBot.getFont().getName(), Font.PLAIN, labelBot.getFont().getSize() * 2));
+        labelBot.setFont(new Font(labelBot.getFont().getName(), Font.PLAIN, (int) (labelBot.getFont().getSize() * 1.5)));
         gbc = new GridBagConstraints();
         gbc.gridx = 0;
         gbc.gridy = 2;
@@ -68,7 +86,7 @@ public class CardPanel extends JPanel {
         // labelHab
         labelHab = new JLabel();
         labelHab.setHorizontalAlignment(JLabel.CENTER);
-        labelHab.setFont(new Font(labelHab.getFont().getName(), Font.PLAIN, labelHab.getFont().getSize() * 2));
+        labelHab.setFont(new Font(labelHab.getFont().getName(), Font.PLAIN, (int) (labelHab.getFont().getSize() * 1.5)));
         gbc = new GridBagConstraints();
         gbc.gridx = 0;
         gbc.gridy = 3;
@@ -83,6 +101,14 @@ public class CardPanel extends JPanel {
         hoverFont = new Font(defaultFont.getName(), Font.BOLD, defaultFont.getSize() + 2);
     }
 
+    /**
+     * Sets the card up tp be displayed as an attack
+     *
+     * @param c the card to be displayed
+     * @see javax.swing.JLabel
+     * @see java.lang.Thread
+     * @see java.lang.InterruptedException
+     */
     public void showAttack(AttackCard c) {
         setBackground(Color.green);
         labelTop.setText(c.getPara1());
@@ -100,6 +126,19 @@ public class CardPanel extends JPanel {
         }
     }
 
+    /**
+     * Sets the card up to display and handle a challenge card
+     *
+     * @param c the card to be displayed
+     * @param p the player whom the card will affect
+     * @return an int representing the player's choice
+     * @see javax.swing.JLabel
+     * @see ChallengeCard
+     * @see LabelListener
+     * @see Player
+     * @see java.lang.Thread
+     * @see java.lang.InterruptedException
+     */
     public int showChallenge(ChallengeCard c, Player p) {
         setBackground(Color.CYAN);
         labelTop.setText(c.getChoice1());
@@ -185,6 +224,14 @@ public class CardPanel extends JPanel {
         return r;
     }
 
+    /**
+     * Sets the card up to display as a natural disaster card
+     * @param c the card to be displayed
+     * @see javax.swing.JLabel
+     * @see NaturalDisasterCard
+     * @see java.lang.Thread
+     * @see java.lang.InterruptedException
+     */
     public void showNaturalDisaster(NaturalDisasterCard c) {
         setBackground(Color.PINK);
         labelTop.setText(c.getPara1());
@@ -206,6 +253,13 @@ public class CardPanel extends JPanel {
         }
     }
 
+    /**
+     * An implementation of MouseListener that highlights labels for challenge cards as they are moused over.
+     *
+     * @see java.awt.event.MouseListener
+     * @see java.awt.event.MouseEvent
+     * @see java.awt.Component
+     */
     private class LabelListener implements MouseListener {
         private boolean active = false;
 
@@ -259,6 +313,12 @@ public class CardPanel extends JPanel {
         }
     }
 
+    /**
+     * An implementation of MouseListener that allows card to be dismissed by clicking on them.
+     *
+     * @see java.awt.event.MouseListener
+     * @see java.awt.event.MouseEvent
+     */
     private class PanelListener implements MouseListener {
         @Override
         public void mouseClicked(MouseEvent e) {

@@ -1,5 +1,12 @@
 import java.awt.*;
 
+/**
+ * A class to represent players' tokens on the board
+ *
+ * @author Jacob Rich
+ * @version 1.5
+ * @since 2018-12-7
+ */
 public class PlayerToken{
     // utility variables
     private Color color;
@@ -118,31 +125,63 @@ public class PlayerToken{
     private final double SCALE_FACTOR = Toolkit.getDefaultToolkit().getScreenSize().getHeight() * 0.90 / 1000;
     public final int DIAM = (int) (30 * SCALE_FACTOR);
 
-    // constructor
+    /**
+     * Sets global variables
+     *
+     * @param player the player associated with the token
+     * @param color the color associated with the token
+     * @see Player
+     */
     public PlayerToken(Player player, Color color) {
         this.color = color;
         this.player = player;
         location = locations[player.getLocation()];
     }
 
+    /**
+     * Get the color of the token
+     *
+     * @return the color of the token
+     */
     public Color getColor() {
         return color;
     }
 
+    /**
+     * Get the player who the token belongs to
+     *
+     * @return the player
+     */
     public Player getPlayer() {
         return player;
     }
 
+    /**
+     * Get the X position of where to draw the token
+     *
+     * @return the X position
+     */
     public int getX() {
         int x = (int) (location.x * SCALE_FACTOR);
         return x - DIAM / 2;
     }
 
+    /**
+     * Get the Y position of where to draw the token
+     *
+     * @return the Y position
+     */
     public int getY() {
         int y = (int) (location.y * SCALE_FACTOR);
         return y - DIAM / 2;
     }
 
+    /**
+     * Get the index of the player's location
+     *
+     * @return the index of the player's location
+     * @see Player
+     */
     public int getPlayerLocation() {
         location = locations[player.getLocation()];
         return player.getLocation();

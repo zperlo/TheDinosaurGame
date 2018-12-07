@@ -2,6 +2,13 @@ import javax.swing.*;
 import javax.swing.border.BevelBorder;
 import java.awt.*;
 
+/**
+ * An implementation of JPanel that displays the stats of a Dinosaur
+ *
+ * @author Jacob Rich
+ * @version 1.4
+ * @since 2018-12-6
+ */
 public class DinoCard extends JPanel {
 
     // static card level components
@@ -49,6 +56,21 @@ public class DinoCard extends JPanel {
 
     private Font statFont;
 
+    /**
+     * Sets the LayoutManager and adds all components to it.
+     *
+     * @param player The player whose stats are on display
+     * @param ir a preloaded IconRef
+     * @param bg the background color to be used
+     * @see Player
+     * @see java.awt.GridBagLayout
+     * @see java.awt.GridBagConstraints
+     * @see javax.swing.JLabel
+     * @see Dinosaur
+     * @see javax.swing.BorderFactory
+     * @see java.awt.Font
+     * @see java.awt.Component
+     */
     public DinoCard(Player player, IconRef ir, Color bg) {
         Dinosaur d = player.getDino();
 
@@ -289,6 +311,12 @@ public class DinoCard extends JPanel {
         }
     }
 
+    /**
+     * Given an int representing a dinosaur's stat, get an appropriate String representation
+     *
+     * @param statValue the int to convert
+     * @return the converted String
+     */
     private String getMinusZeroPlus(int statValue) {
         switch(statValue) {
             case -1: return "-";
@@ -298,6 +326,12 @@ public class DinoCard extends JPanel {
         return "X";
     }
 
+    /**
+     * Update a dinosaur's stat labels to show evolved values.
+     *
+     * @param i the type of evolution to occur
+     * @see javax.swing.JLabel
+     */
     public void evolve(int i) {
         switch (i) {
             case 2:
@@ -317,6 +351,14 @@ public class DinoCard extends JPanel {
         }
     }
 
+    /**
+     * gets the text of a specific JLabel for use in attack situations
+     *
+     * @param stat the stat to get labels for
+     * @param wantsValue whether the stat value (true) or the stat name (false) is wanted
+     * @return the appropriate JLabel
+     * @see javax.swing.JLabel
+     */
     public JLabel getLabel(String stat, boolean wantsValue) {
         JLabel valueLabel = null;
         JLabel statLabel = null;

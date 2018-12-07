@@ -5,6 +5,14 @@ import java.awt.*;
 import java.awt.event.*;
 import java.io.IOException;
 
+/**
+ * An instance of GamePanel represents the main GUI handler, displaying menus and game play and receiving input from
+ * players.
+ *
+ * @author Jacob Rich
+ * @verion 1.26
+ * @since 2018-12-6
+ */
 public class GamePanel extends JPanel {
     // layout tools
     private CardLayout cl;
@@ -53,7 +61,14 @@ public class GamePanel extends JPanel {
     private final double scale;
     private int btnSem;
 
-    // constructor
+    /**
+     * The constructor sets the LayoutManager, as well as creating the splash screen.
+     *
+     * @param dinosaurs An array of all the available dinosaurs
+     * @param scale The scale at which to display the GUI elements
+     * @param spaces The board
+     * @see java.awt.CardLayout
+     */
     public GamePanel(Dinosaur[] dinosaurs, double scale, Space[] spaces) {
         this.dinosaurs = dinosaurs;
         this.scale = scale;
@@ -63,6 +78,19 @@ public class GamePanel extends JPanel {
         add(makeSplash(), "splash");
     }
 
+    /**
+     * Creates and displays all gameplay elements, allowing user interaction.
+     *
+     * @param firstTime whether the menu is being executed for the first time - relevant for restarting the game
+     * @return a Player array representing the human players
+     * @see IconRef
+     * @see javax.swing.JLabel
+     * @see java.awt.color
+     * @see java.lang.Thread
+     * @see java.lang.InterruptedException
+     * @see java.awt.CardLayout
+     * @see javax.swing.JPanel
+     */
     public Player[] executeMenu(boolean firstTime) {
         if (firstTime) {
             ir = new IconRef(scale);
@@ -90,6 +118,15 @@ public class GamePanel extends JPanel {
         return players;
     }
 
+    /**
+     * Handles waiting for player input at main menu.
+     *
+     * @see java.awt.CardLayout
+     * @see javax.swing.JPanel
+     * @see java.lang.Thread
+     * @see java.lang.InterruptedException
+     * @see java.lang.System
+     */
     private void waitAtMenu() {
         cl.show(this, "main");
         mainMenuPanel.requestFocus();
@@ -121,12 +158,33 @@ public class GamePanel extends JPanel {
         }
     }
 
+    /**
+     * Sets the players directly instead of asking players for input and restarts the game.
+     *
+     * @param players
+     * @see java.awt.CardLayout
+     */
     public void setPlayers(Player[] players) {
         this.players = players;
         add(makeGameplay(), "gameplay");
         cl.show(this, "gameplay");
     }
 
+    /**
+     * Creates the splash screen.
+     *
+     * @return A JPanel containing the elements of the splash screen
+     * @see javax.swing.JPanel
+     * @see java.awt.GridBagLayout
+     * @see java.awt.GridBagConstraints
+     * @see javax.swing.JLabel
+     * @see javax.swing.ImageIcon
+     * @see javax.imageio.ImageIO
+     * @see java.lang.Class
+     * @see java.io.IOException
+     * @see java.awt.Font
+     * @see java.awt.Color
+     */
     private JPanel makeSplash() {
         splash = new JPanel();
         splash.setBackground(backColor);
@@ -168,6 +226,17 @@ public class GamePanel extends JPanel {
         return splash;
     }
 
+    /**
+     * Creates the main menu.
+     *
+     * @return A JPanel containing the elements of the main menu
+     * @see javax.swing.JPanel
+     * @see java.awt.GridBagLayout
+     * @see java.awt.GridBagConstraints
+     * @see javax.swing.JLabel
+     * @see java.awt.Font
+     * @see IconRef
+     */
     private JPanel makeMainMenu() {
         mainMenuPanel = new JPanel();
         mainMenuPanel.setBackground(backColor);
@@ -257,6 +326,21 @@ public class GamePanel extends JPanel {
         return mainMenuPanel;
     }
 
+    /**
+     * Creates the rules screen.
+     *
+     * @return A JPanel containing the elements of the rules screen
+     * @see javax.swing.JPanel
+     * @see java.awt.GridBagLayout
+     * @see java.awt.GridBagConstraints
+     * @see javax.swing.JLabel
+     * @see java.awt.Font
+     * @see javax.swing.JTextArea
+     * @see javax.swing.BorderFactory
+     * @see javax.swing.JScrollPane
+     * @see java.awt.Color
+     * @see javax.swing.JButton
+     */
     private JPanel makeRules() {
         rulesPanel = new JPanel();
         rulesPanel.setBackground(backColor);
@@ -334,6 +418,22 @@ public class GamePanel extends JPanel {
         return rulesPanel;
     }
 
+    /**
+     * Creates the gameplay screen.
+     *
+     * @return A JPanel containing the gameplay elements
+     * @see javax.swing.JPanel
+     * @see java.awt.GridBagLayout
+     * @see java.awt.GridBagConstraints
+     * @see BoardPanel
+     * @see javax.swing.BorderFactory
+     * @see DinoCardPanel
+     * @see FoodPanel
+     * @see javax.swing.JButton
+     * @see java.awt.Color
+     * @see RollListener
+     * @see HelpListener
+     */
     private JPanel makeGameplay() {
         gameplayPanel = new JPanel();
         gameplayPanel.setBackground(backColor);
@@ -406,14 +506,34 @@ public class GamePanel extends JPanel {
         return gameplayPanel;
     }
 
+    /**
+     * Passes the assertion that a player has gone extinct up the stack.
+     *
+     * @param p The player going extinct.
+     * @see FoodPanel
+     */
     public void assertExtinct(Player p) {
         food.assertExtinct(p);
     }
 
+    /**
+     * Passes the assertion that a player has evolved up the stack.
+     *
+     * @param p The player who has evolved
+     * @param i An int representing which type of evolution is to occur
+     * @see DinoCardPanel
+     */
     public void evolve(Player p, int i) {
         dinoCards.evolve(p, i);
     }
 
+    /**
+     * An implementation of ActionListener to control the Roll button.
+     *
+     * @see java.awt.event.ActionListener
+     * @see java.awt.event.ActionEvent
+     * @see java.lang.Math
+     */
     private class RollListener implements ActionListener {
         public void actionPerformed(ActionEvent event) {
             btnSem = 1;
@@ -421,12 +541,24 @@ public class GamePanel extends JPanel {
         }
     }
 
+    /**
+     * An implementation of ActionListener to control the Help button.
+     *
+     * @see java.awt.event.ActionListener
+     * @see java.awt.event.ActionEvent
+     */
     private class HelpListener implements ActionListener {
         public void actionPerformed(ActionEvent event) {
             btnSem = 2;
         }
     }
 
+    /**
+     * An implementation of ActionListener to control the Back button
+     *
+     * @see java.awt.event.ActionListener
+     * @see java.awt.event.ActionEvent
+     */
     private class BackListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
@@ -434,9 +566,16 @@ public class GamePanel extends JPanel {
         }
     }
 
+    /**
+     * A method to display the rules screen and return to whichever screen was displayed previously.
+     *
+     * @param returnTo The name of the screen to return to
+     * @see java.awt.CardLayout
+     * @see java.lang.Thread
+     * @see java.lang.InterruptedException
+     */
     private void showRules(String returnTo) {
         cl.show(this, "rules");
-        System.out.println("waiting for rules");
         backSem = 0;
         while (backSem == 0) {
             try {
@@ -448,34 +587,85 @@ public class GamePanel extends JPanel {
         cl.show(this, returnTo);
     }
 
+    /**
+     * Passes a request to display a dinosaur's stats up the stack.
+     *
+     * @param d The dinosaur to display the stats of
+     * @see DinoCardPanel
+     */
     public void takeTurn(Dinosaur d) {
         dinoCards.show(d);
     }
 
+    /**
+     * Passes a request to display an atack card up the stack.
+     *
+     * @param c the card to show
+     * @see BoardPanel
+     */
     public void showAttack(AttackCard c) {
         board.showAttack(c);
     }
 
+    /**
+     * Passes a request to show a challenge card up the stack.
+     *
+     * @param c the card to display
+     * @param p the player whom the card will affect
+     * @return an int representing the player's choice
+     * @see BoardPanel
+     */
     public int showChallenge(ChallengeCard c, Player p) {
         return board.showChallenge(c, p);
     }
 
+    /**
+     * Passes a request to display a natural disaster card up the stack.
+     *
+     * @param c the card to display
+     * @see BoardPanel
+     */
     public void showNaturalDisaster(NaturalDisasterCard c) {
         board.showNaturalDisaster(c);
     }
 
+    /**
+     * Passes a request to compare the stats of dinosaurs up the stack.
+     *
+     * @param attacker the attacking player
+     * @param defender the defending player
+     * @param stat the stat to compare
+     */
     public void showComparison(Player attacker, Player defender, String stat) {
         dinoCards.showComparison(attacker, defender, stat);
     }
 
+    /**
+     * Passes a request to update token positions on the board up the stack.
+     *
+     * @see BoardPanel
+     */
     public void refreshTokens() {
         board.repaint();
     }
 
+    /**
+     * Passes a request to update the food counts up the stack.
+     *
+     * @see FoodPanel
+     */
     public void refreshFood() {
         food.updateFood();
     }
 
+    /**
+     * Wait for the player to press a button at the start of their turn.
+     *
+     * @return An int representing the player's roll
+     * @see java.lang.Thread
+     * @see java.lang.InterruptedException
+     * @see javax.swing.JOptionPane
+     */
     public int getRollorRules() {
         btnSem = 0;
         while (btnSem == 0) {
@@ -496,6 +686,12 @@ public class GamePanel extends JPanel {
         return rollSem;
     }
 
+    /**
+     * An implementation of KeyListener to control the splash screen.
+     *
+     * @see java.awt.event.KeyListener
+     * @see java.awt.event.KeyEvent
+     */
     private class SplashListener implements KeyListener {
         @Override
         public void keyTyped(KeyEvent e) {
@@ -513,6 +709,12 @@ public class GamePanel extends JPanel {
         }
     }
 
+    /**
+     * An implementation of KeyListener to control the splash screen.
+     *
+     * @see java.awt.event.KeyListener
+     * @see java.awt.event.KeyEvent
+     */
     private class MainListener implements KeyListener {
         @Override
         public void keyTyped(KeyEvent e) {
